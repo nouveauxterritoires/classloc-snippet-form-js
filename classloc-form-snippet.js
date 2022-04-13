@@ -123,7 +123,7 @@ class ClasslocFormulaire {
                         'type': 'select',
                         'label': 'Etage',
                         'required': true,
-                        'placeholder': 'Etage',
+                        'placeholder': 'Sélectionnez l\'étage',
                         'options': [
                             {'value': 0, 'label': 'RDC / RDJ'},
                             {'value': 1, 'label': '1'},
@@ -153,7 +153,7 @@ class ClasslocFormulaire {
                         'type': 'select',
                         'label': 'Type de logement du meublé',
                         'required': true,
-                        'placeholder': 'Type de logement du meublé',
+                        'placeholder': 'Sélectionnez le type de logement du meublé',
                         'options': [
                             {'value': 'Appartement', 'label': 'Appartement'},
                             {'value': 'Appartement Studio', 'label': 'Appartement Studio'},
@@ -330,7 +330,7 @@ class ClasslocFormulaire {
                         'type': 'text',
                         'label': 'Téléphone principal',
                         'required': true,
-                        'placeholder': 'Téléphone',
+                        'placeholder': 'Téléphone principal',
                         'pattern': '^[0-9]{10}$',
                         'class': 'form-control'
                     },
@@ -338,7 +338,7 @@ class ClasslocFormulaire {
                         'type': 'text',
                         'label': 'Téléphone secondaire',
                         'required': false,
-                        'placeholder': 'Téléphone',
+                        'placeholder': 'Téléphone secondaire',
                         'pattern': '^[0-9]{10}$',
                         'class': 'form-control'
                     },
@@ -351,7 +351,7 @@ class ClasslocFormulaire {
                         'type': 'select',
                         'label': 'Civilité',
                         'required': true,
-                        'placeholder': 'Civilité',
+                        'placeholder': 'Sélectionnez votre civilité',
                         'options': [
                             {'value': 'Monsieur', 'label': 'Monsieur'},
                             {'value': 'Madame', 'label': 'Madame'},
@@ -443,7 +443,7 @@ class ClasslocFormulaire {
                         'type': 'text',
                         'label': 'Téléphone principal',
                         'required': true,
-                        'placeholder': 'Téléphone',
+                        'placeholder': 'Téléphone principal',
                         'pattern': '^[0-9]{10}$',
                         'class': 'form-control'
                     },
@@ -451,7 +451,7 @@ class ClasslocFormulaire {
                         'type': 'text',
                         'label': 'Téléphone secondaire',
                         'required': false,
-                        'placeholder': 'Téléphone',
+                        'placeholder': 'Téléphone secondaire',
                         'pattern': '^[0-9]{10}$',
                         'class': 'form-control'
                     },
@@ -459,12 +459,13 @@ class ClasslocFormulaire {
                         'type': 'email',
                         'label': 'Adresse courriel',
                         'required': true,
+                        'placeholder': 'exemple@gmail.com'
                     },
                     'autres_email' : {
                         'type': 'text',
                         'label': 'Autres courriels',
                         'required': false,
-                        'placeholder': 'Autres courriels',
+                        'placeholder': 'exemple@gmail.com, exemple2@free.fr, ...',
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
@@ -472,7 +473,7 @@ class ClasslocFormulaire {
                         'type': 'select',
                         'label': 'Civilité',
                         'required': true,
-                        'placeholder': 'Civilité',
+                        'placeholder': 'Sélectionnez votre civilité',
                         'options': [
                             {'value': 'Monsieur', 'label': 'Monsieur'},
                             {'value': 'Madame', 'label': 'Madame'},
