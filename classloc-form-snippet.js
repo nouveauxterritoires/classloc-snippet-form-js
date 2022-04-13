@@ -1,6 +1,8 @@
 
 /*jshint esversion: 6 */
 
+// TODO: Ajouter un peu de styles au formulaire
+
 class ClasslocFormulaire {
     constructor( id ) {
 
@@ -8,6 +10,7 @@ class ClasslocFormulaire {
 
         const form = document.createElement('form');
 
+        this.createNoticeSection(form);
 
         Object.entries(this.config).forEach(([key,value])=>{
             this.createSection(form,value);
@@ -15,11 +18,21 @@ class ClasslocFormulaire {
 
         this.createSendButton(form);
 
-        // TODO: Ajouter la validation des données avant d'envoyer les données du formulaire via l'API
+        // TODO: Ajouter la validation des données avant d'envoyer les données du formulaire via l'API (les champs sont déjà censés se valider via HTML5,
+        //  là je parle de validation supplélemtaire, qui pourraient correspondre au métier). Pour afficher les messages d'erreur, il faudra remplir la section notice via une méthode.
         // TODO: Ajouter l'event ajax qui va envoyer les données du formulaire via l'API
 
         document.getElementById(id).appendChild(form);
 
+    }
+
+    createNoticeSection(form){
+        const noticeContainer = document.createElement('div');
+        const notice = document.createElement('div');
+        noticeContainer.classList.add('notice');
+        notice.innerHTML = '<p>Les champs marqués d\'un * sont obligatoires</p>';
+        noticeContainer.appendChild(notice);
+        form.appendChild(noticeContainer);
     }
 
     createSendButton(form){
@@ -97,7 +110,7 @@ class ClasslocFormulaire {
                         'placeholder': 'Nom du batiment',
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
-                    },/*
+                    },
                     'etage' : {
                         'type': 'number',
                         'label': 'Etage',
@@ -166,7 +179,7 @@ class ClasslocFormulaire {
                         'min': 0,
                         'max': 5,
                         'class': 'form-control'
-                    },*/
+                    },
                 }
             },
             'declarant' : {
@@ -190,7 +203,7 @@ class ClasslocFormulaire {
                         'placeholder': 'Prénom',
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
-                    },/*
+                    },
                     'adresse' : {
                         'type': 'text',
                         'label': 'Adresse',
@@ -239,7 +252,7 @@ class ClasslocFormulaire {
                             {'value': 'Mademoiselle', 'label': 'Mademoiselle'},
                         ],
                         'class': 'form-control'
-                    }*/
+                    }
                 }
             }
         };
@@ -247,13 +260,9 @@ class ClasslocFormulaire {
 
     validate () {
 
-        const a = document.createElement('a');
-        a.href = this.input.value;
-        this.button.disabled = !(a.host && a.host !== window.location.host);
-
     }
 
-    send () {
+    sendDataToClassLoc () {
 
     }
 }
