@@ -131,7 +131,7 @@ class ClasslocFormulaire {
                     },
                     'adresse_du_meuble' : {
                         'type': 'text',
-                        'label': 'Adresse',
+                        'label': 'Adresse*',
                         'required': true,
                         'placeholder': 'Adresse',
                         'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
@@ -147,10 +147,10 @@ class ClasslocFormulaire {
                     },
                     'etage' : {
                         'type': 'select',
-                        'label': 'Etage',
+                        'label': 'Etage*',
                         'required': true,
-                        'placeholder': 'Sélectionnez l\'étage',
                         'options': [
+                            {'value': "", 'label': 'Sélectionnez l\'étage'},
                             {'value': 0, 'label': 'RDC / RDJ'},
                             {'value': 1, 'label': '1'},
                             {'value': 2, 'label': '2'},
@@ -169,7 +169,7 @@ class ClasslocFormulaire {
                     },
                     'ville' : {
                         'type': 'text',
-                        'label': 'Commune',
+                        'label': 'Commune*',
                         'required': true,
                         'placeholder': 'Commune',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -177,10 +177,10 @@ class ClasslocFormulaire {
                     },
                     'type_de_logement_du_meuble' : {
                         'type': 'select',
-                        'label': 'Type de logement du meublé',
+                        'label': 'Type de logement du meublé*',
                         'required': true,
-                        'placeholder': 'Sélectionnez le type de logement du meublé',
                         'options': [
+                            {'value': "", 'label': 'Sélectionnez le type de logement du meublé'},
                             {'value': 'Appartement', 'label': 'Appartement'},
                             {'value': 'Appartement Studio', 'label': 'Appartement Studio'},
                             {'value': 'Studio', 'label': 'Studio'},
@@ -198,7 +198,7 @@ class ClasslocFormulaire {
                     },
                     'nombre_maximal_de_personne' : {
                         'type': 'number',
-                        'label': 'Nombre maximal de personnes susceptibles d\'être accueillies',
+                        'label': 'Nombre maximal de personnes susceptibles d\'être accueillies*',
                         'required': true,
                         'placeholder': 'Nombre maximal de personnes susceptibles d\'être accueillies',
                         'min': 0,
@@ -207,7 +207,7 @@ class ClasslocFormulaire {
                     },
                     'nombre_de_personne_classees' : {
                         'type': 'number',
-                        'label': 'Nombre de personne classées',
+                        'label': 'Nombre de personne classées*',
                         'required': true,
                         'placeholder': 'Nombre de personne classées',
                         'min': 0,
@@ -216,7 +216,7 @@ class ClasslocFormulaire {
                     },
                     'nombre_de_pieces' : {
                         'type': 'number',
-                        'label': 'Nombre de pièces composant le meublé',
+                        'label': 'Nombre de pièces composant le meublé*',
                         'required': true,
                         'placeholder': 'Nombre de pièces composant le meublé',
                         'min': 0,
@@ -225,7 +225,7 @@ class ClasslocFormulaire {
                     },
                     'nombre_de_chambres' : {
                         'type': 'number',
-                        'label': 'Nombre de chambres',
+                        'label': 'Nombre de chambres*',
                         'required': true,
                         'placeholder': 'Nombre de chambres',
                         'min': 0,
@@ -234,10 +234,10 @@ class ClasslocFormulaire {
                     },
                     'classement_actuel' : {
                         'type': 'select',
-                        'label': 'Classement actuel',
+                        'label': 'Classement actuel*',
                         'required': true,
-                        'placeholder': 'Classement actuel',
                         'options': [
+                            {'value': "", 'label': 'Sélectionnez le classement actuel'},
                             {'value': 0, 'label': 'Non classé'},
                             {'value': 1, 'label': '1 étoile'},
                             {'value': 2, 'label': '2 étoiles'},
@@ -249,11 +249,10 @@ class ClasslocFormulaire {
                     },
                     'classement_souhaite' : {
                         'type': 'select',
-                        'label': 'Classement souhaité',
+                        'label': 'Classement souhaité*',
                         'required': true,
-                        'placeholder': 'Classement souhaité',
                         'options': [
-                            {'value': 0, 'label': 'Non classé'},
+                            {'value': "", 'label': 'Sélectionnez le classement souhaité'},
                             {'value': 1, 'label': '1 étoile'},
                             {'value': 2, 'label': '2 étoiles'},
                             {'value': 3, 'label': '3 étoiles'},
@@ -264,7 +263,7 @@ class ClasslocFormulaire {
                     },
                     'surface_totale' : {
                         'type': 'number',
-                        'label': 'Surface totale',
+                        'label': 'Surface totale*',
                         'required': true,
                         'placeholder': 'Surface totale',
                         'min': 0,
@@ -274,7 +273,7 @@ class ClasslocFormulaire {
                     },
                     'surface_hsdb' : {
                         'type': 'number',
-                        'label': 'Surface hors salle de bain et WC',
+                        'label': 'Surface hors salle de bain et WC*',
                         'required': true,
                         'placeholder': 'Surface hors salle de bain et WC',
                         'min': 0,
@@ -298,7 +297,7 @@ class ClasslocFormulaire {
                 'content' : {
                     'nom' : {
                         'type': 'text',
-                        'label': 'Nom',
+                        'label': 'Nom*',
                         'required': true,
                         'placeholder': 'Nom',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -306,7 +305,7 @@ class ClasslocFormulaire {
                     },
                     'prenom' : {
                         'type': 'text',
-                        'label': 'Prénom',
+                        'label': 'Prénom*',
                         'required': true,
                         'placeholder': 'Prénom',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -314,7 +313,7 @@ class ClasslocFormulaire {
                     },
                     'adresse' : {
                         'type': 'text',
-                        'label': 'Adresse',
+                        'label': 'Adresse*',
                         'required': true,
                         'placeholder': 'Adresse',
                         'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
@@ -330,7 +329,7 @@ class ClasslocFormulaire {
                     },
                     'code_postal' : {
                         'type': 'text',
-                        'label': 'Code postal',
+                        'label': 'Code postal*',
                         'required': true,
                         'placeholder': 'Code postal',
                         'pattern': '^[0-9]{5}$',
@@ -338,7 +337,7 @@ class ClasslocFormulaire {
                     },
                     'ville' : {
                         'type': 'text',
-                        'label': 'Commune',
+                        'label': 'Commune*',
                         'required': true,
                         'placeholder': 'Commune',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -346,7 +345,7 @@ class ClasslocFormulaire {
                     },
                     'pays' : {
                         'type': 'text',
-                        'label': 'Pays',
+                        'label': 'Pays*',
                         'required': true,
                         'placeholder': 'Pays',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -354,7 +353,7 @@ class ClasslocFormulaire {
                     },
                     'telephone' : {
                         'type': 'text',
-                        'label': 'Téléphone principal',
+                        'label': 'Téléphone principal*',
                         'required': true,
                         'placeholder': 'Téléphone principal',
                         'pattern': '^[0-9]{10}$',
@@ -372,13 +371,14 @@ class ClasslocFormulaire {
                         'type': 'email',
                         'label': 'Adresse courriel',
                         'required': true,
+                        'placeholder': 'exemple@gmail.com'
                     },
                     'civilite' : {
                         'type': 'select',
-                        'label': 'Civilité',
+                        'label': 'Civilité*',
                         'required': true,
-                        'placeholder': 'Sélectionnez votre civilité',
                         'options': [
+                            {'value': "", 'label': 'Sélectionnez votre civilité'},
                             {'value': 'Monsieur', 'label': 'Monsieur'},
                             {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
                             {'value': 'Madame', 'label': 'Madame'},
@@ -405,7 +405,7 @@ class ClasslocFormulaire {
                 'content' : {
                     'nom' : {
                         'type': 'text',
-                        'label': 'Nom',
+                        'label': 'Nom*',
                         'required': true,
                         'placeholder': 'Nom',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -413,7 +413,7 @@ class ClasslocFormulaire {
                     },
                     'prenom' : {
                         'type': 'text',
-                        'label': 'Prénom',
+                        'label': 'Prénom*',
                         'required': true,
                         'placeholder': 'Prénom',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -429,7 +429,7 @@ class ClasslocFormulaire {
                     },
                     'adresse' : {
                         'type': 'text',
-                        'label': 'Adresse',
+                        'label': 'Adresse*',
                         'required': true,
                         'placeholder': 'Adresse',
                         'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
@@ -445,7 +445,7 @@ class ClasslocFormulaire {
                     },
                     'code_postal' : {
                         'type': 'text',
-                        'label': 'Code postal',
+                        'label': 'Code postal*',
                         'required': true,
                         'placeholder': 'Code postal',
                         'pattern': '^[0-9]{5}$',
@@ -453,7 +453,7 @@ class ClasslocFormulaire {
                     },
                     'ville' : {
                         'type': 'text',
-                        'label': 'Commune',
+                        'label': 'Commune*',
                         'required': true,
                         'placeholder': 'Commune',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -461,7 +461,7 @@ class ClasslocFormulaire {
                     },
                     'pays' : {
                         'type': 'text',
-                        'label': 'Pays',
+                        'label': 'Pays*',
                         'required': true,
                         'placeholder': 'Pays',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -469,7 +469,7 @@ class ClasslocFormulaire {
                     },
                     'telephone' : {
                         'type': 'text',
-                        'label': 'Téléphone principal',
+                        'label': 'Téléphone principal*',
                         'required': true,
                         'placeholder': 'Téléphone principal',
                         'pattern': '^[0-9]{10}$',
@@ -485,7 +485,7 @@ class ClasslocFormulaire {
                     },
                     'email' : {
                         'type': 'email',
-                        'label': 'Adresse courriel',
+                        'label': 'Adresse courriel*',
                         'required': true,
                         'placeholder': 'exemple@gmail.com'
                     },
@@ -499,10 +499,10 @@ class ClasslocFormulaire {
                     },
                     'civilite' : {
                         'type': 'select',
-                        'label': 'Civilité',
+                        'label': 'Civilité*',
                         'required': true,
-                        'placeholder': 'Sélectionnez votre civilité',
                         'options': [
+                            {'value': "", 'label': 'Sélectionnez votre civilité'},
                             {'value': 'Monsieur', 'label': 'Monsieur'},
                             {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
                             {'value': 'Madame', 'label': 'Madame'},
