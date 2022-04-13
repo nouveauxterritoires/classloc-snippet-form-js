@@ -13,29 +13,24 @@ class ClasslocFormulaire {
             this.createSection(form,value);
         });
 
-        const button = document.createElement('button');
-        button.value = "Upload";
-        button.disabled = true;
+        this.createSendButton(form);
 
+        // TODO: Ajouter la validation des données avant d'envoyer les données du formulaire via l'API
+        // TODO: Ajouter l'event ajax qui va envoyer les données du formulaire via l'API
 
-
-        const input = document.createElement('input');
-        input.placeholder = 'Path to data';
-        input.oninput = () => this.validate();
-
-        this.input = input;
-        this.button = button;
-
-
-        form.appendChild(input);
-        form.appendChild(button);
         document.getElementById(id).appendChild(form);
 
     }
 
-    createSection (form, value) {
+    createSendButton(form){
+        const button = document.createElement('button');
+        button.type = 'submit';
+        button.innerHTML = 'Envoyer';
 
-        console.log(value.content);
+        form.appendChild(button);
+    }
+
+    createSection (form, value) {
 
         const section = document.createElement('section');
         section.className = 'form-section';
@@ -262,8 +257,6 @@ class ClasslocFormulaire {
 
     }
 }
-
-
 
 const form = new ClasslocFormulaire("app");
 
