@@ -54,7 +54,12 @@ class ClasslocFormulaire {
         section.appendChild(title);
 
         Object.entries(value.content).forEach(([key,v])=>{
-            this.createInput(section,v);
+            if(v.type === 'select'){
+                this.createSelect(section,v);
+            } else {
+                this.createInput(section,v);
+            }
+
         });
 
         form.appendChild(section);
@@ -76,11 +81,32 @@ class ClasslocFormulaire {
         if( v.min ) { input.setAttribute("min", v.min); }
         if( v.max ) { input.setAttribute("max", v.max); }
         if( v.step ) { input.setAttribute("step", v.step); }
-        if( v.required ) { input.setAttribute("required", v.required); }
 
         //TODO : traiter le cas d'un select ou des autre champs spécifiques
 
         label.appendChild(input);
+        section.appendChild(label);
+    }
+
+    createSelect(section, v) {
+        const select = document.createElement('select');
+        const label = document.createElement('label');
+        const options = v.options;
+        label.innerHTML = v.label;
+
+        if( v.id ) { select.setAttribute("id", v.id); }
+        if( v.name ) { select.setAttribute("name", v.name); }
+        if( v.placeholder ) { select.setAttribute("placeholder", v.placeholder); }
+        if( v.required ) { select.setAttribute("required", v.required); }
+
+        Object.entries(options).forEach(([key,option])=>{
+            const opt = document.createElement("option");
+            opt.value = option.value;
+            opt.text = option.label;
+            select.add(opt);
+        });
+
+        label.appendChild(select);
         section.appendChild(label);
     }
 
@@ -354,8 +380,10 @@ class ClasslocFormulaire {
                         'placeholder': 'Sélectionnez votre civilité',
                         'options': [
                             {'value': 'Monsieur', 'label': 'Monsieur'},
+                            {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
                             {'value': 'Madame', 'label': 'Madame'},
                             {'value': 'Mademoiselle', 'label': 'Mademoiselle'},
+                            {'value': 'ND', 'label': 'ND'},
                         ],
                         'class': 'form-control'
                     },
@@ -476,8 +504,10 @@ class ClasslocFormulaire {
                         'placeholder': 'Sélectionnez votre civilité',
                         'options': [
                             {'value': 'Monsieur', 'label': 'Monsieur'},
+                            {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
                             {'value': 'Madame', 'label': 'Madame'},
                             {'value': 'Mademoiselle', 'label': 'Mademoiselle'},
+                            {'value': 'ND', 'label': 'ND'},
                         ],
                         'class': 'form-control'
                     },
