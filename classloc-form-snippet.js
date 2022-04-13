@@ -267,6 +267,6 @@ class ClasslocFormulaire {
     }
 }
 
-const form = new ClasslocFormulaire("app");
+const form = new ClasslocFormulaire("clossloc-form");
 
 
