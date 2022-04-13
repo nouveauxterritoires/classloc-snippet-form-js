@@ -95,91 +95,173 @@ class ClasslocFormulaire {
                     'id': 'cl_titre'
                 },
                 'content' : {
-                    'adresse_du_meuble' : {
-                        'type': 'text',
-                        'label': 'Adresse du meuble',
-                        'required': true,
-                        'placeholder': 'Adresse du meuble',
-                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
                     'nom_du_batiment' : {
                         'type': 'text',
-                        'label': 'Nom du batiment',
-                        'required': true,
-                        'placeholder': 'Nom du batiment',
+                        'label': "Nom de l'hébergement",
+                        'required': false,
+                        'placeholder': "Nom de l'hébergement",
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
+                    'adresse_du_meuble' : {
+                        'type': 'text',
+                        'label': 'Adresse',
+                        'required': true,
+                        'placeholder': 'Adresse',
+                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
+                    'complement_adresse_du_meuble' : {
+                        'type': 'text',
+                        'label': "Complément d'adresse",
+                        'required': false,
+                        'placeholder': "Complément d'adresse",
+                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
                     'etage' : {
-                        'type': 'number',
+                        'type': 'select',
                         'label': 'Etage',
                         'required': true,
                         'placeholder': 'Etage',
-                        'min': 0,
-                        'max': 100,
+                        'options': [
+                            {'value': 0, 'label': 'RDC / RDJ'},
+                            {'value': 1, 'label': '1'},
+                            {'value': 2, 'label': '2'},
+                            {'value': 3, 'label': '3'},
+                            {'value': 4, 'label': '4'}
+                        ],
                         'class': 'form-control'
                     },
-                    'numero' : {
-                        'type': 'number',
-                        'label': 'Numéro',
-                        'required': true,
-                        'placeholder': 'Numéro',
-                        'min': 0,
-                        'max': 100,
-                        'class': 'form-control'
-                    },
-                    'code_postal' : {
+                    'telephone' : {
                         'type': 'text',
-                        'label': 'Code postal',
-                        'required': true,
-                        'placeholder': 'Code postal',
+                        'label': 'Téléphone',
+                        'required': false,
+                        'placeholder': 'Téléphone',
                         'pattern': '^[0-9]{5}$',
                         'class': 'form-control'
                     },
                     'ville' : {
                         'type': 'text',
-                        'label': 'Ville',
+                        'label': 'Commune',
                         'required': true,
-                        'placeholder': 'Ville',
+                        'placeholder': 'Commune',
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
-                    'denomination_commerciale' : {
-                        'type': 'text',
-                        'label': 'Dénomination commerciale',
+                    'type_de_logement_du_meuble' : {
+                        'type': 'select',
+                        'label': 'Type de logement du meublé',
                         'required': true,
-                        'placeholder': 'Dénomination commerciale',
-                        'pattern': '^[a-zA-Z]{1,20}$',
+                        'placeholder': 'Type de logement du meublé',
+                        'options': [
+                            {'value': 'Appartement', 'label': 'Appartement'},
+                            {'value': 'Appartement Studio', 'label': 'Appartement Studio'},
+                            {'value': 'Studio', 'label': 'Studio'},
+                            {'value': 'Studio Mezzanine', 'label': 'Studio Mezzanine'},
+                            {'value': 'Villa', 'label': 'Villa'},
+                            {'value': 'Chalet', 'label': 'Chalet'},
+                            {'value': '1/2 Chalet', 'label': '1/2 Chalet'},
+                            {'value': 'Ferme', 'label': 'Ferme'},
+                            {'value': 'Maison', 'label': 'Maison'},
+                            {'value': 'Studio Cabine', 'label': 'Studio Cabine'},
+                            {'value': 'Chambre', 'label': 'Chambre'},
+                            {'value': 'Autre', 'label': 'Autre'}
+                        ],
+                        'class': 'form-control'
+                    },
+                    'nombre_maximal_de_personne' : {
+                        'type': 'number',
+                        'label': 'Nombre maximal de personnes susceptibles d\'être accueillies',
+                        'required': true,
+                        'placeholder': 'Nombre maximal de personnes susceptibles d\'être accueillies',
+                        'min': 0,
+                        'max': 100,
                         'class': 'form-control'
                     },
                     'nombre_de_personne_classees' : {
                         'type': 'number',
-                        'label': 'Nombre de personne classees',
+                        'label': 'Nombre de personne classées',
                         'required': true,
-                        'placeholder': 'Nombre de personne classees',
+                        'placeholder': 'Nombre de personne classées',
+                        'min': 0,
+                        'max': 100,
+                        'class': 'form-control'
+                    },
+                    'nombre_de_pieces' : {
+                        'type': 'number',
+                        'label': 'Nombre de pièces composant le meublé',
+                        'required': true,
+                        'placeholder': 'Nombre de pièces composant le meublé',
+                        'min': 0,
+                        'max': 100,
+                        'class': 'form-control'
+                    },
+                    'nombre_de_chambres' : {
+                        'type': 'number',
+                        'label': 'Nombre de chambres',
+                        'required': true,
+                        'placeholder': 'Nombre de chambres',
                         'min': 0,
                         'max': 100,
                         'class': 'form-control'
                     },
                     'classement_actuel' : {
-                        'type': 'number',
+                        'type': 'select',
                         'label': 'Classement actuel',
                         'required': true,
                         'placeholder': 'Classement actuel',
-                        'min': 0,
-                        'max': 5,
+                        'options': [
+                            {'value': 0, 'label': 'Non classé'},
+                            {'value': 1, 'label': '1 étoile'},
+                            {'value': 2, 'label': '2 étoiles'},
+                            {'value': 3, 'label': '3 étoiles'},
+                            {'value': 4, 'label': '4 étoiles'},
+                            {'value': 5, 'label': '5 étoiles'}
+                        ],
                         'class': 'form-control'
                     },
                     'classement_souhaite' : {
-                        'type': 'number',
-                        'label': 'Classement souhaite',
+                        'type': 'select',
+                        'label': 'Classement souhaité',
                         'required': true,
-                        'placeholder': 'Classement souhaite',
-                        'min': 0,
-                        'max': 5,
+                        'placeholder': 'Classement souhaité',
+                        'options': [
+                            {'value': 0, 'label': 'Non classé'},
+                            {'value': 1, 'label': '1 étoile'},
+                            {'value': 2, 'label': '2 étoiles'},
+                            {'value': 3, 'label': '3 étoiles'},
+                            {'value': 4, 'label': '4 étoiles'},
+                            {'value': 5, 'label': '5 étoiles'}
+                        ],
                         'class': 'form-control'
                     },
+                    'surface_totale' : {
+                        'type': 'number',
+                        'label': 'Surface totale',
+                        'required': true,
+                        'placeholder': 'Surface totale',
+                        'min': 0,
+                        'max': 100,
+                        'step': ".01",
+                        'class': 'form-control'
+                    },
+                    'surface_hsdb' : {
+                        'type': 'number',
+                        'label': 'Surface hors salle de bain et WC',
+                        'required': true,
+                        'placeholder': 'Surface hors salle de bain et WC',
+                        'min': 0,
+                        'max': 100,
+                        'step': ".01",
+                        'class': 'form-control'
+                    },
+                    'demandeur_is_not_proprietaire' : {
+                        'type': 'checkbox',
+                        'label': 'Le demandeur n\'est pas propriétaire',
+                        'placeholder': 'Le demandeur n\'est pas propriétaire',
+                        'class': 'form-control'
+                    }
                 }
             },
             'declarant' : {
