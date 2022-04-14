@@ -6,6 +6,7 @@
 class ClasslocFormulaire {
     constructor( id ) {
 
+        this.urlApi = "https://classloc.dev/api/NOMDELAROUTE";
         this.config = this.setupForm();
 
         const form = document.createElement('form');
@@ -21,6 +22,11 @@ class ClasslocFormulaire {
         // TODO: Ajouter la validation des données avant d'envoyer les données du formulaire via l'API (les champs sont déjà censés se valider via HTML5,
         //  là je parle de validation supplélemtaire, qui pourraient correspondre au métier). Pour afficher les messages d'erreur, il faudra remplir la section notice via une méthode.
         // TODO: Ajouter l'event ajax qui va envoyer les données du formulaire via l'API
+
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault();
+            this.sendForm(form);
+        });
 
         document.getElementById(id).appendChild(form);
 
@@ -521,8 +527,33 @@ class ClasslocFormulaire {
 
     }
 
-    sendDataToClassLoc () {
-        // TODO : Créer les routes API pour la création des demandes de classement
+    sendForm () {
+        // TODO : Créer les routes API pour la création des demandes de classement. -> Il me faut le format de données pour les envoyer. Coté serveur, il faudrait conditionner l'enregistrements des données à la clé API ET au domaine de provencance. Par défaut c'est l'id qui sera la clé dans le POST
+        const XHR = new XMLHttpRequest();
+
+        // Bind l'objet FormData et l'element formulaire
+        const formData = new FormData( form );
+
+        // En cas de succès
+        XHR.addEventListener( "load", this.onSendFormSuccess(event) );
+
+        // En cas d'erreur
+        XHR.addEventListener( "error", this.onSendFormError(event) );
+
+        // création de notre requête avec les données du formulaire
+        XHR.open( "POST", this.urlapi );
+
+        XHR.send( formData );
+    }
+
+    onSendFormSuccess (event) {
+        // TODO : Masquer le formulaire et afficher un message de succès dans le bloc notice
+        console.log(event.target.responseText);
+    }
+
+    onSendFormError (event) {
+        // TODO : Ajouter l'erreur au bloc notice prévu à cet effet
+        console.log(event.target.responseText);
     }
 }
 
