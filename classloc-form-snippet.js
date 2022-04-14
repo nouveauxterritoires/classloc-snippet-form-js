@@ -535,8 +535,8 @@ class ClasslocFormulaire {
     sendForm () {
         // TODO : Créer les routes API pour la création des demandes de classement. -> Il me faut le format de données pour les envoyer. Coté serveur, il faudrait conditionner l'enregistrements des données à la clé API ET au domaine de provencance. Par défaut c'est l'id qui sera la clé dans le POST
         const XHR = new XMLHttpRequest();
-        xhr.setRequestHeader("Accept", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer " + this.token);
+        XHR.setRequestHeader("Accept", "application/json");
+        XHR.setRequestHeader("Authorization", "Bearer " + this.token);
 
         // Bind l'objet FormData et l'element formulaire
         const formData = new FormData( form );
