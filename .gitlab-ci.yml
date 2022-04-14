@@ -1,0 +1,14 @@
+stages:
+    - build
+
+minify-js:
+  image: node:latest
+  stage: build
+  script:
+    - npm install uglify-js -g
+    - mkdir -p ./public
+    - uglifyjs ./classloc-form-snippet.js -o public/clsnjs.js -c -m
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - public
