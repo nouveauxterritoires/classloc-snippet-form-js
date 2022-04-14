@@ -548,7 +548,7 @@ class ClasslocFormulaire {
         XHR.addEventListener( "error", this.onSendFormError(event) );
 
         // création de notre requête avec les données du formulaire
-        XHR.open( "POST", this.urlapi );
+        XHR.open( "POST", this.urlApi );
 
         XHR.send( formData );
     }
