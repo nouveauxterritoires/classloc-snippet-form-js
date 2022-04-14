@@ -54,7 +54,12 @@ class ClasslocFormulaire {
         section.appendChild(title);
 
         Object.entries(value.content).forEach(([key,v])=>{
-            this.createInput(section,v);
+            if(v.type === 'select'){
+                this.createSelect(section,v);
+            } else {
+                this.createInput(section,v);
+            }
+
         });
 
         form.appendChild(section);
@@ -76,11 +81,32 @@ class ClasslocFormulaire {
         if( v.min ) { input.setAttribute("min", v.min); }
         if( v.max ) { input.setAttribute("max", v.max); }
         if( v.step ) { input.setAttribute("step", v.step); }
-        if( v.required ) { input.setAttribute("required", v.required); }
 
         //TODO : traiter le cas d'un select ou des autre champs spécifiques
 
         label.appendChild(input);
+        section.appendChild(label);
+    }
+
+    createSelect(section, v) {
+        const select = document.createElement('select');
+        const label = document.createElement('label');
+        const options = v.options;
+        label.innerHTML = v.label;
+
+        if( v.id ) { select.setAttribute("id", v.id); }
+        if( v.name ) { select.setAttribute("name", v.name); }
+        if( v.placeholder ) { select.setAttribute("placeholder", v.placeholder); }
+        if( v.required ) { select.setAttribute("required", v.required); }
+
+        Object.entries(options).forEach(([key,option])=>{
+            const opt = document.createElement("option");
+            opt.value = option.value;
+            opt.text = option.label;
+            select.add(opt);
+        });
+
+        label.appendChild(select);
         section.appendChild(label);
     }
 
@@ -95,43 +121,215 @@ class ClasslocFormulaire {
                     'id': 'cl_titre'
                 },
                 'content' : {
-                    'adresse_du_meuble' : {
-                        'type': 'text',
-                        'label': 'Adresse du meuble',
-                        'required': true,
-                        'placeholder': 'Adresse du meuble',
-                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
                     'nom_du_batiment' : {
                         'type': 'text',
-                        'label': 'Nom du batiment',
-                        'required': true,
-                        'placeholder': 'Nom du batiment',
+                        'label': "Nom de l'hébergement",
+                        'required': false,
+                        'placeholder': "Nom de l'hébergement",
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
-                    'etage' : {
-                        'type': 'number',
-                        'label': 'Etage',
+                    'adresse_du_meuble' : {
+                        'type': 'text',
+                        'label': 'Adresse*',
                         'required': true,
-                        'placeholder': 'Etage',
+                        'placeholder': 'Adresse',
+                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
+                    'complement_adresse_du_meuble' : {
+                        'type': 'text',
+                        'label': "Complément d'adresse",
+                        'required': false,
+                        'placeholder': "Complément d'adresse",
+                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
+                    'etage' : {
+                        'type': 'select',
+                        'label': 'Etage*',
+                        'required': true,
+                        'options': [
+                            {'value': "", 'label': 'Sélectionnez l\'étage'},
+                            {'value': 0, 'label': 'RDC / RDJ'},
+                            {'value': 1, 'label': '1'},
+                            {'value': 2, 'label': '2'},
+                            {'value': 3, 'label': '3'},
+                            {'value': 4, 'label': '4'}
+                        ],
+                        'class': 'form-control'
+                    },
+                    'telephone' : {
+                        'type': 'text',
+                        'label': 'Téléphone',
+                        'required': false,
+                        'placeholder': 'Téléphone',
+                        'pattern': '^[0-9]{5}$',
+                        'class': 'form-control'
+                    },
+                    'ville' : {
+                        'type': 'text',
+                        'label': 'Commune*',
+                        'required': true,
+                        'placeholder': 'Commune',
+                        'pattern': '^[a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
+                    'type_de_logement_du_meuble' : {
+                        'type': 'select',
+                        'label': 'Type de logement du meublé*',
+                        'required': true,
+                        'options': [
+                            {'value': "", 'label': 'Sélectionnez le type de logement du meublé'},
+                            {'value': 'Appartement', 'label': 'Appartement'},
+                            {'value': 'Appartement Studio', 'label': 'Appartement Studio'},
+                            {'value': 'Studio', 'label': 'Studio'},
+                            {'value': 'Studio Mezzanine', 'label': 'Studio Mezzanine'},
+                            {'value': 'Villa', 'label': 'Villa'},
+                            {'value': 'Chalet', 'label': 'Chalet'},
+                            {'value': '1/2 Chalet', 'label': '1/2 Chalet'},
+                            {'value': 'Ferme', 'label': 'Ferme'},
+                            {'value': 'Maison', 'label': 'Maison'},
+                            {'value': 'Studio Cabine', 'label': 'Studio Cabine'},
+                            {'value': 'Chambre', 'label': 'Chambre'},
+                            {'value': 'Autre', 'label': 'Autre'}
+                        ],
+                        'class': 'form-control'
+                    },
+                    'nombre_maximal_de_personne' : {
+                        'type': 'number',
+                        'label': 'Nombre maximal de personnes susceptibles d\'être accueillies*',
+                        'required': true,
+                        'placeholder': 'Nombre maximal de personnes susceptibles d\'être accueillies',
                         'min': 0,
                         'max': 100,
                         'class': 'form-control'
                     },
-                    'numero' : {
+                    'nombre_de_personne_classees' : {
                         'type': 'number',
-                        'label': 'Numéro',
+                        'label': 'Nombre de personne classées*',
                         'required': true,
-                        'placeholder': 'Numéro',
+                        'placeholder': 'Nombre de personne classées',
                         'min': 0,
                         'max': 100,
+                        'class': 'form-control'
+                    },
+                    'nombre_de_pieces' : {
+                        'type': 'number',
+                        'label': 'Nombre de pièces composant le meublé*',
+                        'required': true,
+                        'placeholder': 'Nombre de pièces composant le meublé',
+                        'min': 0,
+                        'max': 100,
+                        'class': 'form-control'
+                    },
+                    'nombre_de_chambres' : {
+                        'type': 'number',
+                        'label': 'Nombre de chambres*',
+                        'required': true,
+                        'placeholder': 'Nombre de chambres',
+                        'min': 0,
+                        'max': 100,
+                        'class': 'form-control'
+                    },
+                    'classement_actuel' : {
+                        'type': 'select',
+                        'label': 'Classement actuel*',
+                        'required': true,
+                        'options': [
+                            {'value': "", 'label': 'Sélectionnez le classement actuel'},
+                            {'value': 0, 'label': 'Non classé'},
+                            {'value': 1, 'label': '1 étoile'},
+                            {'value': 2, 'label': '2 étoiles'},
+                            {'value': 3, 'label': '3 étoiles'},
+                            {'value': 4, 'label': '4 étoiles'},
+                            {'value': 5, 'label': '5 étoiles'}
+                        ],
+                        'class': 'form-control'
+                    },
+                    'classement_souhaite' : {
+                        'type': 'select',
+                        'label': 'Classement souhaité*',
+                        'required': true,
+                        'options': [
+                            {'value': "", 'label': 'Sélectionnez le classement souhaité'},
+                            {'value': 1, 'label': '1 étoile'},
+                            {'value': 2, 'label': '2 étoiles'},
+                            {'value': 3, 'label': '3 étoiles'},
+                            {'value': 4, 'label': '4 étoiles'},
+                            {'value': 5, 'label': '5 étoiles'}
+                        ],
+                        'class': 'form-control'
+                    },
+                    'surface_totale' : {
+                        'type': 'number',
+                        'label': 'Surface totale*',
+                        'required': true,
+                        'placeholder': 'Surface totale',
+                        'min': 0,
+                        'max': 100,
+                        'step': ".01",
+                        'class': 'form-control'
+                    },
+                    'surface_hsdb' : {
+                        'type': 'number',
+                        'label': 'Surface hors salle de bain et WC*',
+                        'required': true,
+                        'placeholder': 'Surface hors salle de bain et WC',
+                        'min': 0,
+                        'max': 100,
+                        'step': ".01",
+                        'class': 'form-control'
+                    },
+                    'demandeur_is_not_proprietaire' : {
+                        'type': 'checkbox',
+                        'label': 'Le demandeur n\'est pas propriétaire',
+                        'placeholder': 'Le demandeur n\'est pas propriétaire',
+                        'class': 'form-control'
+                    }
+                }
+            },
+            'proprietaire' : {
+                'title': {
+                    'title': 'Propriétaire',
+                    'id': 'cl_titre'
+                },
+                'content' : {
+                    'nom' : {
+                        'type': 'text',
+                        'label': 'Nom*',
+                        'required': true,
+                        'placeholder': 'Nom',
+                        'pattern': '^[a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
+                    'prenom' : {
+                        'type': 'text',
+                        'label': 'Prénom*',
+                        'required': true,
+                        'placeholder': 'Prénom',
+                        'pattern': '^[a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
+                    'adresse' : {
+                        'type': 'text',
+                        'label': 'Adresse*',
+                        'required': true,
+                        'placeholder': 'Adresse',
+                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
+                    'complement_adresse' : {
+                        'type': 'text',
+                        'label': "Complément d'adresse",
+                        'required': false,
+                        'placeholder': 'Complément d\'adresse',
+                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
                     'code_postal' : {
                         'type': 'text',
-                        'label': 'Code postal',
+                        'label': 'Code postal*',
                         'required': true,
                         'placeholder': 'Code postal',
                         'pattern': '^[0-9]{5}$',
@@ -139,47 +337,64 @@ class ClasslocFormulaire {
                     },
                     'ville' : {
                         'type': 'text',
-                        'label': 'Ville',
+                        'label': 'Commune*',
                         'required': true,
-                        'placeholder': 'Ville',
+                        'placeholder': 'Commune',
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
-                    'denomination_commerciale' : {
+                    'pays' : {
                         'type': 'text',
-                        'label': 'Dénomination commerciale',
+                        'label': 'Pays*',
                         'required': true,
-                        'placeholder': 'Dénomination commerciale',
+                        'placeholder': 'Pays',
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
-                    'nombre_de_personne_classees' : {
-                        'type': 'number',
-                        'label': 'Nombre de personne classees',
+                    'telephone' : {
+                        'type': 'text',
+                        'label': 'Téléphone principal*',
                         'required': true,
-                        'placeholder': 'Nombre de personne classees',
-                        'min': 0,
-                        'max': 100,
+                        'placeholder': 'Téléphone principal',
+                        'pattern': '^[0-9]{10}$',
                         'class': 'form-control'
                     },
-                    'classement_actuel' : {
-                        'type': 'number',
-                        'label': 'Classement actuel',
-                        'required': true,
-                        'placeholder': 'Classement actuel',
-                        'min': 0,
-                        'max': 5,
+                    'telephone2' : {
+                        'type': 'text',
+                        'label': 'Téléphone secondaire',
+                        'required': false,
+                        'placeholder': 'Téléphone secondaire',
+                        'pattern': '^[0-9]{10}$',
                         'class': 'form-control'
                     },
-                    'classement_souhaite' : {
-                        'type': 'number',
-                        'label': 'Classement souhaite',
+                    'email' : {
+                        'type': 'email',
+                        'label': 'Adresse courriel',
                         'required': true,
-                        'placeholder': 'Classement souhaite',
-                        'min': 0,
-                        'max': 5,
+                        'placeholder': 'exemple@gmail.com'
+                    },
+                    'civilite' : {
+                        'type': 'select',
+                        'label': 'Civilité*',
+                        'required': true,
+                        'options': [
+                            {'value': "", 'label': 'Sélectionnez votre civilité'},
+                            {'value': 'Monsieur', 'label': 'Monsieur'},
+                            {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
+                            {'value': 'Madame', 'label': 'Madame'},
+                            {'value': 'Mademoiselle', 'label': 'Mademoiselle'},
+                            {'value': 'ND', 'label': 'ND'},
+                        ],
                         'class': 'form-control'
                     },
+                    'siret': {
+                        'type': 'text',
+                        'label': 'SIRET/SIREN',
+                        'required': false,
+                        'placeholder': 'SIRET/SIREN',
+                        'pattern': '^[a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    }
                 }
             },
             'declarant' : {
@@ -190,7 +405,7 @@ class ClasslocFormulaire {
                 'content' : {
                     'nom' : {
                         'type': 'text',
-                        'label': 'Nom',
+                        'label': 'Nom*',
                         'required': true,
                         'placeholder': 'Nom',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -198,23 +413,39 @@ class ClasslocFormulaire {
                     },
                     'prenom' : {
                         'type': 'text',
-                        'label': 'Prénom',
+                        'label': 'Prénom*',
                         'required': true,
                         'placeholder': 'Prénom',
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
+                    'raison_sociale': {
+                        'type': 'text',
+                        'label': 'Raison Sociale',
+                        'required': false,
+                        'placeholder': 'Raison Sociale',
+                        'pattern': '^[a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
                     'adresse' : {
                         'type': 'text',
-                        'label': 'Adresse',
+                        'label': 'Adresse*',
                         'required': true,
                         'placeholder': 'Adresse',
                         'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
+                    'complement_adresse' : {
+                        'type': 'text',
+                        'label': "Complément d'adresse",
+                        'required': false,
+                        'placeholder': 'Complément d\'adresse',
+                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
                     'code_postal' : {
                         'type': 'text',
-                        'label': 'Code postal',
+                        'label': 'Code postal*',
                         'required': true,
                         'placeholder': 'Code postal',
                         'pattern': '^[0-9]{5}$',
@@ -222,35 +453,70 @@ class ClasslocFormulaire {
                     },
                     'ville' : {
                         'type': 'text',
-                        'label': 'Ville',
+                        'label': 'Commune*',
                         'required': true,
-                        'placeholder': 'Ville',
+                        'placeholder': 'Commune',
+                        'pattern': '^[a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
+                    'pays' : {
+                        'type': 'text',
+                        'label': 'Pays*',
+                        'required': true,
+                        'placeholder': 'Pays',
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
                     'telephone' : {
                         'type': 'text',
-                        'label': 'Téléphone',
+                        'label': 'Téléphone principal*',
                         'required': true,
-                        'placeholder': 'Téléphone',
+                        'placeholder': 'Téléphone principal',
+                        'pattern': '^[0-9]{10}$',
+                        'class': 'form-control'
+                    },
+                    'telephone2' : {
+                        'type': 'text',
+                        'label': 'Téléphone secondaire',
+                        'required': false,
+                        'placeholder': 'Téléphone secondaire',
                         'pattern': '^[0-9]{10}$',
                         'class': 'form-control'
                     },
                     'email' : {
                         'type': 'email',
-                        'label': 'Email',
-                        'required': 'required',
+                        'label': 'Adresse courriel*',
+                        'required': true,
+                        'placeholder': 'exemple@gmail.com'
+                    },
+                    'autres_email' : {
+                        'type': 'text',
+                        'label': 'Autres courriels',
+                        'required': false,
+                        'placeholder': 'exemple@gmail.com, exemple2@free.fr, ...',
+                        'pattern': '^[a-zA-Z]{1,20}$',
+                        'class': 'form-control'
                     },
                     'civilite' : {
                         'type': 'select',
-                        'label': 'Civilité',
+                        'label': 'Civilité*',
                         'required': true,
-                        'placeholder': 'Civilité',
                         'options': [
+                            {'value': "", 'label': 'Sélectionnez votre civilité'},
                             {'value': 'Monsieur', 'label': 'Monsieur'},
+                            {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
                             {'value': 'Madame', 'label': 'Madame'},
                             {'value': 'Mademoiselle', 'label': 'Mademoiselle'},
+                            {'value': 'ND', 'label': 'ND'},
                         ],
+                        'class': 'form-control'
+                    },
+                    'siret': {
+                        'type': 'text',
+                        'label': 'SIRET/SIREN',
+                        'required': false,
+                        'placeholder': 'SIRET/SIREN',
+                        'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     }
                 }
