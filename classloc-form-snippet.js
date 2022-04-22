@@ -532,47 +532,49 @@ class ClasslocFormulaire
         const formData = new FormData( form );
 
         var dataExemple = {
-            'data': {
-                'organismeId': 3,
-                'eligDemandee': 3,
-                'capClassee': 10,
-                'nbPieceSupp': 13 - 1,
-                'owner': {
-                    'civility': 'Monsieur',
-                    'firstName': 'Julien',
-                    'lastName': 'Dignat',
-                    'mail': 'juliend@nouveauxterritoires.fr',
-                    'phone': '09 78 63 04 29',
-                    'phone2': '06 98 07 82 20',
-                    'buisinessName': null,
-                    'address': '55 Bd Cabassud',
-                    'postalCode': '13010',
-                    'city': 'Marseille',
-                    'country': 'France'
+            "request": {
+                "organismeId": 3,
+                "eligDemandee": 3,
+                "capClassee": 10,
+                "nbPiecesSupp": 12, /* nbPiecesTot - 1 */
+            },
+            "accommodation": {
+                "name": "NT",
+                "floor": 1,
+                "type": "Studio",
+                "address": "36 rue Maille",
+                "city": "Marseille",
+                "surface": 80.3,
+                "surfaceHsdb": 76.2,
+                "nbPersonsClasse": 10,
+                "nbPiecesTot": 13,
+                "currentRanking": 2,
+                "owner": {
+                    "organismeId": 3,
+                    "civility": "Monsieur",
+                    "firstName": "Julien",
+                    "lastName": "Dignat",
+                    "mail": "juliend@nouveauxterritoires.fr",
+                    "phone": "09 78 63 04 29",
+                    "phone2": "06 98 07 82 20",
+                    "buisinessName": null,
+                    "address": "55 Bd Cabassud",
+                    "postalCode": 13010,
+                    "city": "Marseille",
+                    "country": "France"
                 },
-                'applicant': {
-                    'civility': null,
-                    'firstName': null,
-                    'lastName': null,
-                    'mail': 'support@nouveauxterritoires.fr',
-                    'phone': '09 78 63 04 29',
-                    'buisinessName': 'Nouveaux Territoires',
-                    'address': '33 rue Julia',
-                    'postalCode': '13005',
-                    'city': 'Marseille',
-                    'country': 'France'
-                },
-                'accommodation': {
-                    'name': 'NT',
-                    'floor': 1,
-                    'type': 'Studio',
-                    'address': '36 rue Maille',
-                    'city': 'Marseille',
-                    'surface': 80.3,
-                    'surfaceHsdb': 76.2,
-                    'nbPersonsClasse': 10,
-                    'nbPiecesTot': 13,
-                    'currentRanking': '2'
+                "applicant": { /* Concerne la partie "Mandataire", si cette partie est vide => 'applicant':{}, */
+                    "organismeId": 3,
+                    "civility": null,
+                    "firstName": null,
+                    "lastName": null,
+                    "mail": "support@nouveauxterritoires.fr",
+                    "phone": "09 78 63 04 29",
+                    "buisinessName": "Nouveaux Territoires",
+                    "address": "33 rue Julia",
+                    "postalCode": "13005",
+                    "city": "Marseille",
+                    "country": "France"
                 }
             }
         };
