@@ -8,7 +8,7 @@ class ClasslocFormulaire
     constructor( id )
     {
 
-        this.urlApi = "https://classloc.dev/api/NOMDELAROUTE";
+        this.urlApi = "https://classloc.dev/api/v1/snippet";
         this.config = this.setupForm();
         this.token  = this.getToken();
 
@@ -242,13 +242,6 @@ class ClasslocFormulaire
                         'required': 'required',
                         'placeholder': 'exemple@gmail.com'
                     },
-                    'siret': {
-                        'type': 'text',
-                        'label': 'SIRET/SIREN',
-                        'placeholder': 'SIRET/SIREN',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
                     'chapter_2': {
                         'type': 'chapter',
                         'chapter': 'Mandataire (si le propriétaire n\'est pas présent le jour de la visite)',
@@ -256,7 +249,7 @@ class ClasslocFormulaire
                     },
                     'civilite_mandataire' : {
                         'type': 'select',
-                        'label': 'Civilité*',
+                        'label': 'Civilité',
                         'required': 'required',
                         'options': [
                             {'value': "", 'label': 'Sélectionnez votre civilité'},
@@ -270,7 +263,7 @@ class ClasslocFormulaire
                     },
                     'nom_mandataire' : {
                         'type': 'text',
-                        'label': 'Nom*',
+                        'label': 'Nom',
                         'required': 'required',
                         'placeholder': 'Nom',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -278,7 +271,7 @@ class ClasslocFormulaire
                     },
                     'prenom_mandataire' : {
                         'type': 'text',
-                        'label': 'Prénom*',
+                        'label': 'Prénom',
                         'required': 'required',
                         'placeholder': 'Prénom',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -293,7 +286,7 @@ class ClasslocFormulaire
                     },
                     'adresse_mandataire' : {
                         'type': 'text',
-                        'label': 'Adresse*',
+                        'label': 'Adresse',
                         'required': 'required',
                         'placeholder': 'Adresse',
                         'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
@@ -301,7 +294,7 @@ class ClasslocFormulaire
                     },
                     'code_postal_mandataire' : {
                         'type': 'text',
-                        'label': 'Code postal*',
+                        'label': 'Code postal',
                         'required': 'required',
                         'placeholder': 'Code postal',
                         'pattern': '^[0-9]{5}$',
@@ -309,7 +302,7 @@ class ClasslocFormulaire
                     },
                     'ville_mandataire' : {
                         'type': 'text',
-                        'label': 'Commune*',
+                        'label': 'Ville',
                         'required': 'required',
                         'placeholder': 'Commune',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -317,7 +310,7 @@ class ClasslocFormulaire
                     },
                     'pays_mandataire' : {
                         'type': 'text',
-                        'label': 'Pays*',
+                        'label': 'Pays',
                         'required': 'required',
                         'placeholder': 'Pays',
                         'pattern': '^[a-zA-Z]{1,20}$',
@@ -325,31 +318,17 @@ class ClasslocFormulaire
                     },
                     'telephone_mandataire' : {
                         'type': 'text',
-                        'label': 'Téléphone principal*',
+                        'label': 'Téléphone',
                         'required': 'required',
-                        'placeholder': 'Téléphone principal',
-                        'pattern': '^[0-9]{10}$',
-                        'class': 'form-control'
-                    },
-                    'telephone2_mandataire' : {
-                        'type': 'text',
-                        'label': 'Téléphone secondaire',
-                        'placeholder': 'Téléphone secondaire',
+                        'placeholder': 'Téléphone',
                         'pattern': '^[0-9]{10}$',
                         'class': 'form-control'
                     },
                     'email_mandataire' : {
                         'type': 'email',
-                        'label': 'Adresse courriel*',
+                        'label': 'Adresse courriel',
                         'required': 'required',
                         'placeholder': 'exemple@gmail.com'
-                    },
-                    'siret_mandataire': {
-                        'type': 'text',
-                        'label': 'SIRET/SIREN',
-                        'placeholder': 'SIRET/SIREN',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
                     }
                 }
             },
@@ -366,9 +345,30 @@ class ClasslocFormulaire
                     },
                     'nom_du_batiment' : {
                         'type': 'text',
-                        'label': "Nom du meublé (Précisez bâtiment et n° d’appartement)",
+                        'label': "Nom du meublé (Précisez bâtiment et n° d'appartement)",
                         'placeholder': "Nom du meublé",
                         'pattern': '^[a-zA-Z]{1,20}$',
+                        'class': 'form-control'
+                    },
+                    'type_de_logement_du_meuble' : {
+                        'type': 'select',
+                        'label': 'Type de logement du meublé*',
+                        'required': 'required',
+                        'options': [
+                            {'value': "", 'label': 'Sélectionnez le type de logement du meublé'},
+                            {'value': 'Appartement', 'label': 'Appartement'},
+                            {'value': 'Appartement Studio', 'label': 'Appartement Studio'},
+                            {'value': 'Studio', 'label': 'Studio'},
+                            {'value': 'Studio Mezzanine', 'label': 'Studio Mezzanine'},
+                            {'value': 'Villa', 'label': 'Villa'},
+                            {'value': 'Chalet', 'label': 'Chalet'},
+                            {'value': '1/2 Chalet', 'label': '1/2 Chalet'},
+                            {'value': 'Ferme', 'label': 'Ferme'},
+                            {'value': 'Maison', 'label': 'Maison'},
+                            {'value': 'Studio Cabine', 'label': 'Studio Cabine'},
+                            {'value': 'Chambre', 'label': 'Chambre'},
+                            {'value': 'Autre', 'label': 'Autre'}
+                        ],
                         'class': 'form-control'
                     },
                     'etage' : {
@@ -401,32 +401,31 @@ class ClasslocFormulaire
                         'pattern': '^[a-zA-Z]{1,20}$',
                         'class': 'form-control'
                     },
-                    'type_de_logement_du_meuble' : {
-                        'type': 'select',
-                        'label': 'Type de logement du meublé*',
-                        'required': 'required',
-                        'options': [
-                            {'value': "", 'label': 'Sélectionnez le type de logement du meublé'},
-                            {'value': 'Appartement', 'label': 'Appartement'},
-                            {'value': 'Appartement Studio', 'label': 'Appartement Studio'},
-                            {'value': 'Studio', 'label': 'Studio'},
-                            {'value': 'Studio Mezzanine', 'label': 'Studio Mezzanine'},
-                            {'value': 'Villa', 'label': 'Villa'},
-                            {'value': 'Chalet', 'label': 'Chalet'},
-                            {'value': '1/2 Chalet', 'label': '1/2 Chalet'},
-                            {'value': 'Ferme', 'label': 'Ferme'},
-                            {'value': 'Maison', 'label': 'Maison'},
-                            {'value': 'Studio Cabine', 'label': 'Studio Cabine'},
-                            {'value': 'Chambre', 'label': 'Chambre'},
-                            {'value': 'Autre', 'label': 'Autre'}
-                        ],
+                    'surface_totale' : {
+                        'type': 'number',
+                        'label': 'Surface totale de l’hébergement (en m2)',
+                        'required': '',
+                        'placeholder': 'Surface totale de l’hébergement (en m2)',
+                        'min': 0,
+                        'max': 100,
+                        'step': ".01",
                         'class': 'form-control'
                     },
-                    'nombre_maximal_de_personne' : {
+                    'surface_hsdb' : {
                         'type': 'number',
-                        'label': 'Nombre maximal de personnes susceptibles d\'être accueillies*',
+                        'label': 'Surface hors salle de bain et toilettes (en m2)',
+                        'required': '',
+                        'placeholder': 'Surface hors salle de bain et toilettes (en m2)',
+                        'min': 0,
+                        'max': 100,
+                        'step': ".01",
+                        'class': 'form-control'
+                    },
+                    'nombre_de_pieces' : {
+                        'type': 'number',
+                        'label': 'Nombre de pièces composant le meublé*',
                         'required': 'required',
-                        'placeholder': 'Nombre maximal de personnes susceptibles d\'être accueillies',
+                        'placeholder': 'Nombre de pièces composant le meublé',
                         'min': 1,
                         'max': 100,
                         'class': 'form-control'
@@ -440,44 +439,6 @@ class ClasslocFormulaire
                         'max': 100,
                         'class': 'form-control'
                     },
-                    'nombre_de_pieces' : {
-                        'type': 'number',
-                        'label': 'Nombre de pièces composant le meublé*',
-                        'required': 'required',
-                        'placeholder': 'Nombre de pièces composant le meublé',
-                        'min': 1,
-                        'max': 100,
-                        'class': 'form-control'
-                    },
-                    'nombre_de_chambres' : {
-                        'type': 'number',
-                        'label': 'Nombre de chambres*',
-                        'required': 'required',
-                        'placeholder': 'Nombre de chambres',
-                        'min': 1,
-                        'max': 100,
-                        'class': 'form-control'
-                    },
-                    'surface_totale' : {
-                        'type': 'number',
-                        'label': 'Surface totale',
-                        'required': '',
-                        'placeholder': 'Surface totale',
-                        'min': 0,
-                        'max': 100,
-                        'step': ".01",
-                        'class': 'form-control'
-                    },
-                    'surface_hsdb' : {
-                        'type': 'number',
-                        'label': 'Surface hors salle de bain et WC',
-                        'required': '',
-                        'placeholder': 'Surface hors salle de bain et WC',
-                        'min': 0,
-                        'max': 100,
-                        'step': ".01",
-                        'class': 'form-control'
-                    },
                     'chapter_4': {
                         'type': 'chapter',
                         'chapter': 'Classement',
@@ -485,7 +446,7 @@ class ClasslocFormulaire
                     },
                     'classement_actuel' : {
                         'type': 'select',
-                        'label': 'Classement actuel*',
+                        'label': 'Classement actuel de votre hébergement*',
                         'required': 'required',
                         'options': [
                             {'value': "", 'label': 'Sélectionnez le classement actuel'},
@@ -500,7 +461,7 @@ class ClasslocFormulaire
                     },
                     'classement_souhaite' : {
                         'type': 'select',
-                        'label': 'Classement souhaité*',
+                        'label': 'Classement demandé*',
                         'required': 'required',
                         'options': [
                             {'value': "", 'label': 'Sélectionnez le classement souhaité'},
@@ -531,7 +492,6 @@ class ClasslocFormulaire
                         'label': 'Suivant les spécificités de votre hébergement, la visite de classement par %nom de l’organisme% ' +
                             'vous sera facturée %prix% Euros. La complétion de cette présente demande n’engage en rien les deux parties.',
                         'required': 'required',
-                        'placeholder': 'Nombre maximal de personnes susceptibles d\'être accueillies',
                         'min': 0,
                         'max': 100,
                         'class': 'form-control'
@@ -570,6 +530,52 @@ class ClasslocFormulaire
 
         // Bind l'objet FormData et l'element formulaire
         const formData = new FormData( form );
+
+        var dataExemple = {
+            'data': {
+                'organismeId': 3,
+                'eligDemandee': 3,
+                'capClassee': 10,
+                'nbPieceSupp': 13 - 1,
+                'owner': {
+                    'civility': 'Monsieur',
+                    'firstName': 'Julien',
+                    'lastName': 'Dignat',
+                    'mail': 'juliend@nouveauxterritoires.fr',
+                    'phone': '09 78 63 04 29',
+                    'phone2': '06 98 07 82 20',
+                    'buisinessName': null,
+                    'address': '55 Bd Cabassud',
+                    'postalCode': '13010',
+                    'city': 'Marseille',
+                    'country': 'France'
+                },
+                'applicant': {
+                    'civility': null,
+                    'firstName': null,
+                    'lastName': null,
+                    'mail': 'support@nouveauxterritoires.fr',
+                    'phone': '09 78 63 04 29',
+                    'buisinessName': 'Nouveaux Territoires',
+                    'address': '33 rue Julia',
+                    'postalCode': '13005',
+                    'city': 'Marseille',
+                    'country': 'France'
+                },
+                'accommodation': {
+                    'name': 'NT',
+                    'floor': 1,
+                    'type': 'Studio',
+                    'address': '36 rue Maille',
+                    'city': 'Marseille',
+                    'surface': 80.3,
+                    'surfaceHsdb': 76.2,
+                    'nbPersonsClasse': 10,
+                    'nbPiecesTot': 13,
+                    'currentRanking': '2'
+                }
+            }
+        };
 
         // En cas de succès
         XHR.addEventListener( "load", this.onSendFormSuccess(event) );
