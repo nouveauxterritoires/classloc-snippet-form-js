@@ -533,7 +533,6 @@ class ClasslocFormulaire
 
         var dataExemple = {
             "request": {
-                "organismeId": 3,
                 "eligDemandee": 3,
                 "capClassee": 10,
                 "nbPiecesSupp": 12, /* nbPiecesTot - 1 */
@@ -550,7 +549,6 @@ class ClasslocFormulaire
                 "nbPiecesTot": 13,
                 "currentRanking": 2,
                 "owner": {
-                    "organismeId": 3,
                     "civility": "Monsieur",
                     "firstName": "Julien",
                     "lastName": "Dignat",
@@ -564,7 +562,6 @@ class ClasslocFormulaire
                     "country": "France"
                 },
                 "applicant": { /* Concerne la partie "Mandataire", si cette partie est vide => 'applicant':{}, */
-                    "organismeId": 3,
                     "civility": null,
                     "firstName": null,
                     "lastName": null,
