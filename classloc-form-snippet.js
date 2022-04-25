@@ -8,7 +8,7 @@ class ClasslocFormulaire
     constructor( id )
     {
 
-        this.urlApi = "https://classloc.dev/api/v1/snippet";
+        this.urlApi = "https://classloc.dev/api/v1/create_demand";
         this.config = this.setupForm();
         this.token  = this.getToken();
 
