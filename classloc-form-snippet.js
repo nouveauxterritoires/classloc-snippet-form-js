@@ -13,8 +13,8 @@ class ClasslocFormulaire
         this.token  = this.getToken();
 
         const form = document.createElement('form');
-        form.className = 'classloc-form container';
-        this.createNoticeSection(form);
+        form.className = 'classloc-form container classement';
+        // this.createNoticeSection(form);
 
         Object.entries(this.config).forEach(([key,value])=>{
             this.createSection(form,value);
@@ -39,14 +39,17 @@ class ClasslocFormulaire
         return document.getElementById("clossloc-form").getAttribute('data-cltoken');
     }
 
-    createNoticeSection(form)
+    createNoticeSection(section, v)
     {
-        const noticeContainer = document.createElement('div');
-        const notice = document.createElement('div');
-        noticeContainer.classList.add('notice');
-        notice.innerHTML = '<p>Les champs marqués d\'un * sont obligatoires</p>';
-        noticeContainer.appendChild(notice);
-        form.appendChild(noticeContainer);
+        // const noticeContainer = document.createElement('div');
+        // const notice = document.createElement('div');
+        // noticeContainer.classList.add('notice');
+        // notice.innerHTML = '<p>Ces champs sont indicatifs. L\'opérateur de classement vérifiera et/ou ajoutera les champs manquants lors de la visite d\'inspection.</p>';
+        // noticeContainer.appendChild(notice);
+        // form.appendChild(noticeContainer);
+        const notice = document.createElement('p');
+        notice.innerText = v.notice;
+        section.appendChild(notice);
     }
 
     createSendButton(form)
@@ -58,26 +61,40 @@ class ClasslocFormulaire
         form.appendChild(button);
     }
 
-    createSection (form, value)
+    createTitle(section, v)
     {
-        const section = document.createElement('details');
-        section.className = 'form-section';
-        section.setAttribute("id", value.title.id);
-
-        const title = document.createElement('summary');
-        title.innerHTML = value.title.title;
-        title.setAttribute("role", "button");
+        console.log(v);
+        const title = document.createElement(v.balise);
+        if(v.balise === 'h2'){
+            title.innerHTML = v.title +
+                "<div class='pagination'>" +
+                "<span class='"+v.page1+"'>1</span>" +
+                "<span class='"+v.page2+"'>2</span>" +
+                "<span class='"+v.page3+"'>✓</span>" +
+                "</div>"
+            ;
+        } else {
+            title.innerHTML = v.subTitle;
+        }
         section.appendChild(title);
+    }
+
+    createSection(form, value)
+    {
+        const section = document.createElement('section');
+        section.setAttribute("class", value.title.class);
+        this.createTitle(section, value.title);
+        if(value.title.notice){
+            this.createNoticeSection(section, value.title);
+        }
 
         const sectionContainer = document.createElement('div');
 
         Object.entries(value.content).forEach(([key,v])=>{
-            if(v.type === 'chapter'){
-                this.createChapter(sectionContainer, key, v);
-            } else if(v.type === 'select'){
-                this.createSelect(sectionContainer, key, v);
-            } else {
+            if(key === 'not-proprietaire'){
                 this.createInput(sectionContainer, key, v);
+            } else {
+                this.createBlocform(sectionContainer, key, v);
             }
         });
 
@@ -85,47 +102,107 @@ class ClasslocFormulaire
         form.appendChild(section);
     }
 
-    createChapter(section, key, v)
+    createBlocform(section, key, v)
     {
-        const strong = document.createElement('strong');
-        strong.innerHTML = v.chapter;
+        const blocform = document.createElement('div');
+        blocform.setAttribute("class", 'blocform');
 
-        const divStrong = document.createElement('div');
-        divStrong.setAttribute('id', key);
+        Object.entries(v).forEach(([key,v])=>{
+            if(key.includes('blocflex')) {
+                this.createBlocflex(blocform, key, v);
+            } else {
+                if(key.includes('sub-title')) {
+                    this.createTitle(blocform, v);
+                } else if(key.includes('text')) {
+                    this.createText(blocform, v);
+                } else {
+                    this.createInput(blocform, key, v);
+                }
+            }
+        });
 
-        divStrong.appendChild(strong);
-        section.appendChild(divStrong);
+        section.appendChild(blocform);
     }
 
-    createInput(section, key, v) {
-        const input = document.createElement('input');
-        const label = document.createElement('label');
+    createBlocflex(blocform, key, v)
+    {
+        const blocflex = document.createElement('div');
+        blocflex.setAttribute("class", 'blocflex');
 
-        label.innerHTML = v.label;
+        Object.entries(v).forEach(([key,v])=>{
+            if(key.includes('sub-title')){
+                this.createTitle(blocflex, v);
+            } else {
+                this.createColonne(blocflex, key, v);
+            }
+        });
 
-        input.setAttribute("id", key);
-        if( v.type ) { input.setAttribute("type", v.type); }
-        if( v.name ) { input.setAttribute("name", v.name); }
-        if( v.placeholder ) { input.setAttribute("placeholder", v.placeholder); }
-        if( v.value ) { input.setAttribute("value", v.value); }
-        if( v.required ) { input.setAttribute("required", v.required); }
-        if( v.pattern ) { input.setAttribute("pattern", v.pattern); }
-        if( v.min ) { input.setAttribute("min", v.min); }
-        if( v.max ) { input.setAttribute("max", v.max); }
-        if( v.step ) { input.setAttribute("step", v.step); }
+        blocform.appendChild(blocflex);
+    }
 
-        //TODO : traiter le cas d'un select ou des autre champs spécifiques
+    createColonne(blocform, key, v)
+    {
+        const colonne = document.createElement('div');
+        colonne.setAttribute("class", v.class);
 
-        label.appendChild(input);
-        section.appendChild(label);
+        Object.entries(v).forEach(([key,v])=>{
+            if(key.includes("sous-colonne")){
+                this.createSousColonne(colonne, key, v);
+            } else {
+                this.createInput(colonne, key, v);
+            }
+        });
+
+        blocform.appendChild(colonne);
+    }
+
+    createSousColonne(colonne, key, v)
+    {
+        const sousColonne = document.createElement('div');
+        if(key.includes('droite')){
+            sousColonne.setAttribute("class", 'deuxchamps droite');
+        } else {
+            sousColonne.setAttribute("class", 'deuxchamps');
+        }
+
+        Object.entries(v).forEach(([key,v])=>{
+            this.createInput(sousColonne, key, v);
+        });
+
+        colonne.appendChild(sousColonne);
+    }
+
+    createInput(section, key, v)
+    {
+        console.log(v);
+        if(v.type === "select"){
+            this.createSelect(section, key, v);
+        } else if(key !== 'class') {
+            const input = document.createElement(v.balise);
+
+            input.setAttribute("id", key);
+            if( v.type ) { input.setAttribute("type", v.type); }
+            if( v.name ) { input.setAttribute("name", v.name); }
+            if( v.placeholder ) { input.setAttribute("placeholder", v.placeholder); }
+            if( v.value ) { input.setAttribute("value", v.value); }
+            if( v.required ) { input.setAttribute("required", v.required); }
+            if( v.pattern ) { input.setAttribute("pattern", v.pattern); }
+            if( v.min ) { input.setAttribute("min", v.min); }
+            if( v.max ) { input.setAttribute("max", v.max); }
+            if( v.step ) { input.setAttribute("step", v.step); }
+            if( v.class ) { input.setAttribute("class", v.class); }
+            if( v.text ) { input.innerText = v.text; }
+
+            //TODO : traiter le cas d'un select ou des autre champs spécifiques
+
+            section.appendChild(input);
+        }
     }
 
     createSelect(section, key, v)
     {
         const select = document.createElement('select');
-        const label = document.createElement('label');
         const options = v.options;
-        label.innerHTML = v.label;
 
         if( v.id ) { select.setAttribute("id", v.id); }
         if( v.name ) { select.setAttribute("name", v.name); }
@@ -139,8 +216,15 @@ class ClasslocFormulaire
             select.add(opt);
         });
 
-        label.appendChild(select);
-        section.appendChild(label);
+        section.appendChild(select);
+    }
+
+    createText(section, v)
+    {
+        const sectionText = document.createElement(v.balise);
+        sectionText.setAttribute("class", v.class);
+        sectionText.innerText = v.text;
+        section.appendChild(sectionText);
     }
 
     setupForm () {
@@ -148,373 +232,568 @@ class ClasslocFormulaire
         // TODO: mettre les bons champs que tu m'as envoyé
 
         return {
-            'proprietaire' : {
+            'informations-demandeur': {
                 'title': {
-                    'title': '1. Informations Personnelles',
-                    'id': 'cl_titre'
-                },
-                'content' : {
-                    'chapter_1': {
-                        'type': 'chapter',
-                        'chapter': 'Propriétaire',
-                        'id': 'chapter_1'
-                    },
-                    'civilite' : {
-                        'type': 'select',
-                        'label': 'Civilité*',
-                        'required': 'required',
-                        'options': [
-                            {'value': "", 'label': 'Sélectionnez votre civilité'},
-                            {'value': 'Monsieur', 'label': 'Monsieur'},
-                            {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
-                            {'value': 'Madame', 'label': 'Madame'},
-                            {'value': 'Mademoiselle', 'label': 'Mademoiselle'},
-                            {'value': 'ND', 'label': 'ND'},
-                        ],
-                        'class': 'form-control'
-                    },
-                    'nom' : {
-                        'type': 'text',
-                        'label': 'Nom*',
-                        'required': 'required',
-                        'placeholder': 'Nom',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'prenom' : {
-                        'type': 'text',
-                        'label': 'Prénom*',
-                        'required': 'required',
-                        'placeholder': 'Prénom',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'adresse' : {
-                        'type': 'text',
-                        'label': 'Adresse*',
-                        'required': 'required',
-                        'placeholder': 'Adresse',
-                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'code_postal' : {
-                        'type': 'text',
-                        'label': 'Code postal*',
-                        'required': 'required',
-                        'placeholder': 'Code postal',
-                        'pattern': '^[0-9]{5}$',
-                        'class': 'form-control'
-                    },
-                    'ville' : {
-                        'type': 'text',
-                        'label': 'Commune*',
-                        'required': 'required',
-                        'placeholder': 'Commune',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'pays' : {
-                        'type': 'text',
-                        'label': 'Pays*',
-                        'required': 'required',
-                        'placeholder': 'Pays',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'telephone' : {
-                        'type': 'text',
-                        'label': 'Téléphone principal*',
-                        'required': 'required',
-                        'placeholder': 'Téléphone principal',
-                        'pattern': '^[0-9]{10}$',
-                        'class': 'form-control'
-                    },
-                    'telephone2' : {
-                        'type': 'text',
-                        'label': 'Téléphone secondaire',
-                        'placeholder': 'Téléphone secondaire',
-                        'pattern': '^[0-9]{10}$',
-                        'class': 'form-control'
-                    },
-                    'email' : {
-                        'type': 'email',
-                        'label': 'Adresse courriel*',
-                        'required': 'required',
-                        'placeholder': 'exemple@gmail.com'
-                    },
-                    'chapter_2': {
-                        'type': 'chapter',
-                        'chapter': 'Mandataire (si le propriétaire n\'est pas présent le jour de la visite)',
-                        'id': 'chapter_2'
-                    },
-                    'civilite_mandataire' : {
-                        'type': 'select',
-                        'label': 'Civilité',
-                        'required': 'required',
-                        'options': [
-                            {'value': "", 'label': 'Sélectionnez votre civilité'},
-                            {'value': 'Monsieur', 'label': 'Monsieur'},
-                            {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
-                            {'value': 'Madame', 'label': 'Madame'},
-                            {'value': 'Mademoiselle', 'label': 'Mademoiselle'},
-                            {'value': 'ND', 'label': 'ND'},
-                        ],
-                        'class': 'form-control'
-                    },
-                    'nom_mandataire' : {
-                        'type': 'text',
-                        'label': 'Nom',
-                        'required': 'required',
-                        'placeholder': 'Nom',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'prenom_mandataire' : {
-                        'type': 'text',
-                        'label': 'Prénom',
-                        'required': 'required',
-                        'placeholder': 'Prénom',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'raison_sociale_mandataire': {
-                        'type': 'text',
-                        'label': 'Raison Sociale',
-                        'placeholder': 'Raison Sociale',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'adresse_mandataire' : {
-                        'type': 'text',
-                        'label': 'Adresse',
-                        'required': 'required',
-                        'placeholder': 'Adresse',
-                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'code_postal_mandataire' : {
-                        'type': 'text',
-                        'label': 'Code postal',
-                        'required': 'required',
-                        'placeholder': 'Code postal',
-                        'pattern': '^[0-9]{5}$',
-                        'class': 'form-control'
-                    },
-                    'ville_mandataire' : {
-                        'type': 'text',
-                        'label': 'Ville',
-                        'required': 'required',
-                        'placeholder': 'Commune',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'pays_mandataire' : {
-                        'type': 'text',
-                        'label': 'Pays',
-                        'required': 'required',
-                        'placeholder': 'Pays',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'telephone_mandataire' : {
-                        'type': 'text',
-                        'label': 'Téléphone',
-                        'required': 'required',
-                        'placeholder': 'Téléphone',
-                        'pattern': '^[0-9]{10}$',
-                        'class': 'form-control'
-                    },
-                    'email_mandataire' : {
-                        'type': 'email',
-                        'label': 'Adresse courriel',
-                        'required': 'required',
-                        'placeholder': 'exemple@gmail.com'
-                    }
-                }
-            },
-            'hebergement': {
-                'title': {
-                    'title': '2. Informations Meublé',
-                    'id': 'cl_titre'
-                },
-                'content' : {
-                    'chapter_3': {
-                        'type': 'chapter',
-                        'chapter': 'Identification',
-                        'id': 'chapter_3'
-                    },
-                    'nom_du_batiment' : {
-                        'type': 'text',
-                        'label': "Nom du meublé (Précisez bâtiment et n° d'appartement)",
-                        'placeholder': "Nom du meublé",
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'type_de_logement_du_meuble' : {
-                        'type': 'select',
-                        'label': 'Type de logement du meublé*',
-                        'required': 'required',
-                        'options': [
-                            {'value': "", 'label': 'Sélectionnez le type de logement du meublé'},
-                            {'value': 'Appartement', 'label': 'Appartement'},
-                            {'value': 'Appartement Studio', 'label': 'Appartement Studio'},
-                            {'value': 'Studio', 'label': 'Studio'},
-                            {'value': 'Studio Mezzanine', 'label': 'Studio Mezzanine'},
-                            {'value': 'Villa', 'label': 'Villa'},
-                            {'value': 'Chalet', 'label': 'Chalet'},
-                            {'value': '1/2 Chalet', 'label': '1/2 Chalet'},
-                            {'value': 'Ferme', 'label': 'Ferme'},
-                            {'value': 'Maison', 'label': 'Maison'},
-                            {'value': 'Studio Cabine', 'label': 'Studio Cabine'},
-                            {'value': 'Chambre', 'label': 'Chambre'},
-                            {'value': 'Autre', 'label': 'Autre'}
-                        ],
-                        'class': 'form-control'
-                    },
-                    'etage' : {
-                        'type': 'select',
-                        'label': 'Etage*',
-                        'required': 'required',
-                        'options': [
-                            {'value': "", 'label': 'Sélectionnez l\'étage'},
-                            {'value': 0, 'label': 'RDC / RDJ'},
-                            {'value': 1, 'label': '1'},
-                            {'value': 2, 'label': '2'},
-                            {'value': 3, 'label': '3'},
-                            {'value': 4, 'label': '4'}
-                        ],
-                        'class': 'form-control'
-                    },
-                    'adresse_du_meuble' : {
-                        'type': 'text',
-                        'label': 'Adresse*',
-                        'required': 'required',
-                        'placeholder': 'Adresse',
-                        'pattern': '^[0-9]{1,3} [a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'ville' : {
-                        'type': 'text',
-                        'label': 'Commune*',
-                        'required': 'required',
-                        'placeholder': 'Commune',
-                        'pattern': '^[a-zA-Z]{1,20}$',
-                        'class': 'form-control'
-                    },
-                    'surface_totale' : {
-                        'type': 'number',
-                        'label': 'Surface totale de l’hébergement (en m2)',
-                        'required': '',
-                        'placeholder': 'Surface totale de l’hébergement (en m2)',
-                        'min': 0,
-                        'max': 100,
-                        'step': ".01",
-                        'class': 'form-control'
-                    },
-                    'surface_hsdb' : {
-                        'type': 'number',
-                        'label': 'Surface hors salle de bain et toilettes (en m2)',
-                        'required': '',
-                        'placeholder': 'Surface hors salle de bain et toilettes (en m2)',
-                        'min': 0,
-                        'max': 100,
-                        'step': ".01",
-                        'class': 'form-control'
-                    },
-                    'nombre_de_pieces' : {
-                        'type': 'number',
-                        'label': 'Nombre de pièces composant le meublé*',
-                        'required': 'required',
-                        'placeholder': 'Nombre de pièces composant le meublé',
-                        'min': 1,
-                        'max': 100,
-                        'class': 'form-control'
-                    },
-                    'nombre_de_personne_classees' : {
-                        'type': 'number',
-                        'label': 'Nombre de personne classées*',
-                        'required': 'required',
-                        'placeholder': 'Nombre de personne classées',
-                        'min': 1,
-                        'max': 100,
-                        'class': 'form-control'
-                    },
-                    'chapter_4': {
-                        'type': 'chapter',
-                        'chapter': 'Classement',
-                        'id': 'chapter_4'
-                    },
-                    'classement_actuel' : {
-                        'type': 'select',
-                        'label': 'Classement actuel de votre hébergement*',
-                        'required': 'required',
-                        'options': [
-                            {'value': "", 'label': 'Sélectionnez le classement actuel'},
-                            {'value': 0, 'label': 'Non classé'},
-                            {'value': 1, 'label': '1 étoile'},
-                            {'value': 2, 'label': '2 étoiles'},
-                            {'value': 3, 'label': '3 étoiles'},
-                            {'value': 4, 'label': '4 étoiles'},
-                            {'value': 5, 'label': '5 étoiles'}
-                        ],
-                        'class': 'form-control'
-                    },
-                    'classement_souhaite' : {
-                        'type': 'select',
-                        'label': 'Classement demandé*',
-                        'required': 'required',
-                        'options': [
-                            {'value': "", 'label': 'Sélectionnez le classement souhaité'},
-                            {'value': 0, 'label': 'Ne sait pas'},
-                            {'value': 1, 'label': '1 étoile'},
-                            {'value': 2, 'label': '2 étoiles'},
-                            {'value': 3, 'label': '3 étoiles'},
-                            {'value': 4, 'label': '4 étoiles'},
-                            {'value': 5, 'label': '5 étoiles'}
-                        ],
-                        'class': 'form-control'
-                    },
-                }
-            },
-            'tarif': {
-                'title': {
-                    'title': '3. Modalités',
-                    'id': 'cl_titre'
+                    'title': ' Informations Demandeur',
+                    'page1': 'active',
+                    'page2': '',
+                    'page3': '',
+                    'id': 'cl_titre',
+                    'class': 'informations-demandeur',
+                    'notice': 'Ces champs sont indicatifs. L\'opérateur de classement vérifiera et/ou ajoutera les champs manquants lors de la visite d\'inspection.',
+                    'balise': 'h2'
                 },
                 'content': {
-                    'chapter_5': {
-                        'type': 'chapter',
-                        'chapter': 'Tarif',
-                        'id': 'chapter_5'
+                    'blocform': {
+                        'blocflex': {
+                            'colonne-gauche': {
+                                'class': 'colonne colonne-gauche',
+                                'sous-colonne-1': {
+                                    'civilite': {
+                                        'type': 'select',
+                                        'required': 'required',
+                                        'options': [
+                                            {'value': "", 'label': 'Civilité'},
+                                            {'value': 'Monsieur', 'label': 'Monsieur'},
+                                            {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
+                                            {'value': 'Madame', 'label': 'Madame'},
+                                            {'value': 'Mademoiselle', 'label': 'Mademoiselle'},
+                                            {'value': 'ND', 'label': 'ND'},
+                                        ],
+                                        'id': 'civilite',
+                                        'name': 'civilite',
+                                        'class': 'form-control'
+                                    },
+                                    'raison': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'placeholder': 'Raison Sociale',
+                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'id': 'raison',
+                                        'name': 'raison',
+                                        'class': 'form-control'
+                                    },
+                                    'nom': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'placeholder': 'Nom',
+                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'id': 'nom',
+                                        'name': 'nom',
+                                        'class': 'form-control'
+                                    },
+                                    'prenom': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'placeholder': 'Prénom',
+                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'id': 'prenom',
+                                        'name': 'prenom',
+                                        'class': 'form-control'
+                                    },
+                                },
+                                'siret': {
+                                    'balise': 'input',
+                                    'type': 'text',
+                                    'placeholder': 'Ajouter un SIRET/SIREN (optionnel)',
+                                    'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}',
+                                    'id': 'siret',
+                                    'name': 'siret',
+                                    'class': 'form-control'
+                                },
+                                'sous-colonne-2': {
+                                    'email': {
+                                        'balise': 'input',
+                                        'type': 'email',
+                                        'required': 'required',
+                                        'placeholder': 'Mail principal',
+                                        'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}',
+                                        'id': 'email',
+                                        'name': 'email',
+                                        'class': 'form-control'
+                                    },
+                                    'tel': {
+                                        'balise': 'input',
+                                        'type': 'tel',
+                                        'required': 'required',
+                                        'placeholder': 'Téléphone principal',
+                                        'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
+                                        'id': 'tel',
+                                        'name': 'tel',
+                                        'class': 'form-control'
+                                    },
+                                }
+                            },
+                            'colonne-droite': {
+                                'class': 'colonne colonne-droite',
+                                'adresse': {
+                                    'balise': 'input',
+                                    'type': 'text',
+                                    'required': 'required',
+                                    'placeholder': 'Adresse',
+                                    'id': 'adresse',
+                                    'name': 'adresse',
+                                    'class': 'form-control'
+                                },
+                                'complement-ad': {
+                                    'balise': 'input',
+                                    'type': 'text',
+                                    'placeholder': 'Complément d\'adresse',
+                                    'id': 'complement-ad',
+                                    'name': 'complement-ad',
+                                    'class': 'form-control'
+                                },
+                                'sous-colonne-1': {
+                                    'code-postal': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'required': 'required',
+                                        'placeholder': 'Code postal',
+                                        'pattern': '[0-9]{5}',
+                                        'minlength': "5",
+                                        'maxlength': "5",
+                                        'id': 'code-postal',
+                                        'name': 'code-postal',
+                                        'class': 'form-control'
+                                    },
+                                    'pays': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'required': 'required',
+                                        'placeholder': 'Pays',
+                                        'id': 'pays',
+                                        'name': 'pays',
+                                        'class': 'form-control'
+                                    },
+                                },
+                                'commune': {
+                                    'balise': 'input',
+                                    'type': 'text',
+                                    'required': 'required',
+                                    'placeholder': 'Nom de la commune',
+                                    'id': 'commune',
+                                    'name': 'commune',
+                                    'class': 'form-control'
+                                },
+                                'sous-colonne-droite': {
+                                    'back': {
+                                        'balise': 'button',
+                                        'text': '< Retour',
+                                        'class': 'back'
+                                    },
+                                    'next': {
+                                        'balise': 'input',
+                                        'type': 'submit',
+                                        'value': '+ Passez à l\'étape 2',
+                                        'class': 'next'
+                                    }
+                                }
+                            },
+                        },
                     },
-                    'tarif' : {
-                        'type': 'number',
-                        'label': 'Suivant les spécificités de votre hébergement, la visite de classement par %nom de l’organisme% ' +
-                            'vous sera facturée %prix% Euros. La complétion de cette présente demande n’engage en rien les deux parties.',
-                        'required': 'required',
-                        'min': 0,
-                        'max': 100,
-                        'class': 'form-control'
+
+                }
+            },
+            'informations-hebergement': {
+                'title': {
+                    'title': ' Informations Hébergement',
+                    'page1': '',
+                    'page2': 'active',
+                    'page3': '',
+                    'id': 'cl_titre',
+                    'class': 'informations-hebergement',
+                    'balise': 'h2'
+                },
+                'content': {
+                    'not-proprietaire': {
+                        'balise': 'button',
+                        'text': '+ Le demandeur n\'est pas le propriétaire',
+                        'class': 'not-proprietaire'
                     },
-                    'chapter_6': {
-                        'type': 'chapter',
-                        'chapter': 'Acceptation',
-                        'id': 'chapter_6'
+                    'blocform-1': {
+                        'blocflex': {
+                            'sub-title-1': {
+                                'subTitle': ' Information du propriétaire',
+                                'class': 'sub-title',
+                                'balise': 'h3'
+                            },
+                            'colonne-gauche': {
+                                'class': 'colonne colonne-gauche pt0',
+                                'sous-colonne-1': {
+                                    'civilite-hebergeur': {
+                                        'type': 'select',
+                                        'required': 'required',
+                                        'options': [
+                                            {'value': "", 'label': 'Civilité'},
+                                            {'value': 'Monsieur', 'label': 'Monsieur'},
+                                            {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
+                                            {'value': 'Madame', 'label': 'Madame'},
+                                            {'value': 'Mademoiselle', 'label': 'Mademoiselle'},
+                                            {'value': 'ND', 'label': 'ND'},
+                                        ],
+                                        'id': 'civilite-hebergeur',
+                                        'name': 'civilite-hebergeur',
+                                        'class': 'form-control'
+                                    },
+                                    'raison-hebergeur': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'placeholder': 'Raison Sociale',
+                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'id': 'raison-hebergeur',
+                                        'name': 'raison-hebergeur',
+                                        'class': 'form-control'
+                                    },
+                                    'nom-hebergeur': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'placeholder': 'Nom',
+                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'id': 'nom-hebergeur',
+                                        'name': 'nom-hebergeur',
+                                        'class': 'form-control'
+                                    },
+                                    'prenom-hebergeur': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'placeholder': 'Prénom',
+                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'id': 'prenom-hebergeur',
+                                        'name': 'prenom-hebergeur',
+                                        'class': 'form-control'
+                                    },
+                                },
+                                'siret-hebergeur': {
+                                    'balise': 'input',
+                                    'type': 'text',
+                                    'placeholder': 'Ajouter un SIRET/SIREN (optionnel)',
+                                    'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}',
+                                    'id': 'siret-hebergeur',
+                                    'name': 'siret-hebergeur',
+                                    'class': 'form-control'
+                                },
+                                'sous-colonne-2': {
+                                    'email-hebergeur': {
+                                        'balise': 'input',
+                                        'type': 'email',
+                                        'required': 'required',
+                                        'placeholder': 'Mail principal',
+                                        'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}',
+                                        'id': 'email-hebergeur',
+                                        'name': 'email-hebergeur',
+                                        'class': 'form-control'
+                                    },
+                                    'tel-hebergeur': {
+                                        'balise': 'input',
+                                        'type': 'tel',
+                                        'required': 'required',
+                                        'placeholder': 'Téléphone principal',
+                                        'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
+                                        'id': 'tel-hebergeur',
+                                        'name': 'tel-hebergeur',
+                                        'class': 'form-control'
+                                    },
+                                }
+                            },
+                            'colonne-droite': {
+                                'class': 'colonne colonne-droite pt0',
+                                'adresse-hebergeur': {
+                                    'balise': 'input',
+                                    'type': 'text',
+                                    'required': 'required',
+                                    'placeholder': 'Adresse',
+                                    'id': 'adresse-hebergeur',
+                                    'name': 'adresse-hebergeur',
+                                    'class': 'form-control'
+                                },
+                                'complement-ad': {
+                                    'balise': 'input',
+                                    'type': 'text',
+                                    'placeholder': 'Complément d\'adresse',
+                                    'id': 'complement-ad',
+                                    'name': 'complement-ad',
+                                    'class': 'form-control'
+                                },
+                                'sous-colonne-1': {
+                                    'code-postal-hebergeur': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'required': 'required',
+                                        'placeholder': 'Code postal',
+                                        'pattern': '[0-9]{5}',
+                                        'minlength': "5",
+                                        'maxlength': "5",
+                                        'id': 'code-postal-hebergeur',
+                                        'name': 'code-postal-hebergeur',
+                                        'class': 'form-control'
+                                    },
+                                    'pays-hebergeur': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'required': 'required',
+                                        'placeholder': 'Pays',
+                                        'id': 'pays-hebergeur',
+                                        'name': 'pays-hebergeur',
+                                        'class': 'form-control'
+                                    },
+                                },
+                                'commune-hebergeur': {
+                                    'balise': 'input',
+                                    'type': 'text',
+                                    'required': 'required',
+                                    'placeholder': 'Nom de la commune',
+                                    'id': 'commune-hebergeur',
+                                    'name': 'commune-hebergeur',
+                                    'class': 'form-control'
+                                }
+                            },
+                        },
                     },
-                    'demandeur_check_ref_atout_france' : {
-                        'type': 'checkbox',
-                        'label': 'Le demandeur déclare avoir pris préalablement connaissance du référentiel détaillant les critères de classement des meublés de tourisme publié par Atout France.',
-                        'class': 'form-control',
-                        'required': 'required'
-                    },
-                    'check_validate' : {
-                        'type': 'checkbox',
-                        'label': 'En validant cette demande j\'accepte les mentions légales du site et accepte être contacté-e à propos de ma demande.',
-                        'class': 'form-control',
-                        'required': 'required'
+                    'blocform-2': {
+                        'blocflex-1': {
+                            'sub-title-1': {
+                                'subTitle': ' Information de l\'hébergement',
+                                'class': 'sub-title',
+                                'balise': 'h3'
+                            },
+                            'colonne-gauche': {
+                                'class': 'colonne colonne-gauche pt0 pb0',
+                                'nom-hebergement': {
+                                    'balise': 'input',
+                                    'type': 'text',
+                                    'placeholder': 'Nom',
+                                    'pattern': '^[a-zA-Z]{1,20}$',
+                                    'id': 'nom-hebergement',
+                                    'name': 'nom-hebergement',
+                                    'class': 'form-control'
+                                },
+                                'sous-colonne-1': {
+                                    'adresse-hebergement': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'required': 'required',
+                                        'placeholder': 'Adresse',
+                                        'id': 'adresse-hebergement',
+                                        'name': 'adresse-hebergement',
+                                        'class': 'form-control'
+                                    },
+                                    'complement-ad': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'placeholder': 'Complément d\'adresse',
+                                        'id': 'complement-ad-hebergement',
+                                        'name': 'complement-ad-hebergement',
+                                        'class': 'form-control'
+                                    },
+                                }
+                            },
+                            'colonne-droite': {
+                                'class': 'colonne colonne-droite pt0 pb0',
+                                'sous-colonne-1': {
+                                    'departement-hebergement': {
+                                        'type': 'select',
+                                        'required': 'required',
+                                        'options': [
+                                            {'value': "", 'label': 'Département'},
+                                            {'value': '1', 'label': '1'},
+                                            {'value': '2', 'label': '2'},
+                                            {'value': '3', 'label': '3'}
+                                        ],
+                                        'id': 'departement-hebergement',
+                                        'name': 'departement-hebergement',
+                                        'class': 'form-control'
+                                    },
+                                    'commune-hebergement': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'required': 'required',
+                                        'placeholder': 'Nom de la commune',
+                                        'id': 'commune-hebergement',
+                                        'name': 'commune-hebergement',
+                                        'class': 'form-control'
+                                    }
+                                },
+                                'sous-colonne-2': {
+                                    'tel-hebergement': {
+                                        'balise': 'input',
+                                        'type': 'tel',
+                                        'required': 'required',
+                                        'placeholder': 'Téléphone',
+                                        'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
+                                        'id': 'tel-hebergeur',
+                                        'name': 'tel-hebergeur',
+                                        'class': 'form-control'
+                                    },
+                                    'etage-hebergement': {
+                                        'type': 'select',
+                                        'required': 'required',
+                                        'options': [
+                                            {'value': "", 'label': 'Étage'},
+                                            {'value': '0', 'label': 'RDC / RDJ'},
+                                            {'value': '1', 'label': '1'},
+                                            {'value': '2', 'label': '2'},
+                                            {'value': '3', 'label': '3'},
+                                            {'value': '4', 'label': '4 et plus'}
+                                        ],
+                                        'id': 'etage-hebergement',
+                                        'name': 'etage-hebergement',
+                                        'class': 'form-control'
+                                    },
+                                },
+                            },
+                        },
+                        'blocflex-2': {
+                            'sub-title-1': {
+                                'subTitle': ' Identification de l\'hébergement',
+                                'class': 'sub-title',
+                                'balise': 'h3'
+                            },
+                            'colonne-gauche': {
+                                'class': 'colonne colonne-gauche pt0',
+                                'type-hebergement': {
+                                    'type': 'select',
+                                    'required': 'required',
+                                    'options': [
+                                        {'value': "", 'label': 'Type de logement du meublé'},
+                                        {'value': 'appartement', 'label': 'Appartement'},
+                                        {'value': 'appartement-studio', 'label': 'Appartement studio'},
+                                        {'value': 'studio', 'label': 'Studio'},
+                                        {'value': 'studio-mezzanine', 'label': 'Studio mezzanine'},
+                                        {'value': 'villa', 'label': 'Villa'},
+                                        {'value': 'chalet', 'label': 'Chalet'},
+                                        {'value': 'demi-chalet', 'label': '1/2 Chalet'},
+                                        {'value': 'ferme', 'label': 'Ferme'},
+                                        {'value': 'maison', 'label': 'Maison'},
+                                        {'value': 'studio-cabine', 'label': 'Studio cabine'},
+                                        {'value': 'chambre', 'label': 'Chambre'},
+                                        {'value': 'autre', 'label': 'Autre'}
+                                    ],
+                                    'id': 'type-hebergement',
+                                    'name': 'type-hebergement',
+                                    'class': 'form-control'
+                                },
+                                'capacite-hebergement': {
+                                    'balise': 'input',
+                                    'type': 'number',
+                                    'required': 'required',
+                                    'placeholder': 'Capacité classée demandée',
+                                    'id': 'capacite-hebergement',
+                                    'name': 'capacite-hebergement',
+                                    'class': 'form-control'
+                                },
+                                'nbpieces-hebergement': {
+                                    'balise': 'input',
+                                    'type': 'number',
+                                    'required': 'required',
+                                    'placeholder': 'Nombre de pièces composant le meublé',
+                                    'id': 'nbpieces-hebergement',
+                                    'name': 'nbpieces-hebergement',
+                                    'class': 'form-control'
+                                },
+                                'nbchambre-hebergement': {
+                                    'balise': 'input',
+                                    'type': 'number',
+                                    'required': 'required',
+                                    'placeholder': 'Nombre de chambre(s)/cabine(s)',
+                                    'id': 'nbchambre-hebergement',
+                                    'name': 'nbchambre-hebergement',
+                                    'class': 'form-control'
+                                }
+                            },
+                            'colonne-droite': {
+                                'class': 'colonne colonne-droite pt0',
+                                'classement-hebergement': {
+                                    'type': 'select',
+                                    'required': 'required',
+                                    'options': [
+                                        {'value': "", 'label': 'Classement actuel'},
+                                        {'value': 'non-classe', 'label': 'Non-classé'},
+                                        {'value': '1etoile', 'label': '1 ★'},
+                                        {'value': '2etoiles', 'label': '2 ★'},
+                                        {'value': '3etoiles', 'label': '3 ★'},
+                                        {'value': '4etoiles', 'label': '4 ★'},
+                                        {'value': '5etoiles', 'label': '5 ★'},
+                                        {'value': 'noloso', 'label': 'Ne sait pas'},
+                                    ],
+                                    'id': 'classement-hebergement',
+                                    'name': 'classement-hebergement',
+                                    'class': 'form-control'
+                                },
+                                'surface-hebergement': {
+                                    'balise': 'input',
+                                    'type': 'number',
+                                    'step': 0.01,
+                                    'required': 'required',
+                                    'placeholder': 'Surface totale',
+                                    'id': 'surface-hebergement',
+                                    'name': 'surface-hebergement',
+                                    'class': 'form-control'
+                                },
+                                'surface-ss-sdb-hebergement': {
+                                    'balise': 'input',
+                                    'type': 'number',
+                                    'step': 0.01,
+                                    'required': 'required',
+                                    'placeholder': 'Surface hors salle de bain et WC',
+                                    'id': 'surface-ss-sdb-hebergement',
+                                    'name': 'surface-ss-sdb-hebergement',
+                                    'class': 'form-control'
+                                },
+                                'sous-colonne-droite': {
+                                    'back': {
+                                        'balise': 'button',
+                                        'text': '< Retour à l\'étape 1',
+                                        'class': 'back'
+                                    },
+                                    'next': {
+                                        'balise': 'input',
+                                        'type': 'submit',
+                                        'value': '+ Finaliser',
+                                        'class': 'next'
+                                    }
+                                }
+                            },
+                        },
                     }
                 }
-            }
+            },
+            'tarif-prestation': {
+                'title': {
+                    'title': ' Tarif prestation',
+                    'page1': '',
+                    'page2': '',
+                    'page3': 'active',
+                    'id': 'cl_titre',
+                    'class': 'tarif-prestation',
+                    'balise': 'h2'
+                },
+                'content': {
+                    'blocform': {
+                        'sub-title': {
+                            'subTitle': ' Tarif de la prestation',
+                            'class': 'sub-title',
+                            'balise': 'h4'
+                        },
+                        'text': {
+                            'text': '150 €',
+                            'class': 'tarif',
+                            'balise': 'p'
+                        },
+                        'next': {
+                            'balise': 'input',
+                            'type': 'submit',
+                            'value': '+ Valider la demande',
+                            'class': 'valid'
+                        },
+                        'back': {
+                            'balise': 'button',
+                            'text': '< Retour à l\'étape 2',
+                            'class': 'back'
+                        }
+                    },
+
+                }
+            },
         };
     }
 

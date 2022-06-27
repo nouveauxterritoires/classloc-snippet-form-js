@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Classement</title>
+        <link rel="icon" type="image/gif" href="" />
+        <link rel="stylesheet"  type="text/css" href="css/style.css">
+    </head>
+
+    <body id="classement">
+
+        <form action="" method="get" class="classement">
+            <section class=informations-demandeur">
+                <h2>
+                    Informations demandeur
+                    <div class="pagination">
+                        <span class="active">1</span>
+                        <span>2</span>
+                        <span>&#x2713;</span>
+                    </div>
+                </h2>
+    
+                <p>Ces champs sont indicatifs. L'opérateur de classement vérifiera et/ou ajoutera les champs manquants lors de la visite d'inspection.</p>
+    
+                <div class="blocform">
+                    <div class="blocflex">
+                        <div class="colonne">
+                            <div class="deuxchamps">
+                                <select name="civilite" id="civilite" required>
+                                    <option value="">Civilité</option>
+                                    <option value="monsieur-madame">Monsieur et Madame</option>
+                                    <option value="monsieur">Monsieur</option>
+                                    <option value="madame">Madame</option>
+                                    <option value="nd">ND</option>
+                                </select>
+                                <input type="text" name="raison" id="raison" placeholder="Raison sociale">
+                                <input type="text" name="nom" id="nom" placeholder="Nom" required>
+                                <input type="text" name="prenom" id="prenom" placeholder="Prénom" required>
+                            </div>
+                            <input type="text" name="siret" id="siret" placeholder="Ajouter un SIRET/SIREN (optionnel)">
+                            <div class="deuxchamps">
+                                <input type="email" name="email" id="email" pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}" placeholder="Mail principal" required>
+                                <input type="tel" name="telephone" id="telephone" pattern="^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$" placeholder="Téléphone principal" minlength="10" maxlength="10" required>
+                            </div>
+                        </div>
+    
+                        <div class="colonne">
+                            <input type="text" name="adresse" id="adresse" placeholder="Adresse" required>
+                            <input type="text" name="complement-ad" id="complement-ad" placeholder="Complément d'adresse">
+                            <div class="deuxchamps">
+                                <input type="text" name="code-postal" id="code-postal" pattern="[0-9]{5}" placeholder="Code postal" minlength="5" maxlength="5" required>
+                                <input type="text" name="pays" id="pays" placeholder="Pays" required>
+                            </div>
+                            <input type="text" name="commune" id="commune" placeholder="Nom de la commune" required>
+    
+                            <div class="deuxchamps droite">
+                                <button type="text" value="Retour">&#x2039; Retour</button>
+                                <input type="submit" value="&#x2b; Passez à l'étape 2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+    
+            <section class=informations-hebergement">
+                <h2>
+                    Informations hébergement
+                    <div class="pagination">
+                        <span>1</span>
+                        <span class="active">2</span>
+                        <span>&#x2713;</span>
+                    </div>
+                </h2>
+            
+                <p><button type="text" value="Retour">&#x2b; Le demandeur n'est pas le propriétaire</button></p>
+        
+                <div class="blocform">
+                    <div class="blocflex">
+                        <h3>Informations du propriétaire</h3>
+                        <div class="colonne pt0">
+                            <div class="deuxchamps">
+                                <select name="civilite-hebergeur" id="civilite-hebergeur" required>
+                                    <option value="">Civilité</option>
+                                    <option value="monsieur-madame">Monsieur et Madame</option>
+                                    <option value="monsieur">Monsieur</option>
+                                    <option value="madame">Madame</option>
+                                    <option value="nd">ND</option>
+                                </select>
+                                <input type="text" name="raison-hebergeur" id="raison-hebergeur" placeholder="Raison sociale">
+                                <input type="text" name="nom-hebergeur" id="nom-hebergeur" placeholder="Nom" required>
+                                <input type="text" name="prenom-hebergeur" id="prenom-hebergeur" placeholder="Prénom" required>
+                            </div>
+                            <input type="text" name="siret-hebergeur" id="siret-hebergeur" placeholder="Ajouter un SIRET/SIREN (optionnel)">
+                            <div class="deuxchamps">
+                                <input type="email" name="email-hebergeur" id="email-hebergeur" pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}" placeholder="Mail principal" required>
+                                <input type="tel" name="telephone-hebergeur" id="telephone-hebergeur" pattern="^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$" placeholder="Téléphone principal" minlength="10" maxlength="10">
+                            </div>
+                        </div>
+        
+                        <div class="colonne pt0">
+                            <input type="text" name="adresse-hebergeur" id="adresse-hebergeur" placeholder="Adresse" required>
+                            <input type="text" name="complement-ad-hebergeur" id="complement-ad-hebergeur" placeholder="Complément d'adresse">
+                            <div class="deuxchamps">
+                                <input type="text" name="code-postal-hebergeur" id="code-postal-hebergeur" pattern="[0-9]{5}" placeholder="Code postal" minlength="5" maxlength="5" required>
+                                <input type="text" name="pays-hebergeur" id="pays-hebergeur" placeholder="Pays" required>
+                            </div>
+                            <input type="text" name="commune-hebergeur" id="commune-hebergeur" placeholder="Nom de la commune" required>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="blocform">
+                    <div class="blocflex">
+                        <h3 style="content: '1'">Informations de l'hébergement</h3>
+                        <div class="colonne pt0 pb0">
+                            <input type="text" name="nom-hebergement" id="nom-hebergement" placeholder="Nom de l'hébergement" required>
+                            <div class="deuxchamps">
+                                <input type="text" name="adresse-hebergement" id="adresse-hebergement" placeholder="Adresse" required>
+                                <input type="text" name="complement-ad-hebergement" id="complement-ad-hebergement" placeholder="Complément d'adresse">
+                            </div>
+                        </div>
+        
+                        <div class="colonne pt0 pb0">
+                            <div class="deuxchamps">
+                                <select name="departement-hebergement" id="departement-hebergement" required>
+                                    <option value="">Département</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                                <input type="text" name="commune-hebergement" id="commune-hebergement" placeholder="Nom de la commune" required>
+                                <input type="tel" name="telephone-hebergement" id="telephone-hebergement" pattern="^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$" placeholder="Tél" minlength="10" maxlength="10" required>
+                                <select name="etage-hebergement" id="etage-hebergement" required>
+                                    <option value="">Étage</option>
+                                    <option value="m">RDC / RDJ</option>
+                                    <option value="mme">1</option>
+                                    <option value="autre">2</option>
+                                    <option value="autre">3</option>
+                                    <option value="autre">4 et plus</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blocflex">
+                        <h3 class="titre2">Identification de l'hébergement</h3>
+                        <div class="colonne pt0">
+                            <select name="type-hebergement" id="type-hebergement" required>
+                                <option value="">Type de logement du meublé</option>
+                                <option value="appartement">Appartement</option>
+                                <option value="appartement-studio">Appartement studio</option>
+                                <option value="studio">Studio</option>
+                                <option value="studio-mezzanine">Studio mezzanine</option>
+                                <option value="villa">Villa</option>
+                                <option value="chalet">Chalet</option>
+                                <option value="demi-chalet">1/2 Chalet</option>
+                                <option value="ferme">Ferme</option>
+                                <option value="maison">Maison</option>
+                                <option value="studio-cabine">Studio cabine</option>
+                                <option value="chambre">Chambre</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                            <input type="number" name="capacite-hebergement" id="capacite-hebergement" placeholder="Capacité classée demandée">
+                            <input type="number" name="nbpieces-hebergement" id="nbpieces-hebergement" placeholder="Nombre de pièces composant le meublé" required>
+                            <input type="number" name="nbchambre-hebergement" id="nbchambre-hebergement" placeholder="Nombre de chambre(s)/cabine(s)" required>
+                        </div>
+        
+                        <div class="colonne pt0">
+                            <select name="classement-hebergement" id="classement-hebergement" required>
+                                <option value="">Classement actuel</option>
+                                <option value="non-classe">Non classé</option>
+                                <option value="1etoile">1 &#x2605;</option>
+                                <option value="2etoiles">2 &#x2605;</option>
+                                <option value="3etoiles">3 &#x2605;</option>
+                                <option value="4etoiles">4 &#x2605;</option>
+                                <option value="5etoiles">5 &#x2605;</option>
+                                <option value="noloso">Ne sait pas</option>
+                            </select>
+                            <input type="number" name="surface-hebergement" id="surface-hebergement" placeholder="Surface totale">
+                            <input type="number" name="surface-ss-sdb-hebergement" id="surface-ss-sdb-hebergement" placeholder="Surface hors salle de bain et WC">
+                            <div class="deuxchamps droite">
+                                <button type="text" value="Retour">&#x2039; Retour à l'étape 1</button>
+                                <input type="submit" value="&#x2b; Finaliser">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <section class="tarif-prestation">
+                <h2>
+                    Tarif prestation
+                    <div class="pagination">
+                        <span>1</span>
+                        <span>2</span>
+                        <span class="active">&#x2713;</span>
+                    </div>
+                </h2>
+            
+                <div class="blocform">
+                    <h4>Tarif de la prestation</h4>
+                    <p class="tarif">
+                        150 €
+                    </p>
+                    <p>
+                        <button type="text" value="Retour">&#x2b; Valider la demande</button>
+                    </p>
+                    <div>
+                        <button type="text" value="Retour">&#x2039; Retour à l'étape 2</button>
+                    </div>
+                </div>
+            </section>
+            
+        </form>
+
+    </body>
+</html>
