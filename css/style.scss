@@ -135,6 +135,9 @@ h3 {
     background-color: $tonique;
     margin-right: 10px;
   }
+  &.notitre:before {
+    content: "";
+  }
   &.titre2:before {
     content: "2";
   }
@@ -170,6 +173,11 @@ form {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      
+      h3 {
+        width: 100%;
+        margin-top: 0;
+      }
 
       .colonne {
         width: 50%;
