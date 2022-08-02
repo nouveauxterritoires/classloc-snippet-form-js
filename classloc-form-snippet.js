@@ -827,7 +827,7 @@ class ClasslocFormulaire
                 "eligDemandee": document.getElementById("eligibilite-demandee").value,
                 "capClassee": document.getElementById('capacite-hebergement').value,
                 "nbPiecesSupp": document.getElementById('nbpieces-hebergement').value - 1, /* nbPiecesTot - 1 */
-                "price": document.getElementById('tarif').value
+                "price": parseInt(document.querySelector("#tarif").textContent)
             },
             "accommodation": {
                 "name": document.getElementById("nom-hebergement").value,
