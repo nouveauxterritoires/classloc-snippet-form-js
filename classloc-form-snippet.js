@@ -28,7 +28,7 @@ class ClasslocFormulaire
 
         form.addEventListener('submit',(e)=>{
             e.preventDefault();
-            this.sendForm(form);
+            this.sendForm();
         });
 
         document.getElementById(id).appendChild(form);
@@ -223,6 +223,7 @@ class ClasslocFormulaire
     {
         const sectionText = document.createElement(v.balise);
         sectionText.setAttribute("class", v.class);
+        sectionText.setAttribute("id", v.id);
         sectionText.innerText = v.text;
         section.appendChild(sectionText);
     }
@@ -506,12 +507,12 @@ class ClasslocFormulaire
                                     'name': 'adresse-hebergeur',
                                     'class': 'form-control'
                                 },
-                                'complement-ad': {
+                                'complement-ad-hebergeur': {
                                     'balise': 'input',
                                     'type': 'text',
                                     'placeholder': 'Complément d\'adresse',
-                                    'id': 'complement-ad',
-                                    'name': 'complement-ad',
+                                    'id': 'complement-ad-hebergeur',
+                                    'name': 'complement-ad-hebergeur',
                                     'class': 'form-control'
                                 },
                                 'sous-colonne-1': {
@@ -577,7 +578,7 @@ class ClasslocFormulaire
                                         'name': 'adresse-hebergement',
                                         'class': 'form-control'
                                     },
-                                    'complement-ad': {
+                                    'complement-ad-hebergement': {
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Complément d\'adresse',
@@ -708,15 +709,31 @@ class ClasslocFormulaire
                                     'options': [
                                         {'value': "", 'label': 'Classement actuel'},
                                         {'value': 'non-classe', 'label': 'Non-classé'},
-                                        {'value': '1etoile', 'label': '1 ★'},
-                                        {'value': '2etoiles', 'label': '2 ★'},
-                                        {'value': '3etoiles', 'label': '3 ★'},
-                                        {'value': '4etoiles', 'label': '4 ★'},
-                                        {'value': '5etoiles', 'label': '5 ★'},
-                                        {'value': 'noloso', 'label': 'Ne sait pas'},
+                                        {'value': '1', 'label': '1 ★'},
+                                        {'value': '2', 'label': '2 ★'},
+                                        {'value': '3', 'label': '3 ★'},
+                                        {'value': '4', 'label': '4 ★'},
+                                        {'value': '5', 'label': '5 ★'},
+                                        {'value': '0', 'label': 'Ne sait pas'},
                                     ],
                                     'id': 'classement-hebergement',
                                     'name': 'classement-hebergement',
+                                    'class': 'form-control'
+                                },
+                                'eligibilite-demandee': {
+                                    'type': 'select',
+                                    'required': 'required',
+                                    'options': [
+                                        {'value': "", 'label': 'Éligibilité demandée'},
+                                        {'value': '1', 'label': '1 ★'},
+                                        {'value': '2', 'label': '2 ★'},
+                                        {'value': '3', 'label': '3 ★'},
+                                        {'value': '4', 'label': '4 ★'},
+                                        {'value': '5', 'label': '5 ★'},
+                                        {'value': '0', 'label': 'Ne sait pas'},
+                                    ],
+                                    'id': 'eligibilite-demandee',
+                                    'name': 'eligibilite-demandee',
                                     'class': 'form-control'
                                 },
                                 'surface-hebergement': {
@@ -777,6 +794,7 @@ class ClasslocFormulaire
                         'text': {
                             'text': '150 €',
                             'class': 'tarif',
+                            'id': 'tarif',
                             'balise': 'p'
                         },
                         'next': {
@@ -804,56 +822,65 @@ class ClasslocFormulaire
     sendForm () {
         // TODO : Créer les routes API pour la création des demandes de classement. -> Il me faut le format de données pour les envoyer. Coté serveur, il faudrait conditionner l'enregistrements des données à la clé API ET au domaine de provencance. Par défaut c'est l'id qui sera la clé dans le POST
         const XHR = new XMLHttpRequest();
-        XHR.setRequestHeader("Accept", "application/json");
-        XHR.setRequestHeader("Authorization", "Bearer " + this.token);
-
-        // Bind l'objet FormData et l'element formulaire
-        const formData = new FormData( form );
-
-        var dataExemple = {
+        var data = {
             "request": {
-                "eligDemandee": 3,
-                "capClassee": 10,
-                "nbPiecesSupp": 12, /* nbPiecesTot - 1 */
+                "eligDemandee": document.getElementById("eligibilite-demandee").value,
+                "capClassee": document.getElementById('capacite-hebergement').value,
+                "nbPiecesSupp": document.getElementById('nbpieces-hebergement').value - 1, /* nbPiecesTot - 1 */
+                "price": document.getElementById('tarif').value
             },
             "accommodation": {
-                "name": "NT",
-                "floor": 1,
-                "type": "Studio",
-                "address": "36 rue Maille",
-                "city": "Marseille",
-                "surface": 80.3,
-                "surfaceHsdb": 76.2,
-                "nbPersonsClasse": 10,
-                "nbPiecesTot": 13,
-                "currentRanking": 2,
+                "name": document.getElementById("nom-hebergement").value,
+                "floor": document.getElementById("etage-hebergement").value,
+                "type": document.getElementById("type-hebergement").value,
+                "address": document.getElementById("adresse-hebergement").value,
+                "additionnalAddress": document.getElementById("complement-ad-hebergement").value,
+                "city": document.getElementById("commune-hebergement").value,
+                "surface": document.getElementById("surface-hebergement").value,
+                "surfaceHsdb": document.getElementById("surface-ss-sdb-hebergement").value,
+                "nbPersonsClasse": document.getElementById("capacite-hebergement").value,
+                "nbCabine": document.getElementById("nbchambre-hebergement").value,
+                "nbPiecesTot": document.getElementById("nbpieces-hebergement").value,
+                "currentRanking": document.getElementById("classement-hebergement").value,
                 "owner": {
-                    "civility": "Monsieur",
-                    "firstName": "Julien",
-                    "lastName": "Dignat",
-                    "mail": "juliend@nouveauxterritoires.fr",
-                    "phone": "09 78 63 04 29",
-                    "phone2": "06 98 07 82 20",
-                    "buisinessName": null,
-                    "address": "55 Bd Cabassud",
-                    "postalCode": 13010,
-                    "city": "Marseille",
-                    "country": "France"
+                    "civility": document.getElementById("civilite-hebergeur").value,
+                    "firstName": document.getElementById("nom-hebergeur").value,
+                    "lastName": document.getElementById("prenom-hebergeur").value,
+                    "siret": document.getElementById("siret-hebergeur").value,
+                    "mail": document.getElementById("email-hebergeur").value,
+                    "phone": document.getElementById("tel-hebergeur").value,
+                    "buisinessName": document.getElementById("raison-hebergeur").value,
+                    "address": document.getElementById("adresse-hebergeur").value,
+                    "additionnalAddress": document.getElementById("complement-ad").value,
+                    "postalCode": document.getElementById("code-postal-hebergeur").value,
+                    "city": document.getElementById("commune-hebergeur").value,
+                    "country": document.getElementById("pays-hebergeur").value
                 },
-                "applicant": { /* Concerne la partie "Mandataire", si cette partie est vide => 'applicant':{}, */
-                    "civility": null,
-                    "firstName": null,
-                    "lastName": null,
-                    "mail": "support@nouveauxterritoires.fr",
-                    "phone": "09 78 63 04 29",
-                    "buisinessName": "Nouveaux Territoires",
-                    "address": "33 rue Julia",
-                    "postalCode": "13005",
-                    "city": "Marseille",
-                    "country": "France"
+                "applicant": {
+                    "civility": document.getElementById("civilite").value,
+                    "firstName": document.getElementById("nom").value,
+                    "lastName": document.getElementById("prenom").value,
+                    "siret": document.getElementById("siret").value,
+                    "mail": document.getElementById("email").value,
+                    "phone": document.getElementById("tel").value,
+                    "buisinessName": document.getElementById("raison").value,
+                    "address": document.getElementById("adresse").value,
+                    "additionnalAddress": document.getElementById("complement-ad-hebergeur").value,
+                    "postalCode": document.getElementById("code-postal").value,
+                    "city": document.getElementById("commune").value,
+                    "country": document.getElementById("pays").value
                 }
-            }
+            },
         };
+        console.log(data);
+
+        // création de notre requête avec les données du formulaire
+        XHR.open( "POST", this.urlApi );
+
+        // Bind l'objet FormData et l'element formulaire
+
+        XHR.setRequestHeader("Accept", "application/json");
+        XHR.setRequestHeader("Authorization", "Bearer " + this.token);
 
         // En cas de succès
         XHR.addEventListener( "load", this.onSendFormSuccess(event) );
@@ -861,10 +888,7 @@ class ClasslocFormulaire
         // En cas d'erreur
         XHR.addEventListener( "error", this.onSendFormError(event) );
 
-        // création de notre requête avec les données du formulaire
-        XHR.open( "POST", this.urlApi );
-
-        XHR.send( formData );
+        XHR.send( data );
     }
 
     onSendFormSuccess (event) {
