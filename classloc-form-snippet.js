@@ -826,54 +826,56 @@ class ClasslocFormulaire
         //  Par défaut c'est l'id qui sera la clé dans le POST
         const XHR = new XMLHttpRequest();
         var data = {
-            "request": {
-                "eligDemandee": document.getElementById("eligibilite-demandee").value,
-                "capClassee": document.getElementById('capacite-hebergement').value,
-                "nbPiecesSupp": document.getElementById('nbpieces-hebergement').value - 1, /* nbPiecesTot - 1 */
-                "price": parseInt(document.querySelector("#tarif").textContent)
-            },
-            "accommodation": {
-                "name": document.getElementById("nom-hebergement").value,
-                "floor": document.getElementById("etage-hebergement").value,
-                "type": document.getElementById("type-hebergement").value,
-                "address": document.getElementById("adresse-hebergement").value,
-                "additionnalAddress": document.getElementById("complement-ad-hebergement").value,
-                "city": document.getElementById("commune-hebergement").value,
-                "surface": document.getElementById("surface-hebergement").value,
-                "surfaceHsdb": document.getElementById("surface-ss-sdb-hebergement").value,
-                "nbPersonsClasse": document.getElementById("capacite-hebergement").value,
-                "nbCabine": document.getElementById("nbchambre-hebergement").value,
-                "nbPiecesTot": document.getElementById("nbpieces-hebergement").value,
-                "currentRanking": document.getElementById("classement-hebergement").value,
-                "owner": {
-                    "civility": document.getElementById("civilite-hebergeur").value,
-                    "firstName": document.getElementById("nom-hebergeur").value,
-                    "lastName": document.getElementById("prenom-hebergeur").value,
-                    "siret": document.getElementById("siret-hebergeur").value,
-                    "mail": document.getElementById("email-hebergeur").value,
-                    "phone": document.getElementById("tel-hebergeur").value,
-                    "buisinessName": document.getElementById("raison-hebergeur").value,
-                    "address": document.getElementById("adresse-hebergeur").value,
-                    "additionnalAddress": document.getElementById("complement-ad").value,
-                    "postalCode": document.getElementById("code-postal-hebergeur").value,
-                    "city": document.getElementById("commune-hebergeur").value,
-                    "country": document.getElementById("pays-hebergeur").value
+            "data" : {
+                "request": {
+                    "eligDemandee": document.getElementById("eligibilite-demandee").value,
+                    "capClassee": document.getElementById('capacite-hebergement').value,
+                    "nbPiecesSupp": document.getElementById('nbpieces-hebergement').value - 1, /* nbPiecesTot - 1 */
+                    "price": parseInt(document.querySelector("#tarif").textContent)
                 },
-                "applicant": {
-                    "civility": document.getElementById("civilite").value,
-                    "firstName": document.getElementById("nom").value,
-                    "lastName": document.getElementById("prenom").value,
-                    "siret": document.getElementById("siret").value,
-                    "mail": document.getElementById("email").value,
-                    "phone": document.getElementById("tel").value,
-                    "buisinessName": document.getElementById("raison").value,
-                    "address": document.getElementById("adresse").value,
-                    "additionnalAddress": document.getElementById("complement-ad-hebergeur").value,
-                    "postalCode": document.getElementById("code-postal").value,
-                    "city": document.getElementById("commune").value,
-                    "country": document.getElementById("pays").value
+                "accommodation": {
+                    "name": document.getElementById("nom-hebergement").value,
+                    "floor": document.getElementById("etage-hebergement").value,
+                    "type": document.getElementById("type-hebergement").value,
+                    "address": document.getElementById("adresse-hebergement").value,
+                    "additionnalAddress": document.getElementById("complement-ad-hebergement").value,
+                    "city": document.getElementById("commune-hebergement").value,
+                    "surface": document.getElementById("surface-hebergement").value,
+                    "surfaceHsdb": document.getElementById("surface-ss-sdb-hebergement").value,
+                    "nbPersonsClasse": document.getElementById("capacite-hebergement").value,
+                    "nbCabine": document.getElementById("nbchambre-hebergement").value,
+                    "nbPiecesTot": document.getElementById("nbpieces-hebergement").value,
+                    "currentRanking": document.getElementById("classement-hebergement").value,
+                    "owner": {
+                        "civility": document.getElementById("civilite-hebergeur").value,
+                        "firstName": document.getElementById("nom-hebergeur").value,
+                        "lastName": document.getElementById("prenom-hebergeur").value,
+                        "siret": document.getElementById("siret-hebergeur").value,
+                        "mail": document.getElementById("email-hebergeur").value,
+                        "phone": document.getElementById("tel-hebergeur").value,
+                        "buisinessName": document.getElementById("raison-hebergeur").value,
+                        "address": document.getElementById("adresse-hebergeur").value,
+                        "additionnalAddress": document.getElementById("complement-ad").value,
+                        "postalCode": document.getElementById("code-postal-hebergeur").value,
+                        "city": document.getElementById("commune-hebergeur").value,
+                        "country": document.getElementById("pays-hebergeur").value
+                    },
+                    "applicant": {
+                        "civility": document.getElementById("civilite").value,
+                        "firstName": document.getElementById("nom").value,
+                        "lastName": document.getElementById("prenom").value,
+                        "siret": document.getElementById("siret").value,
+                        "mail": document.getElementById("email").value,
+                        "phone": document.getElementById("tel").value,
+                        "buisinessName": document.getElementById("raison").value,
+                        "address": document.getElementById("adresse").value,
+                        "additionnalAddress": document.getElementById("complement-ad-hebergeur").value,
+                        "postalCode": document.getElementById("code-postal").value,
+                        "city": document.getElementById("commune").value,
+                        "country": document.getElementById("pays").value
+                    }
                 }
-            },
+            }
         };
         console.log(data);
 
