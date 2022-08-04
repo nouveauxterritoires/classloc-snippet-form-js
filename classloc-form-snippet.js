@@ -820,7 +820,10 @@ class ClasslocFormulaire
     }
 
     sendForm () {
-        // TODO : Créer les routes API pour la création des demandes de classement. -> Il me faut le format de données pour les envoyer. Coté serveur, il faudrait conditionner l'enregistrements des données à la clé API ET au domaine de provencance. Par défaut c'est l'id qui sera la clé dans le POST
+        // TODO : Créer les routes API pour la création des demandes de classement. ->
+        //  Il me faut le format de données pour les envoyer.
+        //  Coté serveur, il faudrait conditionner l'enregistrements des données à la clé API ET au domaine de provencance.
+        //  Par défaut c'est l'id qui sera la clé dans le POST
         const XHR = new XMLHttpRequest();
         var data = {
             "request": {
@@ -876,9 +879,11 @@ class ClasslocFormulaire
 
         // création de notre requête avec les données du formulaire
         XHR.open( "POST", this.urlApi );
+        console.log("XHR.open : création de notre requête avec les données du formulaire");
 
         // Bind l'objet FormData et l'element formulaire
 
+        XHR.setRequestHeader('Access-Control-Allow-Headers', '*');
         XHR.setRequestHeader("Accept", "application/json");
         XHR.setRequestHeader("Authorization", "Bearer " + this.token);
 
@@ -893,11 +898,13 @@ class ClasslocFormulaire
 
     onSendFormSuccess (event) {
         // TODO : Masquer le formulaire et afficher un message de succès dans le bloc notice
+        console.log("Success !");
         console.log(event.target.responseText);
     }
 
     onSendFormError (event) {
         // TODO : Ajouter l'erreur au bloc notice prévu à cet effet
+        console.log("Une erreur s'est produite : ");
         console.log(event.target.responseText);
     }
 }
