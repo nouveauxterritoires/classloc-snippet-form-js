@@ -185,8 +185,8 @@ class ClasslocFormulaire
             if( v.name ) { input.setAttribute("name", v.name); }
             if( v.placeholder ) { input.setAttribute("placeholder", v.placeholder); }
             if( v.value ) { input.setAttribute("value", v.value); }
-            if( v.required ) { input.setAttribute("required", v.required); }
-            if( v.pattern ) { input.setAttribute("pattern", v.pattern); }
+            // if( v.required ) { input.setAttribute("required", v.required); }
+            // if( v.pattern ) { input.setAttribute("pattern", v.pattern); }
             if( v.min ) { input.setAttribute("min", v.min); }
             if( v.max ) { input.setAttribute("max", v.max); }
             if( v.step ) { input.setAttribute("step", v.step); }
@@ -820,11 +820,6 @@ class ClasslocFormulaire
     }
 
     sendForm () {
-        // TODO : Créer les routes API pour la création des demandes de classement. ->
-        //  Il me faut le format de données pour les envoyer.
-        //  Coté serveur, il faudrait conditionner l'enregistrements des données à la clé API ET au domaine de provencance.
-        //  Par défaut c'est l'id qui sera la clé dans le POST
-        const XHR = new XMLHttpRequest();
         var data = {
             "data" : {
                 "request": {
@@ -877,25 +872,24 @@ class ClasslocFormulaire
                 }
             }
         };
-        console.log(data);
 
-        // création de notre requête avec les données du formulaire
-        XHR.open( "POST", this.urlApi );
-        console.log("XHR.open : création de notre requête avec les données du formulaire");
-
-        // Bind l'objet FormData et l'element formulaire
-
-        XHR.setRequestHeader('Access-Control-Allow-Headers', '*');
-        XHR.setRequestHeader("Accept", "application/json");
-        XHR.setRequestHeader("Authorization", "Bearer " + this.token);
-
-        // En cas de succès
-        XHR.addEventListener( "load", this.onSendFormSuccess(event) );
-
-        // En cas d'erreur
-        XHR.addEventListener( "error", this.onSendFormError(event) );
-
-        XHR.send( data );
+        fetch(this.urlApi, {
+            method: 'post',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + this.getToken(),
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }),
+            body: JSON.stringify(data)
+        }).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+            return Promise.reject(response);
+        }).then(function (data) {
+            console.log(data);
+        }).catch(function (error) {
+            console.warn('Something went wrong.', error);
+        });
     }
 
     onSendFormSuccess (event) {
