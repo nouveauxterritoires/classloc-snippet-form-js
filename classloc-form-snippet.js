@@ -8,7 +8,7 @@ class ClasslocFormulaire
     constructor( id )
     {
 
-        this.urlApi = "https://classloc.dev/api/v1/create_demand";
+        this.urlApi = "https://classloc.dev.local/api/v1/create_outsider_demand";
         this.config = this.setupForm();
         this.token  = this.getToken();
 
@@ -36,7 +36,7 @@ class ClasslocFormulaire
     }
 
     getToken() {
-        return document.getElementById("clossloc-form").getAttribute('data-cltoken');
+        return document.getElementById("classloc-form").getAttribute('data-cltoken');
     }
 
     createNoticeSection(section, v)
@@ -240,7 +240,7 @@ class ClasslocFormulaire
                     'page2': '',
                     'page3': '',
                     'id': 'cl_titre',
-                    'class': 'informations-demandeur',
+                    'class': 'informations-demandeur tab tab-active',
                     'notice': 'Ces champs sont indicatifs. L\'opérateur de classement vérifiera et/ou ajoutera les champs manquants lors de la visite d\'inspection.',
                     'balise': 'h2'
                 },
@@ -402,7 +402,7 @@ class ClasslocFormulaire
                     'page2': 'active',
                     'page3': '',
                     'id': 'cl_titre',
-                    'class': 'informations-hebergement',
+                    'class': 'informations-hebergement tab',
                     'balise': 'h2'
                 },
                 'content': {
@@ -423,7 +423,7 @@ class ClasslocFormulaire
                                 'sous-colonne-1': {
                                     'civilite-hebergeur': {
                                         'type': 'select',
-                                        'required': 'required',
+                                        'required': '',
                                         'options': [
                                             {'value': "", 'label': 'Civilité'},
                                             {'value': 'Monsieur', 'label': 'Monsieur'},
@@ -477,7 +477,7 @@ class ClasslocFormulaire
                                     'email-hebergeur': {
                                         'balise': 'input',
                                         'type': 'email',
-                                        'required': 'required',
+                                        'required': '',
                                         'placeholder': 'Mail principal',
                                         'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}',
                                         'id': 'email-hebergeur',
@@ -487,7 +487,7 @@ class ClasslocFormulaire
                                     'tel-hebergeur': {
                                         'balise': 'input',
                                         'type': 'tel',
-                                        'required': 'required',
+                                        'required': '',
                                         'placeholder': 'Téléphone principal',
                                         'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
                                         'id': 'tel-hebergeur',
@@ -501,7 +501,7 @@ class ClasslocFormulaire
                                 'adresse-hebergeur': {
                                     'balise': 'input',
                                     'type': 'text',
-                                    'required': 'required',
+                                    'required': '',
                                     'placeholder': 'Adresse',
                                     'id': 'adresse-hebergeur',
                                     'name': 'adresse-hebergeur',
@@ -519,7 +519,7 @@ class ClasslocFormulaire
                                     'code-postal-hebergeur': {
                                         'balise': 'input',
                                         'type': 'text',
-                                        'required': 'required',
+                                        'required': '',
                                         'placeholder': 'Code postal',
                                         'pattern': '[0-9]{5}',
                                         'minlength': "5",
@@ -531,7 +531,7 @@ class ClasslocFormulaire
                                     'pays-hebergeur': {
                                         'balise': 'input',
                                         'type': 'text',
-                                        'required': 'required',
+                                        'required': '',
                                         'placeholder': 'Pays',
                                         'id': 'pays-hebergeur',
                                         'name': 'pays-hebergeur',
@@ -541,7 +541,7 @@ class ClasslocFormulaire
                                 'commune-hebergeur': {
                                     'balise': 'input',
                                     'type': 'text',
-                                    'required': 'required',
+                                    'required': '',
                                     'placeholder': 'Nom de la commune',
                                     'id': 'commune-hebergeur',
                                     'name': 'commune-hebergeur',
@@ -596,9 +596,102 @@ class ClasslocFormulaire
                                         'required': 'required',
                                         'options': [
                                             {'value': "", 'label': 'Département'},
-                                            {'value': '1', 'label': '1'},
-                                            {'value': '2', 'label': '2'},
-                                            {'value': '3', 'label': '3'}
+                                            {'value': '01', 'label': '01 - Ain'},
+                                            {'value': '02', 'label': '02 - Aisne'},
+                                            {'value': '03', 'label': '03 - Allier'},
+                                            {'value': '04', 'label': '04 - Alpes de Haute-Provence'},
+                                            {'value': '05', 'label': '05 - Hautes-Alpes'},
+                                            {'value': '06', 'label': '06 - Alpes-Maritimes'},
+                                            {'value': '07', 'label': '07 - Ardêche'},
+                                            {'value': '08', 'label': '08 - Ardennes'},
+                                            {'value': '09', 'label': '09 - Ariège'},
+                                            {'value': '10', 'label': '10 - Aube'},
+                                            {'value': '11', 'label': '11 - Aude'},
+                                            {'value': '12', 'label': '12 - Aveyron'},
+                                            {'value': '13', 'label': '13 - Bouches-du-Rhône'},
+                                            {'value': '14', 'label': '14 - Calvados'},
+                                            {'value': '15', 'label': '15 - Cantal'},
+                                            {'value': '16', 'label': '16 - Charente'},
+                                            {'value': '17', 'label': '17 - Charente-Maritime'},
+                                            {'value': '18', 'label': '18 - Cher'},
+                                            {'value': '19', 'label': '19 - Corrèze'},
+                                            {'value': '2A', 'label': '2A - Corse-du-Sud'},
+                                            {'value': '2B', 'label': '2B - Haute-Corse'},
+                                            {'value': '21', 'label': '21 - Côte-d\'Or'},
+                                            {'value': '22', 'label': '22 - Côtes d\'Armor'},
+                                            {'value': '23', 'label': '23 - Creuse'},
+                                            {'value': '24', 'label': '24 - Dordogne'},
+                                            {'value': '25', 'label': '25 - Doubs'},
+                                            {'value': '26', 'label': '26 - Drôme'},
+                                            {'value': '27', 'label': '27 - Eure'},
+                                            {'value': '28', 'label': '28 - Eure-et-Loir'},
+                                            {'value': '29', 'label': '29 - Finistère'},
+                                            {'value': '30', 'label': '30 - Gard'},
+                                            {'value': '31', 'label': '31 - Haute-Garonne'},
+                                            {'value': '32', 'label': '32 - Gers'},
+                                            {'value': '33', 'label': '33 - Gironde'},
+                                            {'value': '34', 'label': '34 - Hérault'},
+                                            {'value': '35', 'label': '35 - Île-et-Vilaine'},
+                                            {'value': '36', 'label': '36 - Indre'},
+                                            {'value': '37', 'label': '37 - Indre-et-Loire'},
+                                            {'value': '38', 'label': '38 - Isère'},
+                                            {'value': '39', 'label': '39 - Jura'},
+                                            {'value': '40', 'label': '40 - Landes'},
+                                            {'value': '41', 'label': '41 - Loir-et-Cher'},
+                                            {'value': '42', 'label': '42 - Loire'},
+                                            {'value': '43', 'label': '43 - Haute-Loire'},
+                                            {'value': '44', 'label': '44 - Loire-Atlantique'},
+                                            {'value': '45', 'label': '45 - Loiret'},
+                                            {'value': '46', 'label': '46 - Lot'},
+                                            {'value': '47', 'label': '47 - Lot-et-Garonne'},
+                                            {'value': '48', 'label': '48 - Lozère'},
+                                            {'value': '49', 'label': '49 - Maine-et-Loire'},
+                                            {'value': '50', 'label': '50 - Manche'},
+                                            {'value': '51', 'label': '51 - Marne'},
+                                            {'value': '52', 'label': '52 - Haute-Marne'},
+                                            {'value': '53', 'label': '53 - Mayenne'},
+                                            {'value': '54', 'label': '54 - Meurthe-et-Moselle'},
+                                            {'value': '55', 'label': '55 - Meuse'},
+                                            {'value': '56', 'label': '56 - Morbihan'},
+                                            {'value': '57', 'label': '57 - Moselle'},
+                                            {'value': '58', 'label': '58 - Nièvre'},
+                                            {'value': '59', 'label': '59 - Nord'},
+                                            {'value': '60', 'label': '60 - Oise'},
+                                            {'value': '61', 'label': '61 - Orne'},
+                                            {'value': '62', 'label': '62 - Pas-de-Calais'},
+                                            {'value': '63', 'label': '63 - Puy-de-Dôme'},
+                                            {'value': '64', 'label': '64 - Pyrénées-Atlantiques'},
+                                            {'value': '65', 'label': '65 - Hautes-Pyrénées'},
+                                            {'value': '66', 'label': '66 - Pyrénées-Orientales'},
+                                            {'value': '67', 'label': '67 - Bas-Rhin'},
+                                            {'value': '68', 'label': '68 - Haut-Rhin'},
+                                            {'value': '69', 'label': '69 - Rhône'},
+                                            {'value': '70', 'label': '70 - Haute-Saône'},
+                                            {'value': '71', 'label': '71 - Saône-et-Loire'},
+                                            {'value': '72', 'label': '72 - Sarthe'},
+                                            {'value': '73', 'label': '73 - Savoie'},
+                                            {'value': '74', 'label': '74 - Haute-Savoie'},
+                                            {'value': '75', 'label': '75 - Paris'},
+                                            {'value': '76', 'label': '76 - Seine-Maritime'},
+                                            {'value': '77', 'label': '77 - Seine-et-Marne'},
+                                            {'value': '78', 'label': '78 - Yvelines'},
+                                            {'value': '79', 'label': '79 - Deux-Sèvres'},
+                                            {'value': '80', 'label': '80 - Somme'},
+                                            {'value': '81', 'label': '81 - Tarn'},
+                                            {'value': '82', 'label': '82 - Tarn-et-Garonne'},
+                                            {'value': '83', 'label': '83 - Var'},
+                                            {'value': '84', 'label': '84 - Vaucluse'},
+                                            {'value': '85', 'label': '85 - Vendée'},
+                                            {'value': '86', 'label': '86 - Vienne'},
+                                            {'value': '87', 'label': '87 - Haute-Vienne'},
+                                            {'value': '88', 'label': '88 - Vosges'},
+                                            {'value': '89', 'label': '89 - Yonne'},
+                                            {'value': '90', 'label': '90 - Territoire-de-Belfort'},
+                                            {'value': '91', 'label': '91 - Essonne'},
+                                            {'value': '92', 'label': '92 - Hauts-de-Seine'},
+                                            {'value': '93', 'label': '93 - Seine-Saint-Denis'},
+                                            {'value': '94', 'label': '94 - Val-de-Marne'},
+                                            {'value': '95', 'label': '95 - Val-d\'Oise'}
                                         ],
                                         'id': 'departement-hebergement',
                                         'name': 'departement-hebergement',
@@ -776,27 +869,29 @@ class ClasslocFormulaire
             },
             'tarif-prestation': {
                 'title': {
-                    'title': ' Tarif prestation',
+                    // 'title': ' Tarif prestation',
+                    'title': ' Valider la demande',
                     'page1': '',
                     'page2': '',
                     'page3': 'active',
                     'id': 'cl_titre',
-                    'class': 'tarif-prestation',
+                    'class': 'tarif-prestation tab',
                     'balise': 'h2'
                 },
                 'content': {
                     'blocform': {
                         'sub-title': {
-                            'subTitle': ' Tarif de la prestation',
+                            // 'subTitle': ' Tarif de la prestation',
+                            'subTitle': ' ',
                             'class': 'sub-title',
                             'balise': 'h4'
                         },
-                        'text': {
-                            'text': '150 €',
-                            'class': 'tarif',
-                            'id': 'tarif',
-                            'balise': 'p'
-                        },
+                        // 'text': {
+                        //     'text': '150 €',
+                        //     'class': 'tarif',
+                        //     'id': 'tarif',
+                        //     'balise': 'p'
+                        // },
                         'next': {
                             'balise': 'input',
                             'type': 'submit',
@@ -823,17 +918,19 @@ class ClasslocFormulaire
         var data = {
             "data" : {
                 "request": {
+                    "source": "snippet-form",
                     "eligDemandee": document.getElementById("eligibilite-demandee").value,
                     "capClassee": document.getElementById('capacite-hebergement').value,
                     "nbPiecesSupp": document.getElementById('nbpieces-hebergement').value - 1, /* nbPiecesTot - 1 */
-                    "price": parseInt(document.querySelector("#tarif").textContent)
                 },
                 "accommodation": {
                     "name": document.getElementById("nom-hebergement").value,
                     "floor": document.getElementById("etage-hebergement").value,
-                    "type": document.getElementById("type-hebergement").value,
+                    "subtype": document.getElementById("type-hebergement").value,
+                    "phone": document.getElementById("tel-hebergement").value,
                     "address": document.getElementById("adresse-hebergement").value,
                     "additionnalAddress": document.getElementById("complement-ad-hebergement").value,
+                    "departement": document.getElementById("departement-hebergement").value,
                     "city": document.getElementById("commune-hebergement").value,
                     "surface": document.getElementById("surface-hebergement").value,
                     "surfaceHsdb": document.getElementById("surface-ss-sdb-hebergement").value,
@@ -843,12 +940,12 @@ class ClasslocFormulaire
                     "currentRanking": document.getElementById("classement-hebergement").value,
                     "owner": {
                         "civility": document.getElementById("civilite-hebergeur").value,
+                        "buisinessName": document.getElementById("raison-hebergeur").value,
                         "firstName": document.getElementById("nom-hebergeur").value,
                         "lastName": document.getElementById("prenom-hebergeur").value,
                         "siret": document.getElementById("siret-hebergeur").value,
                         "mail": document.getElementById("email-hebergeur").value,
                         "phone": document.getElementById("tel-hebergeur").value,
-                        "buisinessName": document.getElementById("raison-hebergeur").value,
                         "address": document.getElementById("adresse-hebergeur").value,
                         "additionnalAddress": document.getElementById("complement-ad").value,
                         "postalCode": document.getElementById("code-postal-hebergeur").value,
@@ -857,12 +954,12 @@ class ClasslocFormulaire
                     },
                     "applicant": {
                         "civility": document.getElementById("civilite").value,
+                        "buisinessName": document.getElementById("raison").value,
                         "firstName": document.getElementById("nom").value,
                         "lastName": document.getElementById("prenom").value,
                         "siret": document.getElementById("siret").value,
                         "mail": document.getElementById("email").value,
                         "phone": document.getElementById("tel").value,
-                        "buisinessName": document.getElementById("raison").value,
                         "address": document.getElementById("adresse").value,
                         "additionnalAddress": document.getElementById("complement-ad-hebergeur").value,
                         "postalCode": document.getElementById("code-postal").value,
@@ -877,7 +974,8 @@ class ClasslocFormulaire
             method: 'post',
             headers: new Headers({
                 'Authorization': 'Bearer ' + this.getToken(),
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             }),
             body: JSON.stringify(data)
         }).then(function (response) {
@@ -905,6 +1003,4 @@ class ClasslocFormulaire
     }
 }
 
-const form = new ClasslocFormulaire("clossloc-form");
-
-
+const form = new ClasslocFormulaire("classloc-form");
