@@ -155,6 +155,9 @@ section {
   max-width: 1200px;
   margin: 50px auto;
 }
+section:not(.tab-active) {
+  display: none;
+}
 
 form {
 

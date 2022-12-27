@@ -260,7 +260,7 @@ class ClasslocFormulaire
                     'page2': '',
                     'page3': '',
                     'id': 'informations-demandeur',
-                    'class': 'cl_titre tab tab-active',
+                    'class': 'cl_titre tab-active',
                     'notice': 'Ces champs sont indicatifs. L\'opérateur de classement vérifiera et/ou ajoutera les champs manquants lors de la visite d\'inspection.',
                     'balise': 'h2'
                 },
@@ -418,7 +418,7 @@ class ClasslocFormulaire
                     'page2': 'active',
                     'page3': '',
                     'id': 'informations-hebergement',
-                    'class': 'cl_titre tab',
+                    'class': 'cl_titre',
                     'balise': 'h2'
                 },
                 'content': {
@@ -894,7 +894,7 @@ class ClasslocFormulaire
                     'page2': '',
                     'page3': 'active',
                     'id': 'tarif-prestation',
-                    'class': 'cl_titre tab',
+                    'class': 'cl_titre',
                     'balise': 'h2'
                 },
                 'content': {
@@ -1028,14 +1028,17 @@ const form = new ClasslocFormulaire("classloc-form");
 window.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", (e) => {
         if (!e.target) return;
+
         e.preventDefault();
-        if( e.target.classList.contains('prev') ) { // Mettre la classe prev ou remplacer celle là par celle dans les boutons precedent)
-            let parent = e.closest('section').classList.remove("tab-active");
-            parent.previousSibling.classList.add("tab-active");
+        const section = e.target.closest('section');
+
+        if( e.target.classList.contains('back') ) { // Mettre la classe prev ou remplacer celle là par celle dans les boutons precedent)
+            section.classList.remove("tab-active");
+            section.previousSibling.classList.add("tab-active");
         }
         else if( e.target.classList.contains('next') ) { // Mettre la classe next ou remplacer celle là par celle dans les boutons suivant)
-            let parent = e.closest('section').classList.remove("tab-active");
-            parent.nextSibling.classList.add("tab-active");
+            section.classList.remove("tab-active");
+            section.nextSibling.classList.add("tab-active");
         }
     });
 });

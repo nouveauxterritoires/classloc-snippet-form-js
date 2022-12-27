@@ -6,20 +6,16 @@
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
-  src: url("../src/fonts/montserrat-v15-latin-regular.eot");
-  /* IE9 Compat Modes */
-  src: local(""), url("../src/fonts/montserrat-v15-latin-regular.eot?#iefix") format("embedded-opentype"), url("../src/fonts/montserrat-v15-latin-regular.woff2") format("woff2"), url("../src/fonts/montserrat-v15-latin-regular.woff") format("woff"), url("../src/fonts/montserrat-v15-latin-regular.ttf") format("truetype"), url("../src/fonts/montserrat-v15-latin-regular.svg#Montserrat") format("svg");
-  /* Legacy iOS */
+  src: url("../src/fonts/montserrat-v15-latin-regular.eot"); /* IE9 Compat Modes */
+  src: local(""), url("../src/fonts/montserrat-v15-latin-regular.eot?#iefix") format("embedded-opentype"), url("../src/fonts/montserrat-v15-latin-regular.woff2") format("woff2"), url("../src/fonts/montserrat-v15-latin-regular.woff") format("woff"), url("../src/fonts/montserrat-v15-latin-regular.ttf") format("truetype"), url("../src/fonts/montserrat-v15-latin-regular.svg#Montserrat") format("svg"); /* Legacy iOS */
 }
 /* montserrat-900 - latin */
 @font-face {
   font-family: "MontserratBold";
   font-style: normal;
   font-weight: 900;
-  src: url("../src/fonts/montserrat-v15-latin-900.eot");
-  /* IE9 Compat Modes */
-  src: local(""), url("../src/fonts/montserrat-v15-latin-900.eot?#iefix") format("embedded-opentype"), url("../src/fonts/montserrat-v15-latin-900.woff2") format("woff2"), url("../src/fonts/montserrat-v15-latin-900.woff") format("woff"), url("../src/fonts/montserrat-v15-latin-900.ttf") format("truetype"), url("../src/fonts/montserrat-v15-latin-900.svg#Montserrat") format("svg");
-  /* Legacy iOS */
+  src: url("../src/fonts/montserrat-v15-latin-900.eot"); /* IE9 Compat Modes */
+  src: local(""), url("../src/fonts/montserrat-v15-latin-900.eot?#iefix") format("embedded-opentype"), url("../src/fonts/montserrat-v15-latin-900.woff2") format("woff2"), url("../src/fonts/montserrat-v15-latin-900.woff") format("woff"), url("../src/fonts/montserrat-v15-latin-900.ttf") format("truetype"), url("../src/fonts/montserrat-v15-latin-900.svg#Montserrat") format("svg"); /* Legacy iOS */
 }
 /* Général */
 * {
@@ -138,6 +134,10 @@ section {
   margin: 50px auto;
 }
 
+section:not(.tab-active) {
+  display: none;
+}
+
 form .blocform {
   background: #F2F2F2;
   border-bottom: 2px solid #008BC8;
@@ -167,10 +167,6 @@ form .blocform .blocflex .colonne .deuxchamps.droite {
 form .blocform .blocflex .colonne .deuxchamps select, form .blocform .blocflex .colonne .deuxchamps input {
   width: 48%;
 }
-form .blocform .blocflex h3 {
-  width: 100%
-}
-
 form input, form select {
   background: white;
   border: 2px solid #EBEBEB !important;
@@ -205,7 +201,7 @@ form input[type=submit]:hover {
   background-color: #0079ad;
   cursor: pointer;
 }
-form button, form input.back {
+form button {
   background-color: white;
   border-radius: 20px;
   color: #848484;
@@ -214,13 +210,13 @@ form button, form input.back {
   margin-right: 20px;
   padding: 0 10px !important;
 }
-form button:hover, form input.back:hover {
+form button:hover {
   background-color: #F2F2F2;
   border-color: #D5D5D5;
   cursor: pointer;
 }
 
-p button, .not-proprietaire {
+p button {
   background-color: #008BC8;
   border-radius: 20px;
   color: white;
@@ -256,11 +252,9 @@ p button:hover {
   h3.titre2 {
     margin-top: 0 !important;
   }
-
   .pagination {
     width: 150px;
   }
-
   .blocflex {
     flex-direction: column !important;
   }
@@ -283,7 +277,6 @@ p button:hover {
   .blocflex .colonne .deuxchamps select, .blocflex .colonne .deuxchamps input {
     width: 100% !important;
   }
-  .blocform .blocflex h3 {
-    margin-bottom: 5% !important;
-  }
 }
+
+/*# sourceMappingURL=style.css.map */
