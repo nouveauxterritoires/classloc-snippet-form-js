@@ -973,9 +973,8 @@ class ClasslocFormulaire
         fetch(this.urlApi, {
             method: 'post',
             headers: new Headers({
-                'Authorization': 'Bearer ' + this.getToken(),
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+                // 'Authorization': 'Bearer ' + this.getToken(),
+                'Content-Type': 'application/json'
             }),
             body: JSON.stringify(data)
         }).then(function (response) {
