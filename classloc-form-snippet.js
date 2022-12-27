@@ -116,7 +116,11 @@ class ClasslocFormulaire
                 } else if(key.includes('text')) {
                     this.createText(blocform, v);
                 } else {
-                    this.createInput(blocform, key, v);
+                    if(v.balise === "a"){
+                        this.createHref(blocform, key, v);
+                    } else {
+                        this.createInput(blocform, key, v);
+                    }
                 }
             }
         });
@@ -166,10 +170,28 @@ class ClasslocFormulaire
         }
 
         Object.entries(v).forEach(([key,v])=>{
-            this.createInput(sousColonne, key, v);
+            console.log('before createInput');
+            if (v.balise === "a"){
+                this.createHref(sousColonne, key, v);
+            } else {
+                this.createInput(sousColonne, key, v);
+            }
         });
 
         colonne.appendChild(sousColonne);
+    }
+
+    createHref(section, key, v)
+    {
+        const a = document.createElement(v.balise);
+
+        a.setAttribute("id", key);
+        if( v.href ) { a.setAttribute("href", v.href); }
+        if( v.class ) { a.setAttribute("class", v.class); }
+        if( v.id ) { a.setAttribute("id", v.id); }
+        if( v.text ) { a.innerText = v.text; }
+
+        section.appendChild(a);
     }
 
     createInput(section, key, v)
@@ -192,8 +214,6 @@ class ClasslocFormulaire
             if( v.step ) { input.setAttribute("step", v.step); }
             if( v.class ) { input.setAttribute("class", v.class); }
             if( v.text ) { input.innerText = v.text; }
-
-            //TODO : traiter le cas d'un select ou des autre champs spécifiques
 
             section.appendChild(input);
         }
@@ -239,8 +259,8 @@ class ClasslocFormulaire
                     'page1': 'active',
                     'page2': '',
                     'page3': '',
-                    'id': 'cl_titre',
-                    'class': 'informations-demandeur tab tab-active',
+                    'id': 'informations-demandeur',
+                    'class': 'cl_titre tab tab-active',
                     'notice': 'Ces champs sont indicatifs. L\'opérateur de classement vérifiera et/ou ajoutera les champs manquants lors de la visite d\'inspection.',
                     'balise': 'h2'
                 },
@@ -377,16 +397,12 @@ class ClasslocFormulaire
                                     'class': 'form-control'
                                 },
                                 'sous-colonne-droite': {
-                                    'back': {
-                                        'balise': 'button',
-                                        'text': '< Retour',
-                                        'class': 'back'
-                                    },
                                     'next': {
-                                        'balise': 'input',
-                                        'type': 'submit',
-                                        'value': '+ Passez à l\'étape 2',
-                                        'class': 'next'
+                                        'balise': 'a',
+                                        'href': '#informations-hebergement',
+                                        'text': '+ Passez à l\'étape 2',
+                                        'class': 'next',
+                                        'id': 'next-to-step-2'
                                     }
                                 }
                             },
@@ -401,8 +417,8 @@ class ClasslocFormulaire
                     'page1': '',
                     'page2': 'active',
                     'page3': '',
-                    'id': 'cl_titre',
-                    'class': 'informations-hebergement tab',
+                    'id': 'informations-hebergement',
+                    'class': 'cl_titre tab',
                     'balise': 'h2'
                 },
                 'content': {
@@ -851,15 +867,18 @@ class ClasslocFormulaire
                                 },
                                 'sous-colonne-droite': {
                                     'back': {
-                                        'balise': 'button',
+                                        'balise': 'a',
+                                        'href': '#informations-demandeur',
                                         'text': '< Retour à l\'étape 1',
-                                        'class': 'back'
+                                        'class': 'back',
+                                        'id': 'back-to-step-1'
                                     },
                                     'next': {
-                                        'balise': 'input',
-                                        'type': 'submit',
-                                        'value': '+ Finaliser',
-                                        'class': 'next'
+                                        'balise': 'a',
+                                        'href': '#tarif-prestation',
+                                        'text': '+ Finaliser',
+                                        'class': 'next',
+                                        'id': 'next-to-step-3'
                                     }
                                 }
                             },
@@ -874,8 +893,8 @@ class ClasslocFormulaire
                     'page1': '',
                     'page2': '',
                     'page3': 'active',
-                    'id': 'cl_titre',
-                    'class': 'tarif-prestation tab',
+                    'id': 'tarif-prestation',
+                    'class': 'cl_titre tab',
                     'balise': 'h2'
                 },
                 'content': {
@@ -892,21 +911,23 @@ class ClasslocFormulaire
                         //     'id': 'tarif',
                         //     'balise': 'p'
                         // },
+                        'back': {
+                            'balise': 'a',
+                            'href': '#informations-hebergement',
+                            'text': '< Retour à l\'étape 2',
+                            'class': 'back',
+                            'id': 'back-to-step-2'
+                        },
                         'next': {
                             'balise': 'input',
                             'type': 'submit',
                             'value': '+ Valider la demande',
                             'class': 'valid'
-                        },
-                        'back': {
-                            'balise': 'button',
-                            'text': '< Retour à l\'étape 2',
-                            'class': 'back'
                         }
-                    },
+                    }
 
                 }
-            },
+            }
         };
     }
 
@@ -1003,3 +1024,18 @@ class ClasslocFormulaire
 }
 
 const form = new ClasslocFormulaire("classloc-form");
+
+window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("click", (e) => {
+        if (!e.target) return;
+        e.preventDefault();
+        if( e.target.classList.contains('prev') ) { // Mettre la classe prev ou remplacer celle là par celle dans les boutons precedent)
+            let parent = e.closest('section').classList.remove("tab-active");
+            parent.previousSibling.classList.add("tab-active");
+        }
+        else if( e.target.classList.contains('next') ) { // Mettre la classe next ou remplacer celle là par celle dans les boutons suivant)
+            let parent = e.closest('section').classList.remove("tab-active");
+            parent.nextSibling.classList.add("tab-active");
+        }
+    });
+});
