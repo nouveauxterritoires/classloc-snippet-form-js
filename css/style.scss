@@ -239,7 +239,8 @@ form {
       cursor: pointer;
     }
   }
-  button {
+  a, button {
+    text-decoration: none;
     background-color: white;
     border-radius: 20px;
     color: $gris3;

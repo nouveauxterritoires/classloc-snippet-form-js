@@ -209,7 +209,8 @@ form input[type=submit]:hover {
   background-color: #0079ad;
   cursor: pointer;
 }
-form button {
+form a, form button {
+  text-decoration: none;
   background-color: white;
   border-radius: 20px;
   color: #848484;
@@ -218,7 +219,7 @@ form button {
   margin-right: 20px;
   padding: 0 10px !important;
 }
-form button:hover {
+form a:hover, form button:hover {
   background-color: #F2F2F2;
   border-color: #D5D5D5;
   cursor: pointer;

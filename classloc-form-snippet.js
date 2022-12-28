@@ -20,7 +20,7 @@ class ClasslocFormulaire
             this.createSection(form,value);
         });
 
-        this.createSendButton(form);
+        //this.createSendButton(form);
 
         // TODO: Ajouter la validation des données avant d'envoyer les données du formulaire via l'API (les champs sont déjà censés se valider via HTML5,
         //  là je parle de validation supplélemtaire, qui pourraient correspondre au métier). Pour afficher les messages d'erreur, il faudra remplir la section notice via une méthode.
