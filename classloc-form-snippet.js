@@ -65,24 +65,37 @@ class ClasslocFormulaire
     {
         console.log(v);
         const title = document.createElement(v.balise);
-        if(v.balise === 'h2'){
-            title.innerHTML = v.title +
-                "<div class='pagination'>" +
-                "<span class='"+v.page1+"'>1</span>" +
-                "<span class='"+v.page2+"'>2</span>" +
-                "<span class='"+v.page3+"'>✓</span>" +
-                "</div>"
-            ;
-        } else {
-            title.innerHTML = v.subTitle;
-        }
+
+        title.innerHTML = v.title +
+            "<div class='pagination'>" +
+            "<span class='"+v.page1+"'>1</span>" +
+            "<span class='"+v.page2+"'>2</span>" +
+            "<span class='"+v.page3+"'>✓</span>" +
+            "</div>"
+        ;
+
         section.appendChild(title);
+    }
+
+    createSubTitle(section, v)
+    {
+        console.log(v);
+        const subTitle = document.createElement(v.balise);
+        subTitle.setAttribute("class", v.class);
+        subTitle.innerHTML = v.subTitle;
+
+        const divSubTitle = document.createElement('div');
+        divSubTitle.setAttribute("class", "colonne subtitle");
+        divSubTitle.appendChild(subTitle);
+
+        section.appendChild(divSubTitle);
     }
 
     createSection(form, value)
     {
         const section = document.createElement('section');
         section.setAttribute("class", value.title.class);
+        section.setAttribute("id", value.title.id);
         this.createTitle(section, value.title);
         if(value.title.notice){
             this.createNoticeSection(section, value.title);
@@ -112,7 +125,7 @@ class ClasslocFormulaire
                 this.createBlocflex(blocform, key, v);
             } else {
                 if(key.includes('sub-title')) {
-                    this.createTitle(blocform, v);
+                    this.createSubTitle(blocform, v);
                 } else if(key.includes('text')) {
                     this.createText(blocform, v);
                 } else {
@@ -135,7 +148,7 @@ class ClasslocFormulaire
 
         Object.entries(v).forEach(([key,v])=>{
             if(key.includes('sub-title')){
-                this.createTitle(blocflex, v);
+                this.createSubTitle(blocflex, v);
             } else {
                 this.createColonne(blocflex, key, v);
             }
@@ -431,7 +444,7 @@ class ClasslocFormulaire
                         'blocflex': {
                             'sub-title-1': {
                                 'subTitle': ' Information du propriétaire',
-                                'class': 'sub-title',
+                                'class': 'sub-title sub-title-1',
                                 'balise': 'h3'
                             },
                             'colonne-gauche': {
@@ -570,7 +583,7 @@ class ClasslocFormulaire
                         'blocflex-1': {
                             'sub-title-1': {
                                 'subTitle': ' Information de l\'hébergement',
-                                'class': 'sub-title',
+                                'class': 'sub-title sub-title-2',
                                 'balise': 'h3'
                             },
                             'colonne-gauche': {
@@ -755,7 +768,7 @@ class ClasslocFormulaire
                         'blocflex-2': {
                             'sub-title-1': {
                                 'subTitle': ' Identification de l\'hébergement',
-                                'class': 'sub-title',
+                                'class': 'sub-title sub-title-3',
                                 'balise': 'h3'
                             },
                             'colonne-gauche': {

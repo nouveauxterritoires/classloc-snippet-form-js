@@ -105,7 +105,6 @@ h3 {
 }
 h3:before {
   position: absolute;
-  content: "1";
   width: 20px;
   height: 20px;
   text-align: center;
@@ -114,6 +113,15 @@ h3:before {
   margin-left: -30px;
   background-color: #008BC8;
   margin-right: 10px;
+}
+h3.sub-title-1:before {
+  content: "1";
+}
+h3.sub-title-2:before {
+  content: "2";
+}
+h3.sub-title-3:before {
+  content: "3";
 }
 h3.titre2:before {
   content: "2";
@@ -214,6 +222,12 @@ form button:hover {
   background-color: #F2F2F2;
   border-color: #D5D5D5;
   cursor: pointer;
+}
+
+div.subtitle {
+  width: 100% !important;
+  padding-top: 0 !important;
+  padding-bottom: 10px !important;
 }
 
 p button {
