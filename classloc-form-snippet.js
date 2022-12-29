@@ -912,12 +912,12 @@ class ClasslocFormulaire
                 },
                 'content': {
                     'blocform': {
-                        'sub-title': {
-                            // 'subTitle': ' Tarif de la prestation',
-                            'subTitle': ' ',
-                            'class': 'sub-title',
-                            'balise': 'h4'
-                        },
+                        // 'sub-title': {
+                        //     'subTitle': ' Tarif de la prestation',
+                        //     'subTitle': ' ',
+                        //     'class': 'sub-title',
+                        //     'balise': 'h4'
+                        // },
                         // 'text': {
                         //     'text': '150 €',
                         //     'class': 'tarif',
@@ -944,8 +944,12 @@ class ClasslocFormulaire
         };
     }
 
-    validate () {
-
+    validate (section = null) {
+        const form = document.createElement('form');
+        console.log(form);
+        const formData = new FormData(form);
+        console.log(formData.values());
+        return true;
     }
 
     sendForm () {
@@ -1027,31 +1031,32 @@ class ClasslocFormulaire
         // TODO : Masquer le formulaire et afficher un message de succès dans le bloc notice
         console.log("Success !");
         console.log(event.target.responseText);
+        alert('Votre demande a bien été reçu et est en attente de traitement.');
     }
 
     onSendFormError (event) {
         // TODO : Ajouter l'erreur au bloc notice prévu à cet effet
         console.log("Une erreur s'est produite : ");
         console.log(event.target.responseText);
+        alert('Une erreur s\'est produite, veuillez contacter l\'administrateur.');
     }
 }
 
 const form = new ClasslocFormulaire("classloc-form");
 
-window.addEventListener("DOMContentLoaded", () => {
-    document.addEventListener("click", (e) => {
-        if (!e.target) return;
-
-        e.preventDefault();
-        const section = e.target.closest('section');
-
-        if( e.target.classList.contains('back') ) { // Mettre la classe prev ou remplacer celle là par celle dans les boutons precedent)
-            section.classList.remove("tab-active");
-            section.previousSibling.classList.add("tab-active");
-        }
-        else if( e.target.classList.contains('next') ) { // Mettre la classe next ou remplacer celle là par celle dans les boutons suivant)
-            section.classList.remove("tab-active");
-            section.nextSibling.classList.add("tab-active");
-        }
-    });
-});
+// window.addEventListener("DOMContentLoaded", () => {
+//     document.addEventListener("click", (e) => {
+//         if (!e.target) return;
+//         e.preventDefault();
+//         const section = e.target.closest('section');
+//
+//         if( e.target.classList.contains('back') ) { // Mettre la classe prev ou remplacer celle là par celle dans les boutons precedent)
+//             section.classList.remove("tab-active");
+//             section.previousSibling.classList.add("tab-active");
+//         }
+//         else if( e.target.classList.contains('next') ) { // Mettre la classe next ou remplacer celle là par celle dans les boutons suivant)
+//             section.classList.remove("tab-active");
+//             section.nextSibling.classList.add("tab-active");
+//         }
+//     });
+// });

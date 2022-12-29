@@ -142,10 +142,6 @@ section {
   margin: 50px auto;
 }
 
-section:not(.tab-active) {
-  display: none;
-}
-
 form .blocform {
   background: #F2F2F2;
   border-bottom: 2px solid #008BC8;
