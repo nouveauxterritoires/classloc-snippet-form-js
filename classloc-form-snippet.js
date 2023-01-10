@@ -1057,17 +1057,24 @@ class ClasslocFormulaire
 
     setAlertMess (mess, type) {
         const divAlert = document.getElementById('div-alert');
-        const span = document.createElement('span');
-        span.setAttribute('class', 'alert-'+type);
-        span.innerText = mess;
+        divAlert.style.display = "block";
 
-        divAlert.appendChild(span);
+        const divMess = document.createElement('div');
+        divMess.setAttribute('class', 'alert-'+type);
+
+        if(type === 'success') {
+            divMess.innerHTML = '<span>&#x2714;<span> '+mess;
+        } else {
+            divMess.innerHTML = '<span>&#x2716;</span> '+mess;
+        }
+        divAlert.appendChild(divMess);
         this.clearAlertMess();
     }
 
     clearAlertMess () {
         setTimeout(function() {
             const divAlert = document.getElementById('div-alert');
+            divAlert.style.display = "none";
             divAlert.innerText = "";
         }, 5000);
     }
