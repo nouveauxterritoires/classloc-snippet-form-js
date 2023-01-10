@@ -20,7 +20,7 @@ class ClasslocFormulaire
             this.createSection(form,value);
         });
 
-        //this.createSendButton(form);
+        this.createSendButton(form);
 
         // TODO: Ajouter la validation des données avant d'envoyer les données du formulaire via l'API (les champs sont déjà censés se valider via HTML5,
         //  là je parle de validation supplélemtaire, qui pourraient correspondre au métier). Pour afficher les messages d'erreur, il faudra remplir la section notice via une méthode.
@@ -41,12 +41,6 @@ class ClasslocFormulaire
 
     createNoticeSection(section, v)
     {
-        // const noticeContainer = document.createElement('div');
-        // const notice = document.createElement('div');
-        // noticeContainer.classList.add('notice');
-        // notice.innerHTML = '<p>Ces champs sont indicatifs. L\'opérateur de classement vérifiera et/ou ajoutera les champs manquants lors de la visite d\'inspection.</p>';
-        // noticeContainer.appendChild(notice);
-        // form.appendChild(noticeContainer);
         const notice = document.createElement('p');
         notice.innerText = v.notice;
         section.appendChild(notice);
@@ -54,11 +48,20 @@ class ClasslocFormulaire
 
     createSendButton(form)
     {
-        const button = document.createElement('button');
-        button.type = 'submit';
-        button.innerHTML = 'Envoyer';
+        const divSubmit = document.createElement('div');
+        divSubmit.setAttribute("class", "div-submit");
 
-        form.appendChild(button);
+        const divAlert = document.createElement('div');
+        divAlert.setAttribute("id", "div-alert");
+        divSubmit.appendChild(divAlert);
+
+        const button = document.createElement('input');
+        button.type = 'submit';
+        button.setAttribute("class", "valid");
+        button.setAttribute("value", "Valider la demande");
+        divSubmit.appendChild(button);
+
+        form.appendChild(divSubmit);
     }
 
     createTitle(section, v)
@@ -93,26 +96,28 @@ class ClasslocFormulaire
 
     createSection(form, value)
     {
-        const section = document.createElement('section');
-        section.setAttribute("class", value.title.class);
-        section.setAttribute("id", value.title.id);
-        this.createTitle(section, value.title);
-        if(value.title.notice){
-            this.createNoticeSection(section, value.title);
-        }
-
-        const sectionContainer = document.createElement('div');
-
-        Object.entries(value.content).forEach(([key,v])=>{
-            if(key === 'not-proprietaire'){
-                this.createInput(sectionContainer, key, v);
-            } else {
-                this.createBlocform(sectionContainer, key, v);
+        if(!value.submit){
+            const section = document.createElement('section');
+            section.setAttribute("class", value.title.class);
+            section.setAttribute("id", value.title.id);
+            this.createTitle(section, value.title);
+            if(value.title.notice){
+                this.createNoticeSection(section, value.title);
             }
-        });
 
-        section.appendChild(sectionContainer);
-        form.appendChild(section);
+            const sectionContainer = document.createElement('div');
+
+            Object.entries(value.content).forEach(([key,v])=>{
+                if(key === 'not-proprietaire'){
+                    this.createInput(sectionContainer, key, v);
+                } else {
+                    this.createBlocform(sectionContainer, key, v);
+                }
+            });
+
+            section.appendChild(sectionContainer);
+            form.appendChild(section);
+        }
     }
 
     createBlocform(section, key, v)
@@ -896,19 +901,19 @@ class ClasslocFormulaire
                     }
                 }
             },
-            'tarif-prestation': {
-                'title': {
-                    // 'title': ' Tarif prestation',
-                    'title': ' Valider la demande',
-                    'page1': '',
-                    'page2': '',
-                    'page3': 'active',
-                    'id': 'tarif-prestation',
-                    'class': 'cl_titre',
-                    'balise': 'h2'
-                },
-                'content': {
-                    'blocform': {
+            // 'tarif-prestation': {
+            //     'title': {
+            //         // 'title': ' Tarif prestation',
+            //         'title': ' Valider la demande',
+            //         'page1': '',
+            //         'page2': '',
+            //         'page3': 'active',
+            //         'id': 'tarif-prestation',
+            //         'class': 'cl_titre',
+            //         'balise': 'h2'
+            //     },
+            //     'content': {
+            //         'blocform': {
                         // 'sub-title': {
                         //     'subTitle': ' Tarif de la prestation',
                         //     'subTitle': ' ',
@@ -928,16 +933,15 @@ class ClasslocFormulaire
                         //     'class': 'back',
                         //     'id': 'back-to-step-2'
                         // },
-                        'next': {
-                            'balise': 'input',
-                            'type': 'submit',
-                            'value': '+ Valider la demande',
-                            'class': 'valid'
-                        }
-                    }
-
-                }
-            }
+                        // 'next': {
+                        //     'balise': 'input',
+                        //     'type': 'submit',
+                        //     'value': '+ Valider la demande',
+                        //     'class': 'valid'
+                        // }
+            //         }
+            //     }
+            // }
         };
     }
 
@@ -1041,14 +1045,31 @@ class ClasslocFormulaire
         // TODO : Masquer le formulaire et afficher un message de succès dans le bloc notice
         console.log("Success !");
         console.log(data.data);
-        alert(data.data);
+        this.setAlertMess(data.data, 'success');
     }
 
     onSendFormError (error) {
         // TODO : Ajouter l'erreur au bloc notice prévu à cet effet
         console.log("Une erreur s'est produite : ");
         console.log(error);
-        alert(error);
+        this.setAlertMess(error, 'error');
+    }
+
+    setAlertMess (mess, type) {
+        const divAlert = document.getElementById('div-alert');
+        const span = document.createElement('span');
+        span.setAttribute('class', 'alert-'+type);
+        span.innerText = mess;
+
+        divAlert.appendChild(span);
+        this.clearAlertMess();
+    }
+
+    clearAlertMess () {
+        setTimeout(function() {
+            const divAlert = document.getElementById('div-alert');
+            divAlert.innerText = "";
+        }, 5000);
     }
 }
 

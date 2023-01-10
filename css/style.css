@@ -227,6 +227,14 @@ div.subtitle {
   padding-bottom: 10px !important;
 }
 
+div.div-submit {
+  text-align: center;
+}
+
+div#div-alert {
+  display: none;
+}
+
 p button {
   background-color: #008BC8;
   border-radius: 20px;
