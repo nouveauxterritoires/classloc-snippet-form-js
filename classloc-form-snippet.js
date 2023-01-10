@@ -220,8 +220,8 @@ class ClasslocFormulaire
             if( v.name ) { input.setAttribute("name", v.name); }
             if( v.placeholder ) { input.setAttribute("placeholder", v.placeholder); }
             if( v.value ) { input.setAttribute("value", v.value); }
-            // if( v.required ) { input.setAttribute("required", v.required); }
-            // if( v.pattern ) { input.setAttribute("pattern", v.pattern); }
+            if( v.required ) { input.setAttribute("required", v.required); }
+            if( v.pattern ) { input.setAttribute("pattern", v.pattern); }
             if( v.min ) { input.setAttribute("min", v.min); }
             if( v.max ) { input.setAttribute("max", v.max); }
             if( v.step ) { input.setAttribute("step", v.step); }
@@ -341,7 +341,7 @@ class ClasslocFormulaire
                                         'type': 'email',
                                         'required': 'required',
                                         'placeholder': 'Mail principal',
-                                        'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}',
+                                        'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,50}',
                                         'id': 'email',
                                         'name': 'email',
                                         'class': 'form-control'
@@ -349,7 +349,6 @@ class ClasslocFormulaire
                                     'tel': {
                                         'balise': 'input',
                                         'type': 'tel',
-                                        'required': 'required',
                                         'placeholder': 'Téléphone principal',
                                         'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
                                         'id': 'tel',
@@ -409,15 +408,15 @@ class ClasslocFormulaire
                                     'name': 'commune',
                                     'class': 'form-control'
                                 },
-                                'sous-colonne-droite': {
-                                    'next': {
-                                        'balise': 'a',
-                                        'href': '#informations-hebergement',
-                                        'text': '+ Passez à l\'étape 2',
-                                        'class': 'next',
-                                        'id': 'next-to-step-2'
-                                    }
-                                }
+                                // 'sous-colonne-droite': {
+                                //     'next': {
+                                //         'balise': 'a',
+                                //         'href': '#informations-hebergement',
+                                //         'text': '+ Passez à l\'étape 2',
+                                //         'class': 'next',
+                                //         'id': 'next-to-step-2'
+                                //     }
+                                // }
                             },
                         },
                     },
@@ -508,7 +507,7 @@ class ClasslocFormulaire
                                         'type': 'email',
                                         'required': '',
                                         'placeholder': 'Mail principal',
-                                        'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}',
+                                        'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,50}',
                                         'id': 'email-hebergeur',
                                         'name': 'email-hebergeur',
                                         'class': 'form-control'
@@ -516,7 +515,6 @@ class ClasslocFormulaire
                                     'tel-hebergeur': {
                                         'balise': 'input',
                                         'type': 'tel',
-                                        'required': '',
                                         'placeholder': 'Téléphone principal',
                                         'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
                                         'id': 'tel-hebergeur',
@@ -592,7 +590,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'text',
                                     'placeholder': 'Nom',
-                                    'pattern': '^[a-zA-Z]{1,20}$',
+                                    'pattern': '^[a-zA-Z0-9à-ž ]{1,50}$',
                                     'id': 'nom-hebergement',
                                     'name': 'nom-hebergement',
                                     'class': 'form-control'
@@ -740,7 +738,6 @@ class ClasslocFormulaire
                                     'tel-hebergement': {
                                         'balise': 'input',
                                         'type': 'tel',
-                                        'required': 'required',
                                         'placeholder': 'Téléphone',
                                         'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
                                         'id': 'tel-hebergeur',
@@ -878,22 +875,22 @@ class ClasslocFormulaire
                                     'name': 'surface-ss-sdb-hebergement',
                                     'class': 'form-control'
                                 },
-                                'sous-colonne-droite': {
-                                    'back': {
-                                        'balise': 'a',
-                                        'href': '#informations-demandeur',
-                                        'text': '< Retour à l\'étape 1',
-                                        'class': 'back',
-                                        'id': 'back-to-step-1'
-                                    },
-                                    'next': {
-                                        'balise': 'a',
-                                        'href': '#tarif-prestation',
-                                        'text': '+ Finaliser',
-                                        'class': 'next',
-                                        'id': 'next-to-step-3'
-                                    }
-                                }
+                                // 'sous-colonne-droite': {
+                                //     'back': {
+                                //         'balise': 'a',
+                                //         'href': '#informations-demandeur',
+                                //         'text': '< Retour à l\'étape 1',
+                                //         'class': 'back',
+                                //         'id': 'back-to-step-1'
+                                //     },
+                                //     'next': {
+                                //         'balise': 'a',
+                                //         'href': '#tarif-prestation',
+                                //         'text': '+ Finaliser',
+                                //         'class': 'next',
+                                //         'id': 'next-to-step-3'
+                                //     }
+                                // }
                             },
                         },
                     }
@@ -924,13 +921,13 @@ class ClasslocFormulaire
                         //     'id': 'tarif',
                         //     'balise': 'p'
                         // },
-                        'back': {
-                            'balise': 'a',
-                            'href': '#informations-hebergement',
-                            'text': '< Retour à l\'étape 2',
-                            'class': 'back',
-                            'id': 'back-to-step-2'
-                        },
+                        // 'back': {
+                        //     'balise': 'a',
+                        //     'href': '#informations-hebergement',
+                        //     'text': '< Retour à l\'étape 2',
+                        //     'class': 'back',
+                        //     'id': 'back-to-step-2'
+                        // },
                         'next': {
                             'balise': 'input',
                             'type': 'submit',
@@ -1015,30 +1012,40 @@ class ClasslocFormulaire
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify(data)
-        }).then(function (response) {
+        }).then((response) => {
+            console.log('first then');
             if (response.ok) {
+                console.log('ok');
                 return response.json();
+            } else {
+                return response.json().then( error => {
+                    console.log('then Error');
+                    throw new Error(error.data);
+                } );
             }
-            return Promise.reject(response);
-        }).then(function (data) {
-            console.log(data);
-        }).catch(function (error) {
+            //return Promise.reject(response);
+        }).then((data) => {
+            console.log('second then');
+            this.onSendFormSuccess(data);
+        }).catch(error => {
+            console.log('catch');
+            this.onSendFormError(error);
             console.warn('Something went wrong.', error);
         });
     }
 
-    onSendFormSuccess (event) {
+    onSendFormSuccess (data) {
         // TODO : Masquer le formulaire et afficher un message de succès dans le bloc notice
         console.log("Success !");
-        console.log(event.target.responseText);
-        alert('Votre demande a bien été reçu et est en attente de traitement.');
+        console.log(data.data);
+        alert(data.data);
     }
 
-    onSendFormError (event) {
+    onSendFormError (error) {
         // TODO : Ajouter l'erreur au bloc notice prévu à cet effet
         console.log("Une erreur s'est produite : ");
-        console.log(event.target.responseText);
-        alert('Une erreur s\'est produite, veuillez contacter l\'administrateur.');
+        console.log(error);
+        alert(error);
     }
 }
 
