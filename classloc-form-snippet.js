@@ -950,6 +950,7 @@ class ClasslocFormulaire
     }
 
     sendForm () {
+        document.getElementById("loader").style.display = "block";
         var data = {
             "data" : {
                 "request": {
@@ -1025,9 +1026,11 @@ class ClasslocFormulaire
             }
             //return Promise.reject(response);
         }).then((data) => {
+            document.getElementById("loader").style.display = "none";
             console.log('second then');
             this.onSendFormSuccess(data);
         }).catch(error => {
+            document.getElementById("loader").style.display = "none";
             console.log('catch');
             this.onSendFormError(error);
             console.warn('Something went wrong.', error);
