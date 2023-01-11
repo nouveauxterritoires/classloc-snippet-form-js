@@ -23,7 +23,7 @@
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
+  font-family: sans-serif;
   font-size: 0.875rem;
 }
 
@@ -154,6 +154,10 @@ form .blocform .blocflex {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+form .blocform .blocflex h3 {
+  width: 100%;
+  margin-top: 0;
 }
 form .blocform .blocflex .colonne {
   width: 50%;
