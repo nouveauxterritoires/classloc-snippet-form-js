@@ -236,28 +236,34 @@ div.div-submit {
 
 div#div-alert {
   display: none;
-  position: relative;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  width: 500px;
-  max-width: 500px;
-  margin: 0.5rem auto;
 }
 
 div.alert-success {
   display: block;
   color: #155724;
   background-color: #d4edda;
-  border-color: #c3e6cb;
+  text-align: left !important;
+  position: relative;
+  padding: 10px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  width: 600px;
+  max-width: 600px;
+  margin: 20px auto;
 }
 
 div.alert-error {
   display: block;
   color: #721c24;
   background-color: #f8d7da;
-  border-color: #f5c6cb;
+  text-align: left !important;
+  position: relative;
+  padding: 10px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  width: 600px;
+  max-width: 600px;
+  margin: 20px auto;
 }
 
 p button {

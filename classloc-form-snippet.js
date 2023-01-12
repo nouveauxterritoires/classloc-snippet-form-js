@@ -307,7 +307,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Raison Sociale',
-                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'raison',
                                         'name': 'raison',
                                         'class': 'form-control'
@@ -316,7 +316,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Nom',
-                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'nom',
                                         'name': 'nom',
                                         'class': 'form-control'
@@ -325,7 +325,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Prénom',
-                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'prenom',
                                         'name': 'prenom',
                                         'class': 'form-control'
@@ -335,7 +335,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'text',
                                     'placeholder': 'Ajouter un SIRET/SIREN (optionnel)',
-                                    'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}',
+                                    'pattern': '^[a-zA-Z]{1,20}$',
                                     'id': 'siret',
                                     'name': 'siret',
                                     'class': 'form-control'
@@ -473,7 +473,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Raison Sociale',
-                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'raison-hebergeur',
                                         'name': 'raison-hebergeur',
                                         'class': 'form-control'
@@ -482,7 +482,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Nom',
-                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'nom-hebergeur',
                                         'name': 'nom-hebergeur',
                                         'class': 'form-control'
@@ -491,7 +491,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Prénom',
-                                        'pattern': '^[a-zA-Z]{1,20}$',
+                                        'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'prenom-hebergeur',
                                         'name': 'prenom-hebergeur',
                                         'class': 'form-control'
@@ -501,7 +501,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'text',
                                     'placeholder': 'Ajouter un SIRET/SIREN (optionnel)',
-                                    'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}',
+                                    'pattern': '^[a-zA-Z ]{1,20}$',
                                     'id': 'siret-hebergeur',
                                     'name': 'siret-hebergeur',
                                     'class': 'form-control'
