@@ -336,7 +336,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'text',
                                     'placeholder': 'Ajouter un SIRET/SIREN (optionnel)',
-                                    'pattern': '^[a-zA-Z]{1,20}$',
+                                    // 'pattern': '^[a-zA-Z]{1,20}$',
                                     'id': 'siret',
                                     'name': 'siret',
                                     'class': 'form-control'
@@ -503,7 +503,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'text',
                                     'placeholder': 'Ajouter un SIRET/SIREN (optionnel)',
-                                    'pattern': '^[a-zA-Z ]{1,20}$',
+                                    //'pattern': '^[a-zA-Z ]{1,20}$',
                                     'id': 'siret-hebergeur',
                                     'name': 'siret-hebergeur',
                                     'class': 'form-control'
