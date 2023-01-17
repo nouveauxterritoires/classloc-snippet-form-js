@@ -293,7 +293,7 @@ class ClasslocFormulaire
                                         'type': 'select',
                                         'required': 'required',
                                         'options': [
-                                            {'value': "", 'label': 'Civilité'},
+                                            {'value': "", 'label': 'Civilité*'},
                                             {'value': 'Monsieur', 'label': 'Monsieur'},
                                             {'value': 'Monsieur et Madame', 'label': 'Monsieur et Madame'},
                                             {'value': 'Madame', 'label': 'Madame'},
@@ -308,7 +308,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Raison Sociale',
-                                        'pattern': '^[a-zA-Z ]{1,20}$',
+                                        // 'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'raison',
                                         'name': 'raison',
                                         'class': 'form-control'
@@ -317,7 +317,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Nom',
-                                        'pattern': '^[a-zA-Z ]{1,20}$',
+                                        // 'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'nom',
                                         'name': 'nom',
                                         'class': 'form-control'
@@ -326,7 +326,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Prénom',
-                                        'pattern': '^[a-zA-Z ]{1,20}$',
+                                        // 'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'prenom',
                                         'name': 'prenom',
                                         'class': 'form-control'
@@ -346,7 +346,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'email',
                                         'required': 'required',
-                                        'placeholder': 'Mail principal',
+                                        'placeholder': 'Mail principal*',
                                         'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,50}',
                                         'id': 'email',
                                         'name': 'email',
@@ -369,7 +369,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'text',
                                     'required': 'required',
-                                    'placeholder': 'Adresse',
+                                    'placeholder': 'Adresse*',
                                     'id': 'adresse',
                                     'name': 'adresse',
                                     'class': 'form-control'
@@ -387,8 +387,8 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'required': 'required',
-                                        'placeholder': 'Code postal',
-                                        'pattern': '[0-9]{5}',
+                                        'placeholder': 'Code postal*',
+                                        // 'pattern': '[0-9]{5}',
                                         'minlength': "5",
                                         'maxlength': "5",
                                         'id': 'code-postal',
@@ -399,7 +399,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'required': 'required',
-                                        'placeholder': 'Pays',
+                                        'placeholder': 'Pays*',
                                         'id': 'pays',
                                         'name': 'pays',
                                         'class': 'form-control'
@@ -409,7 +409,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'text',
                                     'required': 'required',
-                                    'placeholder': 'Nom de la commune',
+                                    'placeholder': 'Nom de la commune*',
                                     'id': 'commune',
                                     'name': 'commune',
                                     'class': 'form-control'
@@ -475,7 +475,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Raison Sociale',
-                                        'pattern': '^[a-zA-Z ]{1,20}$',
+                                        // 'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'raison-hebergeur',
                                         'name': 'raison-hebergeur',
                                         'class': 'form-control'
@@ -484,7 +484,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Nom',
-                                        'pattern': '^[a-zA-Z ]{1,20}$',
+                                        // 'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'nom-hebergeur',
                                         'name': 'nom-hebergeur',
                                         'class': 'form-control'
@@ -493,7 +493,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'placeholder': 'Prénom',
-                                        'pattern': '^[a-zA-Z ]{1,20}$',
+                                        // 'pattern': '^[a-zA-Z ]{1,20}$',
                                         'id': 'prenom-hebergeur',
                                         'name': 'prenom-hebergeur',
                                         'class': 'form-control'
@@ -597,7 +597,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'text',
                                     'placeholder': 'Nom',
-                                    'pattern': '^[a-zA-Z0-9à-ž ]{1,50}$',
+                                    // 'pattern': '^[a-zA-Z0-9à-ž ]{1,50}$',
                                     'id': 'nom-hebergement',
                                     'name': 'nom-hebergement',
                                     'class': 'form-control'
@@ -607,7 +607,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'text',
                                         'required': 'required',
-                                        'placeholder': 'Adresse',
+                                        'placeholder': 'Adresse*',
                                         'id': 'adresse-hebergement',
                                         'name': 'adresse-hebergement',
                                         'class': 'form-control'
@@ -628,7 +628,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'text',
                                     'required': 'required',
-                                    'placeholder': 'Nom de la commune',
+                                    'placeholder': 'Nom de la commune*',
                                     'id': 'commune-hebergement',
                                     'name': 'commune-hebergement',
                                     'class': 'form-control'
@@ -746,7 +746,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'tel',
                                         'placeholder': 'Téléphone',
-                                        'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
+                                        // 'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
                                         'id': 'tel-hebergeur',
                                         'name': 'tel-hebergeur',
                                         'class': 'form-control'
@@ -755,7 +755,7 @@ class ClasslocFormulaire
                                         'type': 'select',
                                         'required': 'required',
                                         'options': [
-                                            {'value': "", 'label': 'Étage'},
+                                            {'value': "", 'label': 'Étage*'},
                                             {'value': '0', 'label': 'RDC / RDJ'},
                                             {'value': '1', 'label': '1'},
                                             {'value': '2', 'label': '2'},
@@ -781,7 +781,7 @@ class ClasslocFormulaire
                                     'type': 'select',
                                     'required': 'required',
                                     'options': [
-                                        {'value': "", 'label': 'Type de logement du meublé'},
+                                        {'value': "", 'label': 'Type de logement du meublé*'},
                                         {'value': 'appartement', 'label': 'Appartement'},
                                         {'value': 'appartement-studio', 'label': 'Appartement studio'},
                                         {'value': 'studio', 'label': 'Studio'},
@@ -803,7 +803,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'number',
                                     'required': 'required',
-                                    'placeholder': 'Capacité classée demandée',
+                                    'placeholder': 'Capacité classée demandée*',
                                     'id': 'capacite-hebergement',
                                     'name': 'capacite-hebergement',
                                     'class': 'form-control'
@@ -812,7 +812,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'number',
                                     'required': 'required',
-                                    'placeholder': 'Nombre de pièces composant le meublé',
+                                    'placeholder': 'Nombre de pièces composant le meublé*',
                                     'id': 'nbpieces-hebergement',
                                     'name': 'nbpieces-hebergement',
                                     'class': 'form-control'
@@ -821,7 +821,7 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'number',
                                     'required': 'required',
-                                    'placeholder': 'Nombre de chambre(s)/cabine(s)',
+                                    'placeholder': 'Nombre de chambre(s)/cabine(s)*',
                                     'id': 'nbchambre-hebergement',
                                     'name': 'nbchambre-hebergement',
                                     'class': 'form-control'
@@ -833,7 +833,7 @@ class ClasslocFormulaire
                                     'type': 'select',
                                     'required': 'required',
                                     'options': [
-                                        {'value': "", 'label': 'Classement actuel'},
+                                        {'value': "", 'label': 'Classement actuel*'},
                                         {'value': 'non-classe', 'label': 'Non-classé'},
                                         {'value': '1', 'label': '1 ★'},
                                         {'value': '2', 'label': '2 ★'},
@@ -850,7 +850,7 @@ class ClasslocFormulaire
                                     'type': 'select',
                                     'required': 'required',
                                     'options': [
-                                        {'value': "", 'label': 'Éligibilité demandée'},
+                                        {'value': "", 'label': 'Éligibilité demandée*'},
                                         {'value': '1', 'label': '1 ★'},
                                         {'value': '2', 'label': '2 ★'},
                                         {'value': '3', 'label': '3 ★'},
@@ -867,7 +867,7 @@ class ClasslocFormulaire
                                     'type': 'number',
                                     'step': 0.01,
                                     'required': 'required',
-                                    'placeholder': 'Surface totale',
+                                    'placeholder': 'Surface totale*',
                                     'id': 'surface-hebergement',
                                     'name': 'surface-hebergement',
                                     'class': 'form-control'
@@ -877,7 +877,7 @@ class ClasslocFormulaire
                                     'type': 'number',
                                     'step': 0.01,
                                     'required': 'required',
-                                    'placeholder': 'Surface hors salle de bain et WC',
+                                    'placeholder': 'Surface hors salle de bain et WC*',
                                     'id': 'surface-ss-sdb-hebergement',
                                     'name': 'surface-ss-sdb-hebergement',
                                     'class': 'form-control'
