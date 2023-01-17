@@ -142,6 +142,7 @@ class ClasslocFormulaire
                 }
             }
         });
+        if( v.style ) { blocform.setAttribute("style", v.style); }
 
         section.appendChild(blocform);
     }
@@ -445,6 +446,7 @@ class ClasslocFormulaire
                         'class': 'not-proprietaire'
                     },
                     'blocform-1': {
+                        'style': 'display: none',
                         'blocflex': {
                             'sub-title-1': {
                                 'subTitle': ' Information du propriétaire',
@@ -955,6 +957,27 @@ class ClasslocFormulaire
 
     sendForm () {
         document.getElementById("loader").style.display = "block";
+
+        var isHide = (document.getElementById('not-proprietaire').nextSibling.style.display === 'none') ? true : false;
+        var owner = {};
+
+        if(!isHide) {
+            owner = {
+                "civility": document.getElementById("civilite-hebergeur").value,
+                "buisinessName": document.getElementById("raison-hebergeur").value,
+                "firstName": document.getElementById("nom-hebergeur").value,
+                "lastName": document.getElementById("prenom-hebergeur").value,
+                "siret": document.getElementById("siret-hebergeur").value,
+                "mail": document.getElementById("email-hebergeur").value,
+                "phone": document.getElementById("tel-hebergeur").value,
+                "address": document.getElementById("adresse-hebergeur").value,
+                "additionnalAddress": document.getElementById("complement-ad").value,
+                "postalCode": document.getElementById("code-postal-hebergeur").value,
+                "city": document.getElementById("commune-hebergeur").value,
+                "country": document.getElementById("pays-hebergeur").value
+            };
+        }
+
         var data = {
             "data" : {
                 "request": {
@@ -978,20 +1001,7 @@ class ClasslocFormulaire
                     "nbCabine": document.getElementById("nbchambre-hebergement").value,
                     "nbPiecesTot": document.getElementById("nbpieces-hebergement").value,
                     "currentRanking": document.getElementById("classement-hebergement").value,
-                    "owner": {
-                        "civility": document.getElementById("civilite-hebergeur").value,
-                        "buisinessName": document.getElementById("raison-hebergeur").value,
-                        "firstName": document.getElementById("nom-hebergeur").value,
-                        "lastName": document.getElementById("prenom-hebergeur").value,
-                        "siret": document.getElementById("siret-hebergeur").value,
-                        "mail": document.getElementById("email-hebergeur").value,
-                        "phone": document.getElementById("tel-hebergeur").value,
-                        "address": document.getElementById("adresse-hebergeur").value,
-                        "additionnalAddress": document.getElementById("complement-ad").value,
-                        "postalCode": document.getElementById("code-postal-hebergeur").value,
-                        "city": document.getElementById("commune-hebergeur").value,
-                        "country": document.getElementById("pays-hebergeur").value
-                    },
+                    "owner": owner,
                     "applicant": {
                         "civility": document.getElementById("civilite").value,
                         "buisinessName": document.getElementById("raison").value,
@@ -1082,19 +1092,15 @@ class ClasslocFormulaire
 
 const form = new ClasslocFormulaire("classloc-form");
 
-// window.addEventListener("DOMContentLoaded", () => {
-//     document.addEventListener("click", (e) => {
-//         if (!e.target) return;
-//         e.preventDefault();
-//         const section = e.target.closest('section');
-//
-//         if( e.target.classList.contains('back') ) { // Mettre la classe prev ou remplacer celle là par celle dans les boutons precedent)
-//             section.classList.remove("tab-active");
-//             section.previousSibling.classList.add("tab-active");
-//         }
-//         else if( e.target.classList.contains('next') ) { // Mettre la classe next ou remplacer celle là par celle dans les boutons suivant)
-//             section.classList.remove("tab-active");
-//             section.nextSibling.classList.add("tab-active");
-//         }
-//     });
-// });
+window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("click", (e) => {
+        if(e.target.id == 'not-proprietaire'){
+            var isHide = (document.getElementById(e.target.id).nextSibling.style.display === 'none') ? true : false;
+            if(isHide) {
+                document.getElementById(e.target.id).nextSibling.style.display = 'block';
+            } else {
+                document.getElementById(e.target.id).nextSibling.style.display = 'none';
+            }
+        }
+    });
+});
