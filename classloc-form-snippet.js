@@ -965,8 +965,8 @@ class ClasslocFormulaire
             owner = {
                 "civility": document.getElementById("civilite-hebergeur").value,
                 "buisinessName": document.getElementById("raison-hebergeur").value,
-                "firstName": document.getElementById("nom-hebergeur").value,
-                "lastName": document.getElementById("prenom-hebergeur").value,
+                "firstName": document.getElementById("prenom-hebergeur").value,
+                "lastName": document.getElementById("nom-hebergeur").value,
                 "siret": document.getElementById("siret-hebergeur").value,
                 "mail": document.getElementById("email-hebergeur").value,
                 "phone": document.getElementById("tel-hebergeur").value,
@@ -1005,8 +1005,8 @@ class ClasslocFormulaire
                     "applicant": {
                         "civility": document.getElementById("civilite").value,
                         "buisinessName": document.getElementById("raison").value,
-                        "firstName": document.getElementById("nom").value,
-                        "lastName": document.getElementById("prenom").value,
+                        "firstName": document.getElementById("prenom").value,
+                        "lastName": document.getElementById("nom").value,
                         "siret": document.getElementById("siret").value,
                         "mail": document.getElementById("email").value,
                         "phone": document.getElementById("tel").value,
