@@ -8,7 +8,7 @@ class ClasslocFormulaire
     constructor( id )
     {
 
-        this.urlApi = "https://classloc.dev.local/api/v1/create_outsider_demand";
+        this.urlApi = "https://www.classloc.dev/api/v1/create_outsider_demand";
         this.config = this.setupForm();
         this.token  = this.getToken();
 
@@ -441,7 +441,7 @@ class ClasslocFormulaire
                 },
                 'content': {
                     'not-proprietaire': {
-                        'balise': 'button',
+                        'balise': 'a',
                         'text': '+ Le demandeur n\'est pas le propriétaire',
                         'class': 'not-proprietaire'
                     },
