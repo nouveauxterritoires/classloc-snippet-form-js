@@ -7,8 +7,7 @@ class ClasslocFormulaire
 {
     constructor( id )
     {
-
-        this.urlApi = "https://classloc.dev.local:8000/api/v1/create_outsider_demand";
+        this.urlApi = "https://www.classloc.fr/api/v1/create_outsider_demand";
         this.config = this.setupForm();
         this.token  = this.getToken();
 
@@ -82,7 +81,6 @@ class ClasslocFormulaire
 
     createSubTitle(section, v)
     {
-        console.log(v);
         const subTitle = document.createElement(v.balise);
         subTitle.setAttribute("class", v.class);
         subTitle.innerHTML = v.subTitle;
@@ -126,12 +124,12 @@ class ClasslocFormulaire
         blocform.setAttribute("class", 'blocform');
 
         Object.entries(v).forEach(([key,v])=>{
-            if(key.includes('blocflex')) {
+            if(key.includes('sub-title')) {
+                this.createSubTitle(blocform, v);
+            } else if(key.includes('blocflex')) {
                 this.createBlocflex(blocform, key, v);
             } else {
-                if(key.includes('sub-title')) {
-                    this.createSubTitle(blocform, v);
-                } else if(key.includes('text')) {
+                 if(key.includes('text')) {
                     this.createText(blocform, v);
                 } else {
                     if(v.balise === "a"){
@@ -154,7 +152,8 @@ class ClasslocFormulaire
 
         Object.entries(v).forEach(([key,v])=>{
             if(key.includes('sub-title')){
-                this.createSubTitle(blocflex, v);
+                // console.log('createBlocflex');
+                // this.createSubTitle(blocflex, v);
             } else {
                 this.createColonne(blocflex, key, v);
             }
@@ -215,7 +214,6 @@ class ClasslocFormulaire
 
     createInput(section, key, v)
     {
-        console.log(v);
         if(v.type === "select"){
             this.createSelect(section, key, v);
         } else if(key !== 'class') {
@@ -228,7 +226,7 @@ class ClasslocFormulaire
             if( v.value ) { input.setAttribute("value", v.value); }
             if( v.required ) { input.setAttribute("required", v.required); }
             if( v.pattern ) { input.setAttribute("pattern", v.pattern); }
-            if( v.min ) { input.setAttribute("min", v.min); }
+            if( v.min >= 0 ) { input.setAttribute("min", v.min); }
             if( v.max ) { input.setAttribute("max", v.max); }
             if( v.step ) { input.setAttribute("step", v.step); }
             if( v.class ) { input.setAttribute("class", v.class); }
@@ -657,12 +655,12 @@ class ClasslocFormulaire
                     },
                     'blocform-1': {
                         'style': 'display: none',
+                        'sub-title-1': {
+                            'subTitle': ' Information du propriétaire',
+                            'class': 'sub-title sub-title-1',
+                            'balise': 'h3'
+                        },
                         'blocflex': {
-                            'sub-title-1': {
-                                'subTitle': ' Information du propriétaire',
-                                'class': 'sub-title sub-title-1',
-                                'balise': 'h3'
-                            },
                             'colonne-gauche': {
                                 'class': 'colonne colonne-gauche pt0',
                                 'sous-colonne-1': {
@@ -774,7 +772,6 @@ class ClasslocFormulaire
                                     },
                                     'pays-hebergeur': {
                                         'type': 'select',
-                                        'required': 'required',
                                         'placeholder': 'Pays*',
                                         'id': 'pays-hebergeur',
                                         'name': 'pays-hebergeur',
@@ -1005,12 +1002,12 @@ class ClasslocFormulaire
                         },
                     },
                     'blocform-2': {
+                        'sub-title-2': {
+                            'subTitle': ' Information de l\'hébergement',
+                            'class': 'sub-title sub-title-2',
+                            'balise': 'h3'
+                        },
                         'blocflex-1': {
-                            'sub-title-1': {
-                                'subTitle': ' Information de l\'hébergement',
-                                'class': 'sub-title sub-title-2',
-                                'balise': 'h3'
-                            },
                             'colonne-gauche': {
                                 'class': 'colonne colonne-gauche pt0 pb0',
                                 'nom-hebergement': {
@@ -1189,12 +1186,12 @@ class ClasslocFormulaire
                                 },
                             },
                         },
+                        'sub-title-3': {
+                            'subTitle': ' Identification de l\'hébergement',
+                            'class': 'sub-title sub-title-3',
+                            'balise': 'h3'
+                        },
                         'blocflex-2': {
-                            'sub-title-1': {
-                                'subTitle': ' Identification de l\'hébergement',
-                                'class': 'sub-title sub-title-3',
-                                'balise': 'h3'
-                            },
                             'colonne-gauche': {
                                 'class': 'colonne colonne-gauche pt0',
                                 'type-hebergement': {
@@ -1240,7 +1237,8 @@ class ClasslocFormulaire
                                     'placeholder': 'Nombre de pièces composant le meublé*',
                                     'id': 'nbpieces-hebergement',
                                     'name': 'nbpieces-hebergement',
-                                    'class': 'form-control'
+                                    'class': 'form-control',
+                                    'min': 0
                                 },
                                 'nbchambre-hebergement': {
                                     'balise': 'input',
@@ -1249,7 +1247,8 @@ class ClasslocFormulaire
                                     'placeholder': 'Nombre de chambre(s)/cabine(s)*',
                                     'id': 'nbchambre-hebergement',
                                     'name': 'nbchambre-hebergement',
-                                    'class': 'form-control'
+                                    'class': 'form-control',
+                                    'min': 0
                                 }
                             },
                             'colonne-droite': {
@@ -1291,84 +1290,65 @@ class ClasslocFormulaire
                                     'balise': 'input',
                                     'type': 'number',
                                     'step': 0.01,
-                                    'required': 'required',
-                                    'placeholder': 'Surface totale*',
+                                    'placeholder': 'Surface totale',
                                     'id': 'surface-hebergement',
                                     'name': 'surface-hebergement',
-                                    'class': 'form-control'
+                                    'class': 'form-control',
+                                    'min': 0
                                 },
                                 'surface-ss-sdb-hebergement': {
                                     'balise': 'input',
                                     'type': 'number',
                                     'step': 0.01,
-                                    'required': 'required',
-                                    'placeholder': 'Surface hors salle de bain et WC*',
+                                    'placeholder': 'Surface hors salle de bain et WC',
                                     'id': 'surface-ss-sdb-hebergement',
                                     'name': 'surface-ss-sdb-hebergement',
-                                    'class': 'form-control'
+                                    'class': 'form-control',
+                                    'min': 0
                                 },
-                                // 'sous-colonne-droite': {
-                                //     'back': {
-                                //         'balise': 'a',
-                                //         'href': '#informations-demandeur',
-                                //         'text': '< Retour à l\'étape 1',
-                                //         'class': 'back',
-                                //         'id': 'back-to-step-1'
-                                //     },
-                                //     'next': {
-                                //         'balise': 'a',
-                                //         'href': '#tarif-prestation',
-                                //         'text': '+ Finaliser',
-                                //         'class': 'next',
-                                //         'id': 'next-to-step-3'
-                                //     }
-                                // }
                             },
                         },
                     }
                 }
             },
-            // 'tarif-prestation': {
-            //     'title': {
-            //         // 'title': ' Tarif prestation',
-            //         'title': ' Valider la demande',
-            //         'page1': '',
-            //         'page2': '',
-            //         'page3': 'active',
-            //         'id': 'tarif-prestation',
-            //         'class': 'cl_titre',
-            //         'balise': 'h2'
-            //     },
-            //     'content': {
-            //         'blocform': {
-                        // 'sub-title': {
-                        //     'subTitle': ' Tarif de la prestation',
-                        //     'subTitle': ' ',
-                        //     'class': 'sub-title',
-                        //     'balise': 'h4'
-                        // },
-                        // 'text': {
-                        //     'text': '150 €',
-                        //     'class': 'tarif',
-                        //     'id': 'tarif',
-                        //     'balise': 'p'
-                        // },
-                        // 'back': {
-                        //     'balise': 'a',
-                        //     'href': '#informations-hebergement',
-                        //     'text': '< Retour à l\'étape 2',
-                        //     'class': 'back',
-                        //     'id': 'back-to-step-2'
-                        // },
-                        // 'next': {
-                        //     'balise': 'input',
-                        //     'type': 'submit',
-                        //     'value': '+ Valider la demande',
-                        //     'class': 'valid'
-                        // }
-            //         }
-            //     }
-            // }
+            'commentaire': {
+                'title': {
+                    'title': ' Commentaire',
+                    'page1': '',
+                    'page2': 'active',
+                    'page3': '',
+                    'id': 'informations-hebergement',
+                    'class': 'cl_titre',
+                    'balise': 'h2'
+                },
+                'content': {
+                    'blocform-1': {
+                        'sub-title-4': {
+                            'subTitle': ' Informations complémentaires',
+                            'class': 'sub-title sub-title-4',
+                            'balise': 'h3'
+                        },
+                        'sub-title-5': {
+                            'subTitle': ' Merci d\'indiquer dans le champ ci-dessous vos disponibilités ainsi que votre mode de paiement préférentiel parmi les choix suivants : carte bleue, chèque, virement',
+                            'class': 'sub-title sub-title-5 ml4',
+                            'balise': 'span'
+                        },
+                        'blocflex': {
+                            'colonne': {
+                                'class': 'colonne colonne-gauche w-100 pt0 mt2',
+                                'comment': {
+                                    'balise': 'textarea',
+                                    'placeholder': 'Commentaire',
+                                    // 'pattern': '^[a-zA-Z ]{1,20}$',
+                                    'id': 'comment',
+                                    'name': 'comment',
+                                    'class': 'form-control'
+                                },
+                            }
+                        }
+                    }
+                }
+            }
         };
     }
 
@@ -1407,9 +1387,11 @@ class ClasslocFormulaire
             "data" : {
                 "request": {
                     "source": "snippet-form",
+                    "snippet-token": this.getToken(),
                     "eligDemandee": document.getElementById("eligibilite-demandee").value,
                     "capClassee": document.getElementById('capacite-hebergement').value,
                     "nbPiecesSupp": document.getElementById('nbpieces-hebergement').value - 1, /* nbPiecesTot - 1 */
+                    "comment": document.getElementById('comment').value
                 },
                 "accommodation": {
                     "name": document.getElementById("nom-hebergement").value,
@@ -1420,8 +1402,8 @@ class ClasslocFormulaire
                     "additionnalAddress": document.getElementById("complement-ad-hebergement").value,
                     // "departement": document.getElementById("departement-hebergement").value,
                     "city": document.getElementById("commune-hebergement").value,
-                    "surface": document.getElementById("surface-hebergement").value,
-                    "surfaceHsdb": document.getElementById("surface-ss-sdb-hebergement").value,
+                    "surface": (document.getElementById("surface-hebergement").value !== "") ? document.getElementById("surface-hebergement").value : 0,
+                    "surfaceHsdb": (document.getElementById("surface-ss-sdb-hebergement").value !== "") ? document.getElementById("surface-ss-sdb-hebergement").value : 0,
                     "nbPersonsClasse": document.getElementById("capacite-hebergement").value,
                     "nbCabine": document.getElementById("nbchambre-hebergement").value,
                     "nbPiecesTot": document.getElementById("nbpieces-hebergement").value,
