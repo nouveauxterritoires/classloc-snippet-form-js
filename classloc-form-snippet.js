@@ -1237,8 +1237,7 @@ class ClasslocFormulaire
                                 'nbpieces-hebergement': {
                                     'balise': 'input',
                                     'type': 'number',
-                                    'required': 'required',
-                                    'placeholder': 'Nombre de pièces composant le meublé*',
+                                    'placeholder': 'Nombre de pièces composant le meublé',
                                     'id': 'nbpieces-hebergement',
                                     'name': 'nbpieces-hebergement',
                                     'class': 'form-control',
@@ -1247,8 +1246,7 @@ class ClasslocFormulaire
                                 'nbchambre-hebergement': {
                                     'balise': 'input',
                                     'type': 'number',
-                                    'required': 'required',
-                                    'placeholder': 'Nombre de chambre(s)/cabine(s)*',
+                                    'placeholder': 'Nombre de chambre(s)/cabine(s)',
                                     'id': 'nbchambre-hebergement',
                                     'name': 'nbchambre-hebergement',
                                     'class': 'form-control',
@@ -1394,7 +1392,7 @@ class ClasslocFormulaire
                     "snippet-token": this.getToken(),
                     "eligDemandee": document.getElementById("eligibilite-demandee").value,
                     "capClassee": document.getElementById('capacite-hebergement').value,
-                    "nbPiecesSupp": document.getElementById('nbpieces-hebergement').value - 1, /* nbPiecesTot - 1 */
+                    "nbPiecesSupp": (document.getElementById("nbpieces-hebergement").value !== "") ? document.getElementById('nbpieces-hebergement').value - 1 : 0, /* nbPiecesTot - 1 */
                     "comment": document.getElementById('comment').value
                 },
                 "accommodation": {
@@ -1409,8 +1407,8 @@ class ClasslocFormulaire
                     "surface": (document.getElementById("surface-hebergement").value !== "") ? document.getElementById("surface-hebergement").value : 0,
                     "surfaceHsdb": (document.getElementById("surface-ss-sdb-hebergement").value !== "") ? document.getElementById("surface-ss-sdb-hebergement").value : 0,
                     "nbPersonsClasse": document.getElementById("capacite-hebergement").value,
-                    "nbCabine": document.getElementById("nbchambre-hebergement").value,
-                    "nbPiecesTot": document.getElementById("nbpieces-hebergement").value,
+                    "nbCabine": (document.getElementById("nbchambre-hebergement").value !== "") ? document.getElementById("nbchambre-hebergement").value : 0,
+                    "nbPiecesTot": (document.getElementById("nbpieces-hebergement").value !== "") ? document.getElementById("nbpieces-hebergement").value : 0,
                     "currentRanking": document.getElementById("classement-hebergement").value,
                     "owner": owner,
                     "applicant": {
