@@ -251,6 +251,9 @@ class ClasslocFormulaire
             const opt = document.createElement("option");
             opt.value = option.value;
             opt.text = option.label;
+            if ( option.selected ) {
+                opt.selected = option.selected;
+            }
             select.add(opt);
         });
 
@@ -471,7 +474,7 @@ class ClasslocFormulaire
                                             {'value': 'EX-REPUBLIQUE YOUGOSLAVE DE MACEDOINE', 'label': 'EX-REPUBLIQUE YOUGOSLAVE DE MACEDOINE'},
                                             {'value': 'FIDJI', 'label': 'FIDJI'},
                                             {'value': 'FINLANDE', 'label': 'FINLANDE'},
-                                            {'value': 'FRANCE', 'label': 'FRANCE'},
+                                            {'value': 'FRANCE', 'label': 'FRANCE', 'selected': 'selected'},
                                             {'value': 'GABON', 'label': 'GABON'},
                                             {'value': 'GAMIE', 'label': 'GAMIE'},
                                             {'value': 'GEORGIE', 'label': 'GEORGIE'},
@@ -619,7 +622,6 @@ class ClasslocFormulaire
                                     'type': 'text',
                                     'required': 'required',
                                     'placeholder': 'Nom de la commune*',
-                                    'onkeydown': "return /[a-z]/i.test(event.key)",
                                     'id': 'commune',
                                     'name': 'commune',
                                     'class': 'form-control'
@@ -652,7 +654,7 @@ class ClasslocFormulaire
                 'content': {
                     'not-proprietaire': {
                         'balise': 'a',
-                        'text': '+ Le demandeur n\'est pas le propriétaire',
+                        'text': '+ Coordonnées du propriétaire s\'il n\'est pas le demandeur',
                         'class': 'not-proprietaire'
                     },
                     'blocform-1': {
@@ -996,7 +998,6 @@ class ClasslocFormulaire
                                     'type': 'text',
                                     'required': '',
                                     'placeholder': 'Nom de la commune*',
-                                    'onkeydown': "return /[a-z]/i.test(event.key)",
                                     'id': 'commune-hebergeur',
                                     'name': 'commune-hebergeur',
                                     'class': 'form-control'
@@ -1049,7 +1050,6 @@ class ClasslocFormulaire
                                     'type': 'text',
                                     'required': 'required',
                                     'placeholder': 'Nom de la commune*',
-                                    'onkeydown': "return /[a-z]/i.test(event.key)",
                                     'id': 'commune-hebergement',
                                     'name': 'commune-hebergement',
                                     'class': 'form-control'
@@ -1331,7 +1331,7 @@ class ClasslocFormulaire
                             'balise': 'h3'
                         },
                         'sub-title-5': {
-                            'subTitle': ' Merci d\'indiquer dans le champ ci-dessous vos disponibilités ainsi que votre mode de paiement préférentiel parmi les choix suivants : carte bleue, chèque, virement',
+                            'subTitle': ' Merci d\'indiquer dans le champ ci-dessous vos disponibilités ainsi que votre mode de paiement préférentiel parmi les choix suivants : chèque, virement',
                             'class': 'sub-title sub-title-5 ml4',
                             'balise': 'span'
                         },
@@ -1516,7 +1516,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("pays-hebergeur").setAttribute('required', 'required');
             } else {
                 document.getElementById(e.target.id).nextSibling.style.display = 'none';
-                document.getElementById(e.target.id).textContent = "+ Le demandeur n'est pas le propriétaire";
+                document.getElementById(e.target.id).textContent = "+ Coordonnées du propriétaire s'il n'est pas le demandeur";
                 document.getElementById("civilite-hebergeur").removeAttribute('required');
                 document.getElementById("email-hebergeur").removeAttribute('required');
                 document.getElementById("adresse-hebergeur").removeAttribute('required');
