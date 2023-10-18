@@ -1378,7 +1378,7 @@ class ClasslocFormulaire
                 "mail": document.getElementById("email-hebergeur").value,
                 "phone": document.getElementById("tel-hebergeur").value,
                 "address": document.getElementById("adresse-hebergeur").value,
-                "additionnalAddress": document.getElementById("complement-ad").value,
+                "additionnalAddress": document.getElementById("complement-ad-hebergeur").value,
                 "postalCode": document.getElementById("code-postal-hebergeur").value,
                 "city": document.getElementById("commune-hebergeur").value,
                 "country": document.getElementById("pays-hebergeur").value
@@ -1420,7 +1420,7 @@ class ClasslocFormulaire
                         "mail": document.getElementById("email").value,
                         "phone": document.getElementById("tel").value,
                         "address": document.getElementById("adresse").value,
-                        "additionnalAddress": document.getElementById("complement-ad-hebergeur").value,
+                        "additionnalAddress": document.getElementById("complement-ad").value,
                         "postalCode": document.getElementById("code-postal").value,
                         "city": document.getElementById("commune").value,
                         "country": document.getElementById("pays").value
