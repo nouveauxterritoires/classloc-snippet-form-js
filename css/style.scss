@@ -125,7 +125,10 @@ form.classement {
   :hover {
     transition: all 0.25s ease-out !important; }
   
-  
+  i.information {
+    display: block;
+    margin-bottom: 5px;
+  }
   
   
   /* Structure Eléments */

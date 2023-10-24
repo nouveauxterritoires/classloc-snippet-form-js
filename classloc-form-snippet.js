@@ -106,7 +106,7 @@ class ClasslocFormulaire
             const sectionContainer = document.createElement('div');
 
             Object.entries(value.content).forEach(([key,v])=>{
-                if(key === 'not-proprietaire'){
+                if(key === 'not-proprietaire' || key === 'information'){
                     this.createInput(sectionContainer, key, v);
                 } else {
                     this.createBlocform(sectionContainer, key, v);
@@ -652,6 +652,11 @@ class ClasslocFormulaire
                     'balise': 'h2'
                 },
                 'content': {
+                    'information': {
+                        'balise': 'i',
+                        'text': 'Le nombre de pièce(s) pourra être amené à évoluer selon les normes du classement en vigueur et pourra impacter directement la facturation',
+                        'class': 'information'
+                    },
                     'not-proprietaire': {
                         'balise': 'a',
                         'text': '+ Coordonnées du propriétaire s\'il n\'est pas le demandeur',
@@ -1045,15 +1050,6 @@ class ClasslocFormulaire
                             },
                             'colonne-droite': {
                                 'class': 'colonne colonne-droite pt0 pb0',
-                                'commune-hebergement': {
-                                    'balise': 'input',
-                                    'type': 'text',
-                                    'required': 'required',
-                                    'placeholder': 'Nom de la commune*',
-                                    'id': 'commune-hebergement',
-                                    'name': 'commune-hebergement',
-                                    'class': 'form-control'
-                                },
                                 // 'sous-colonne-1': {
                                 //     'departement-hebergement': {
                                 //         'type': 'select',
@@ -1163,6 +1159,24 @@ class ClasslocFormulaire
                                 //     },
                                 // },
                                 'sous-colonne-2': {
+                                    'code-postal-hebergement': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'required': 'required',
+                                        'placeholder': 'Code Postal*',
+                                        'id': 'code-postal-hebergement',
+                                        'name': 'code-postal-hebergement',
+                                        'class': 'form-control'
+                                    },
+                                    'commune-hebergement': {
+                                        'balise': 'input',
+                                        'type': 'text',
+                                        'required': 'required',
+                                        'placeholder': 'Nom de la commune*',
+                                        'id': 'commune-hebergement',
+                                        'name': 'commune-hebergement',
+                                        'class': 'form-control'
+                                    },
                                     'tel-hebergement': {
                                         'balise': 'input',
                                         'type': 'tel',
@@ -1331,7 +1345,7 @@ class ClasslocFormulaire
                             'balise': 'h3'
                         },
                         'sub-title-5': {
-                            'subTitle': ' Merci d\'indiquer dans le champ ci-dessous vos disponibilités ainsi que votre mode de paiement préférentiel parmi les choix suivants : chèque, virement',
+                            'subTitle': ' Merci d\'indiquer dans le champ ci-dessous vos disponibilités ainsi que toute information susceptible d\'être essentielle au traitement de votre demande',
                             'class': 'sub-title sub-title-5 ml4',
                             'balise': 'span'
                         },
@@ -1403,6 +1417,7 @@ class ClasslocFormulaire
                     "address": document.getElementById("adresse-hebergement").value,
                     "additionnalAddress": document.getElementById("complement-ad-hebergement").value,
                     // "departement": document.getElementById("departement-hebergement").value,
+                    "codePostal": document.getElementById("code-postal-hebergement").value,
                     "city": document.getElementById("commune-hebergement").value,
                     "surface": (document.getElementById("surface-hebergement").value !== "") ? document.getElementById("surface-hebergement").value : 0,
                     "surfaceHsdb": (document.getElementById("surface-ss-sdb-hebergement").value !== "") ? document.getElementById("surface-ss-sdb-hebergement").value : 0,
@@ -1483,6 +1498,7 @@ class ClasslocFormulaire
 
         if(type === 'success') {
             divMess.innerHTML = '<span>&#x2714;<span> '+mess;
+            this.clearFieldAccommodation();
         } else {
             divMess.innerHTML = '<span>&#x2716;</span> '+mess;
         }
@@ -1490,12 +1506,30 @@ class ClasslocFormulaire
         this.clearAlertMess();
     }
 
+    clearFieldAccommodation () {
+        document.getElementById('nom-hebergement').value = '';
+        document.getElementById('adresse-hebergement').value = '';
+        document.getElementById('complement-ad-hebergement').value = '';
+        document.getElementById('code-postal-hebergement').value = '';
+        document.getElementById('commune-hebergement').value = '';
+        document.getElementById('tel-hebergement').value = '';
+        document.getElementById('etage-hebergement').value = '';
+        document.getElementById('type-hebergement').value = '';
+        document.getElementById('capacite-hebergement').value = '';
+        document.getElementById('nbpieces-hebergement').value = '';
+        document.getElementById('nbchambre-hebergement').value = '';
+        document.getElementById('classement-hebergement').value = '';
+        document.getElementById('eligibilite-demandee').value = '';
+        document.getElementById('surface-hebergement').value = '';
+        document.getElementById('surface-ss-sdb-hebergement').value = '';
+    }
+
     clearAlertMess () {
         setTimeout(function() {
             const divAlert = document.getElementById('div-alert');
             divAlert.style.display = "none";
             divAlert.innerText = "";
-        }, 5000);
+        }, 15000);
     }
 }
 

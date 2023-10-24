@@ -110,6 +110,10 @@ form.classement h4 {
 form.classement :hover {
   transition: all 0.25s ease-out !important;
 }
+form.classement i.information {
+  display: block;
+  margin-bottom: 5px;
+}
 form.classement section {
   width: 85%;
   max-width: 1200px;
