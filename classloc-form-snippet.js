@@ -1246,7 +1246,8 @@ class ClasslocFormulaire
                                     'placeholder': 'Capacité classée demandée*',
                                     'id': 'capacite-hebergement',
                                     'name': 'capacite-hebergement',
-                                    'class': 'form-control'
+                                    'class': 'form-control',
+                                    'min': 0
                                 },
                                 'nbpieces-hebergement': {
                                     'balise': 'input',
