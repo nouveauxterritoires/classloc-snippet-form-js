@@ -9,7 +9,6 @@ class ClasslocFormulaire
     {
         this.urlApi = "https://www.classloc.fr/api/v1/create_outsider_demand";
         this.config = this.setupForm();
-        this.token  = this.getToken();
 
         const form = document.createElement('form');
         form.className = 'classloc-form container classement';
@@ -1275,13 +1274,12 @@ class ClasslocFormulaire
                                     'required': 'required',
                                     'options': [
                                         {'value': "", 'label': 'Classement actuel*'},
-                                        {'value': 'non-classe', 'label': 'Non-classé'},
+                                        {'value': '0', 'label': 'Non-classé'},
                                         {'value': '1', 'label': '1 ★'},
                                         {'value': '2', 'label': '2 ★'},
                                         {'value': '3', 'label': '3 ★'},
                                         {'value': '4', 'label': '4 ★'},
                                         {'value': '5', 'label': '5 ★'},
-                                        {'value': '0', 'label': 'Ne sait pas'},
                                     ],
                                     'id': 'classement-hebergement',
                                     'name': 'classement-hebergement',
