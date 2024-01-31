@@ -207,7 +207,7 @@ form.classement p button,
 form.classement a.not-proprietaire {
   background-color: #008BC8;
   border-radius: 20px;
-  color: white;
+  color: white !important;
   width: auto !important;
   border: 1px solid #EBEBEB;
   height: 23px;

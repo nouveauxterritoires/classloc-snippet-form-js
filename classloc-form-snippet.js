@@ -710,7 +710,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'email',
                                         'required': '',
-                                        'placeholder': 'Mail principal*',
+                                        'placeholder': 'Courriel principal*',
                                         'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,50}',
                                         'id': 'email-hebergeur',
                                         'name': 'email-hebergeur',
@@ -719,7 +719,7 @@ class ClasslocFormulaire
                                     'tel-hebergeur': {
                                         'balise': 'input',
                                         'type': 'tel',
-                                        'placeholder': 'Téléphone principal',
+                                        'placeholder': 'Tel principal',
                                         'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
                                         'id': 'tel-hebergeur',
                                         'name': 'tel-hebergeur',
@@ -1004,7 +1004,7 @@ class ClasslocFormulaire
                 },
                 'content': {
                     'information': {
-                        'balise': 'i',
+                        'balise': 'p',
                         'text': 'Le nombre de pièce(s) pourra être amené à évoluer selon les normes du classement en vigueur et pourra impacter directement la facturation',
                         'class': 'information'
                     },
@@ -1698,7 +1698,7 @@ class ClasslocFormulaire
                         'sub-title-5': {
                             'subTitle': ' Merci d\'indiquer dans le champ ci-dessous vos disponibilités ainsi que toute information susceptible d\'être essentielle au traitement de votre demande',
                             'class': 'sub-title sub-title-5 ml4',
-                            'balise': 'span'
+                            'balise': 'p'
                         },
                         'blocflex': {
                             'colonne': {

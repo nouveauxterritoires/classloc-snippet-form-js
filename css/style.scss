@@ -238,7 +238,7 @@ form.classement {
   a.not-proprietaire {
     background-color: $tonique;
     border-radius: 20px;
-    color: white;
+    color: white !important;
     width: auto !important;
     border: 1px solid $border;
     height: 23px;
