@@ -347,7 +347,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'email',
                                         'required': 'required',
-                                        'placeholder': 'Mail principal*',
+                                        'placeholder': 'Courriel principal*',
                                         'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,50}',
                                         'id': 'email',
                                         'name': 'email',
@@ -356,7 +356,7 @@ class ClasslocFormulaire
                                     'tel': {
                                         'balise': 'input',
                                         'type': 'tel',
-                                        'placeholder': 'Téléphone principal',
+                                        'placeholder': 'Tél principal',
                                         'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
                                         'id': 'tel',
                                         'name': 'tel',
