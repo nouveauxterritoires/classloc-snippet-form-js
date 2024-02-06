@@ -2,40 +2,44 @@
 /* /// CLASSEMENT  /// */
 /* Params */
 /* Général */
-form.classement {
+#classloc-form form.classement {
   box-sizing: border-box;
   font-family: Arial, sans-serif;
-  font-size: 0.875rem;
+  font-size: 16px;
+  background: white !important;
   /* Structure Eléments */
   /* Tarif prestation */
 }
-form.classement .mt2 {
+#classloc-form form.classement .mt2 {
   margin-top: 20px !important;
 }
-form.classement .ml4 {
+#classloc-form form.classement .mb2 {
+  margin-bottom: 20px !important;
+}
+#classloc-form form.classement .ml4 {
   margin-left: 40px !important;
 }
-form.classement .pb0 {
+#classloc-form form.classement .pb0 {
   padding-bottom: 0 !important;
 }
-form.classement .pt0 {
+#classloc-form form.classement .pt0 {
   padding-top: 0 !important;
 }
-form.classement .pt20 {
+#classloc-form form.classement .pt20 {
   padding-top: 20px !important;
 }
-form.classement h1, form.classement h2, form.classement h3, form.classement h4 {
+#classloc-form form.classement h1, #classloc-form form.classement h2, #classloc-form form.classement h3, #classloc-form form.classement h4 {
   margin: 20px auto;
   padding: 0;
   text-transform: uppercase;
 }
-form.classement h2 {
-  font-size: 1.2rem;
+#classloc-form form.classement h2 {
+  font-size: 25px !important;
   display: flex;
   padding-left: 40px;
   align-items: center;
 }
-form.classement h2:before {
+#classloc-form form.classement h2:before {
   position: absolute;
   content: "■";
   width: 32px;
@@ -47,10 +51,11 @@ form.classement h2:before {
   background-color: #008BC8;
   margin-right: 10px;
 }
-form.classement h2 .pagination {
-  margin-left: 20px;
+#classloc-form form.classement h2 .fil {
+  margin: 0 0 0 20px !important;
+  border: none !important;
 }
-form.classement h2 .pagination span {
+#classloc-form form.classement h2 .fil span {
   width: 20px;
   height: 20px;
   display: inline-block;
@@ -62,10 +67,10 @@ form.classement h2 .pagination span {
   color: #D5D5D5;
   font-size: 75%;
 }
-form.classement h2 .pagination span.active {
+#classloc-form form.classement h2 .fil span.active {
   color: #008BC8;
 }
-form.classement h2 .pagination span:before {
+#classloc-form form.classement h2 .fil span:before {
   position: absolute;
   content: " ";
   width: 10px;
@@ -75,18 +80,18 @@ form.classement h2 .pagination span:before {
   background-color: #F2F2F2;
   z-index: 10;
 }
-form.classement h2 .pagination span:last-child:before {
+#classloc-form form.classement h2 .fil span:last-child:before {
   display: none;
 }
-form.classement h3 {
-  font-size: 0.875rem;
+#classloc-form form.classement h3 {
+  font-size: 20px !important;
   display: flex;
   padding-left: 30px;
   margin-left: 40px;
   align-items: center;
   padding-top: 20px;
 }
-form.classement h3:before {
+#classloc-form form.classement h3:before {
   position: absolute;
   content: "1";
   width: 20px;
@@ -98,28 +103,31 @@ form.classement h3:before {
   background-color: #008BC8;
   margin-right: 10px;
 }
-form.classement h3.notitre:before {
+#classloc-form form.classement h3.notitre:before {
   content: "";
 }
-form.classement h3.titre2:before {
+#classloc-form form.classement h3.titre2:before {
   content: "2";
 }
-form.classement h4 {
+#classloc-form form.classement h4 {
   color: #848484;
 }
-form.classement :hover {
+#classloc-form form.classement :hover {
   transition: all 0.25s ease-out !important;
 }
-form.classement i.information {
+#classloc-form form.classement i.information {
   display: block;
   margin-bottom: 5px;
 }
-form.classement section {
-  width: 85%;
+#classloc-form form.classement section {
+  width: 95%;
   max-width: 1200px;
   margin: 50px auto;
 }
-form.classement .blocform {
+#classloc-form form.classement section p, #classloc-form form.classement section p.information {
+  font-size: 16px !important;
+}
+#classloc-form form.classement .blocform {
   background: #F2F2F2;
   border-bottom: 2px solid #008BC8;
   box-shadow: 5px 4px #FBFBFB;
@@ -127,106 +135,114 @@ form.classement .blocform {
   max-width: 1200px;
   margin-bottom: 50px;
 }
-form.classement .blocform .blocflex {
+#classloc-form form.classement .blocform .blocflex {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-form.classement .blocform .blocflex h3 {
+#classloc-form form.classement .blocform .blocflex h3 {
   width: 100%;
   margin-top: 0;
 }
-form.classement .blocform .blocflex .colonne {
+#classloc-form form.classement .blocform .blocflex .colonne {
   width: 50%;
   padding: 40px;
   box-sizing: border-box;
 }
-form.classement .blocform .blocflex .colonne .deuxchamps {
+#classloc-form form.classement .blocform .blocflex .colonne .deuxchamps {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-form.classement .blocform .blocflex .colonne .deuxchamps.droite {
+#classloc-form form.classement .blocform .blocflex .colonne .deuxchamps.droite {
   justify-content: end;
   align-items: baseline;
 }
-form.classement .blocform .blocflex .colonne .deuxchamps select, form.classement .blocform .blocflex .colonne .deuxchamps input {
+#classloc-form form.classement .blocform .blocflex .colonne .deuxchamps select, #classloc-form form.classement .blocform .blocflex .colonne .deuxchamps input {
   width: 48%;
   box-sizing: border-box;
 }
-form.classement input, form.classement select {
+#classloc-form form.classement input, #classloc-form form.classement select {
   background: white;
   border: 2px solid #EBEBEB !important;
   border-radius: 4px;
-  height: 25px;
-  font-size: 90%;
+  height: 30px;
+  font-size: 100%;
   padding: 0 10px;
   width: 100%;
   margin-bottom: 10px;
-  color: #848484;
+  color: #111111 !important;
   box-sizing: border-box;
 }
-form.classement input::placeholder, form.classement select::placeholder {
-  color: #848484;
+#classloc-form form.classement input::placeholder, #classloc-form form.classement select::placeholder {
+  color: #111111;
 }
-form.classement input:focus, form.classement select:focus {
+#classloc-form form.classement input:focus, #classloc-form form.classement select:focus {
   box-shadow: 0 0 10px #AAAAAA;
 }
-form.classement input:valid, form.classement select:valid {
+#classloc-form form.classement input:valid, #classloc-form form.classement select:valid {
   border: 2px solid green;
 }
-form.classement input:invalid, form.classement select:invalid {
+#classloc-form form.classement input:invalid, #classloc-form form.classement select:invalid {
   border: 2px solid red;
 }
-form.classement input[type=submit] {
+#classloc-form form.classement textarea {
+  border: 1px solid #EBEBEB !important;
+  border-radius: 4px;
+}
+#classloc-form form.classement input[type=submit] {
   background-color: #008BC8;
   border-radius: 20px;
-  color: white;
+  line-height: 20px !important;
+  color: white !important;
+  text-shadow: -1px 1px 0 rgba(0, 0, 0, 0.4);
   width: auto !important;
 }
-form.classement input[type=submit]:hover {
+#classloc-form form.classement input[type=submit]:hover {
   border-color: white !important;
   background-color: #0079ad;
   cursor: pointer;
 }
-form.classement button {
+#classloc-form form.classement button {
   background-color: white;
   border-radius: 20px;
   color: #848484;
   border: 1px solid #EBEBEB;
   height: 23px;
+  line-height: 23px !important;
   margin-right: 20px;
   padding: 0 10px !important;
 }
-form.classement button:hover {
+#classloc-form form.classement button:hover {
   background-color: #F2F2F2;
   border-color: #D5D5D5;
   cursor: pointer;
 }
-form.classement p button,
-form.classement a.not-proprietaire {
+#classloc-form form.classement p button,
+#classloc-form form.classement a.not-proprietaire {
   background-color: #008BC8;
   border-radius: 20px;
   color: white !important;
   width: auto !important;
   border: 1px solid #EBEBEB;
   height: 23px;
+  line-height: 23px !important;
   padding: 0 10px !important;
   display: inline-block;
   margin-bottom: 20px;
 }
-form.classement p button:hover,
-form.classement a.not-proprietaire:hover {
+#classloc-form form.classement p button:hover,
+#classloc-form form.classement a.not-proprietaire:hover {
   border-color: white !important;
   background-color: #0079ad;
   cursor: pointer;
 }
-form.classement .tarif-prestation .blocform {
+#classloc-form form.classement .tarif-prestation .blocform {
   border-bottom: none !important;
   padding: 20px !important;
   text-align: center !important;
 }
-form.classement .tarif-prestation .blocform .tarif {
+#classloc-form form.classement .tarif-prestation .blocform .tarif {
   color: #008BC8;
   font-size: 250%;
   margin: 0;
@@ -325,7 +341,7 @@ div.alert-error {
   form.classement h3.titre2 {
     margin-top: 0 !important;
   }
-  form.classement .pagination {
+  form.classement .fil {
     width: 150px;
   }
   form.classement .blocflex {

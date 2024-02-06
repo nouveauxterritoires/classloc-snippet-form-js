@@ -41,6 +41,7 @@ class ClasslocFormulaire
     {
         const notice = document.createElement('p');
         notice.innerText = v.notice;
+        notice.setAttribute("class", "information mb2");
         section.appendChild(notice);
     }
 
@@ -68,7 +69,7 @@ class ClasslocFormulaire
         const title = document.createElement(v.balise);
 
         title.innerHTML = v.title +
-            "<div class='pagination'>" +
+            "<div class='fil'>" +
             "<span class='"+v.page1+"'>1</span>" +
             "<span class='"+v.page2+"'>2</span>" +
             "<span class='"+v.page3+"'>✓</span>" +
@@ -128,7 +129,7 @@ class ClasslocFormulaire
             } else if(key.includes('blocflex')) {
                 this.createBlocflex(blocform, key, v);
             } else {
-                 if(key.includes('text')) {
+                if(key.includes('text')) {
                     this.createText(blocform, v);
                 } else {
                     if(v.balise === "a"){
@@ -1682,8 +1683,8 @@ class ClasslocFormulaire
                 'title': {
                     'title': ' Commentaire',
                     'page1': '',
-                    'page2': 'active',
-                    'page3': '',
+                    'page2': '',
+                    'page3': 'active',
                     'id': 'informations-hebergement',
                     'class': 'cl_titre',
                     'balise': 'h2'
