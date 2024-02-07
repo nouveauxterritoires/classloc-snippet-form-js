@@ -640,7 +640,7 @@ class ClasslocFormulaire
                     },
                     'not-proprietaire': {
                         'balise': 'a',
-                        'text': '+ Coordonnées du propriétaire s\'il n\'est pas le demandeur',
+                        'text': '+ Cliquez ici si le demandeur n\'est pas le propriétaire',
                         'class': 'not-proprietaire'
                     },
                     'blocform-1': {
