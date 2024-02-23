@@ -1,3 +1,5 @@
+include[install.md](docs/install.md)
+
 ## Champs de saisie
 
 ### Hébergement
