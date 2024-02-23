@@ -1,4 +1,4 @@
-## Installation du formulaire
+## Formulaire de demande en ligne Classloc SNIPPET : Installation
 
 Pour installer le snippet, vous devez ajouter 2 choses à votre page web :
 

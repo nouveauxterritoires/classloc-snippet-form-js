@@ -87,7 +87,7 @@ ___
 
 ### 4- Envoi des données : <a name="4_"></a>
 
-Les données remplis dans le formulaire sont envoyé à Classloc via la route suivante :
+Les données remplies dans le formulaire sont envoyées à Classloc via la route suivante :
 
 `POST: /api/v1/create_outsider_demand`
 
