@@ -1,4 +1,4 @@
-include[install.md](docs/install.md)
+{include} docs/install.md
 
 ## Champs de saisie
 
