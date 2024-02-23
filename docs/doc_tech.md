@@ -1,4 +1,4 @@
-## Documentation technique du SNIPPET
+## Formulaire de demande en ligne Classloc SNIPPET : Documentation technique
 
 ### Sommaire
 
@@ -7,3 +7,4 @@
 #### 2 - [Informations de l'hébergement](doc_tech/2_info_hebergement.md)
 #### 3 - [Informations complémentaires](doc_tech/3_info_complementaire.md)
 #### 4 - [Envoi des données](doc_tech/4_envoi_donnees.md)
+##### [Full version](doc_tech/full_version.md)
