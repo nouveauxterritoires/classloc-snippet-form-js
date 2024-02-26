@@ -2,7 +2,7 @@
 
 ## B - Envoi des données du formulaire
 
-### 2. Exemple de données formattées en JSON
+### 3. Exemple de données formattées en JSON <a name="b_3"></a>
 
 ``` json
 {

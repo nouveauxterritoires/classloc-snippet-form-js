@@ -8,7 +8,8 @@
 3. [Informations complémentaires](doc_tech/a_fields_list/a_3_info_supp.md)
 #### [Voir tout le chapitre A](doc_tech/a_fields_list/a_full_version.md)
 ### B - Envoi des données du formulaire
-1. [Envoi des données](doc_tech/b_datas/b_1.md)
-2. [Exemple de données formattées en JSON](doc_tech/b_datas/b_2.md)
+1. [Route, format et condition](doc_tech/b_datas/b_1_route.md)
+2. [Les données formattées en JSON](doc_tech/b_datas/b_2_json_data.md)
+3. [Exemple de données](doc_tech/b_datas/b_3_example_json.md)
 #### [Voir tout le chapitre B](doc_tech/b_datas/b_full_version.md)
 ### [Voir toute la documentation technique](doc_tech/full_version.md)
