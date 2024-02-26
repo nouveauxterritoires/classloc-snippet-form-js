@@ -23,7 +23,7 @@ Il y est précisé pour chaque champ :
 | **Étage**                                | #etage-hebergement          | `int`    | **&check;**     | `data > accommodation > floor`                                                    |
 | **Type de logement du meublé**           | #type-hebergement           | `string` | **&check;**     | `data > accommodation > subtype`                                                  |
 | **Capacité classée demandée**            | #capacite-hebergement       | `int`    | **&check;**     | `data > accommodation > nbPersonsClasse` <br>&&<br>` data > request > capClassee` |
-| **Nombre de pièces composant le meublé** | #nbpieces-hebergement       | `int`    | **&cross;**     | `data > accommodation > nbPiecesTo` <br>&&<br> `data > request > nbPiecesSupp`*   |
+| **Nombre de pièces composant le meublé** | #nbpieces-hebergement       | `int`    | **&cross;**     | `data > accommodation > nbPiecesTot` <br>&&<br> `data > request > nbPiecesSupp`*  |
 | **Nombre de chambre(s)/cabine(s)**       | #nbchambre-hebergement      | `int`    | **&cross;**     | `data > accommodation > nbCabine`                                                 |
 | **Classement actuel**                    | #classement-hebergement     | `string` | **&check;**     | `data > accommodation > currentRanking`                                           |
 | **Éligibilité demandée**                 | #eligibilite-demandee       | `int`    | **&check;**     | `data > request > eligDemandee`                                                   |
