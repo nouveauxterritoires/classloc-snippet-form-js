@@ -1,4 +1,16 @@
-### 2 - Informations de l'hébergement :
+# Formulaire de demande en ligne Classloc SNIPPET : Documentation technique
+
+## A - Liste des champs du formulaire
+
+Les sections qui suives rassemblent l'ensemble des différents champs à remplir sur chaque partie du formulaire.
+Il y est précisé pour chaque champ :
+* Son label
+* Son id
+* Le type de donnée correspondant
+* S'il est obligatoire ou non
+* La clé correspondante à sa valeur dans le futur JSON.
+
+### 2. Informations de l'hébergement
 
 | Label                                    | Id                          | **Type** | **Obligatoire** | **Json**                                                                          |
 |------------------------------------------|-----------------------------|----------|-----------------|-----------------------------------------------------------------------------------|
@@ -18,4 +30,4 @@
 | **Surface totale**                       | #surface-hebergement        | `float`  | **&cross;**     | `data > accommodation > surface`                                                  |
 | **Surface hors salle de bain et WC**     | #surface-ss-sdb-hebergement | `float`  | **&cross;**     | `data > accommodation > surfaceHsdb`                                              |
 
-À noter : Pour le champ "**Nombre de pièces composant le meublé**", on récupère sa valeur soustrait de 1 pour `data > request > nbPiecesSupp`.
+**À noter** : Pour le champ "**Nombre de pièces composant le meublé**", on récupère sa valeur soustrait de 1 pour `data > request > nbPiecesSupp`.

@@ -1,4 +1,14 @@
-### 4- Envoi des données : 
+# Formulaire de demande en ligne Classloc SNIPPET : Documentation technique
+
+## B - Envoi des données du formulaire
+
+___
+
+### Accès rapide
+1. [Envoi des données](#b_1)
+2. [Exemple de données formattées en JSON](#b_2)
+
+### 1. Envoi des données <a name="b_1"></a>
 
 Les données remplies dans le formulaire sont envoyées à Classloc via la route suivante :
 
@@ -67,7 +77,10 @@ Les données sont formatées en JSON avec l'arborescence suivante :
 
 Si un problème survient lors de l'envoi, Classloc enverra un message qui apparaîtra en rouge sous le formulaire.
 
-Exemple de données formattées en JSON :
+___
+
+### 2. Exemple de données formattées en JSON <a name="b_2"></a>
+
 ``` json
 {
     "data" : {
