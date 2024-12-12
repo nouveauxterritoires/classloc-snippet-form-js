@@ -7,7 +7,7 @@ class ClasslocFormulaire
 {
     constructor( id )
     {
-        this.urlApi = "https://www.classloc.fr/api/v1/create_outsider_demand";
+        this.urlApi = "https://classloc.dev.local:8000/api/v1/create_outsider_demand";
         this.config = this.setupForm();
 
         const form = document.createElement('form');
@@ -357,6 +357,7 @@ class ClasslocFormulaire
                                     'tel': {
                                         'balise': 'input',
                                         'type': 'tel',
+                                        'required': 'required',
                                         'placeholder': 'Tél principal',
                                         'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
                                         'id': 'tel',
