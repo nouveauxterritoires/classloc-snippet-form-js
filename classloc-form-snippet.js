@@ -7,7 +7,7 @@ class ClasslocFormulaire
 {
     constructor( id )
     {
-        this.urlApi = "https://classloc.dev.local:8000/api/v1/create_outsider_demand";
+        this.urlApi = "https://www.classloc.fr/api/v1/create_outsider_demand";
         this.config = this.setupForm();
 
         const form = document.createElement('form');
