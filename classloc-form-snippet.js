@@ -1375,7 +1375,7 @@ class ClasslocFormulaire
                                 'nom-hebergement': {
                                     'balise': 'input',
                                     'type': 'text',
-                                    'placeholder': 'Nom',
+                                    'placeholder': 'Nom de l\'hébergement',
                                     // 'pattern': '^[a-zA-Z0-9à-ž ]{1,50}$',
                                     'id': 'nom-hebergement',
                                     'name': 'nom-hebergement',
