@@ -11,6 +11,7 @@ class ClasslocFormulaire
         this.config = this.setupForm();
 
         const form = document.createElement('form');
+        form.setAttribute('lang', 'fr');
         form.className = 'classloc-form container classement';
         // this.createNoticeSection(form);
 
@@ -20,9 +21,7 @@ class ClasslocFormulaire
 
         this.createSendButton(form);
 
-        // TODO: Ajouter la validation des données avant d'envoyer les données du formulaire via l'API (les champs sont déjà censés se valider via HTML5,
-        //  là je parle de validation supplélemtaire, qui pourraient correspondre au métier). Pour afficher les messages d'erreur, il faudra remplir la section notice via une méthode.
-        // TODO: Ajouter l'event ajax qui va envoyer les données du formulaire via l'API
+        this.initFrenchValidationMessages(form);
 
         form.addEventListener('submit',(e)=>{
             e.preventDefault();
@@ -30,7 +29,6 @@ class ClasslocFormulaire
         });
 
         document.getElementById(id).appendChild(form);
-
     }
 
     getToken() {
@@ -65,14 +63,14 @@ class ClasslocFormulaire
 
     createTitle(section, v)
     {
-        console.log(v);
         const title = document.createElement(v.balise);
 
         title.innerHTML = v.title +
             "<div class='fil'>" +
             "<span class='"+v.page1+"'>1</span>" +
             "<span class='"+v.page2+"'>2</span>" +
-            "<span class='"+v.page3+"'>✓</span>" +
+            "<span class='"+v.page3+"'>3</span>" +
+            "<span class='"+v.page4+"'>✓</span>" +
             "</div>"
         ;
 
@@ -94,19 +92,21 @@ class ClasslocFormulaire
 
     createSection(form, value)
     {
-        if(!value.submit){
+        if (!value.submit) {
             const section = document.createElement('section');
             section.setAttribute("class", value.title.class);
             section.setAttribute("id", value.title.id);
+
             this.createTitle(section, value.title);
-            if(value.title.notice){
+
+            if (value.title.notice) {
                 this.createNoticeSection(section, value.title);
             }
 
             const sectionContainer = document.createElement('div');
 
-            Object.entries(value.content).forEach(([key,v])=>{
-                if(key === 'not-proprietaire' || key === 'information'){
+            Object.entries(value.content).forEach(([key, v]) => {
+                if (key === 'not-proprietaire' || key === 'information') {
                     this.createInput(sectionContainer, key, v);
                 } else {
                     this.createBlocform(sectionContainer, key, v);
@@ -121,41 +121,68 @@ class ClasslocFormulaire
     createBlocform(section, key, v)
     {
         const blocform = document.createElement('div');
-        blocform.setAttribute("class", 'blocform');
+        blocform.setAttribute("class", "blocform");
 
-        Object.entries(v).forEach(([key,v])=>{
-            if(key.includes('sub-title')) {
-                this.createSubTitle(blocform, v);
-            } else if(key.includes('blocflex')) {
-                this.createBlocflex(blocform, key, v);
+        Object.entries(v).forEach(([key, value]) => {
+            if (key.includes('sub-title')) {
+                this.createSubTitle(blocform, value);
+            } else if (key.includes('blocflex')) {
+                this.createBlocflex(blocform, key, value);
+            } else if (key.includes('text')) {
+                this.createText(blocform, value);
+            } else if (key.includes('container') || key.includes('checkboxes')) {
+                this.createContainer(blocform, key, value);
             } else {
-                if(key.includes('text')) {
-                    this.createText(blocform, v);
+                if (value.balise === "a") {
+                    this.createHref(blocform, key, value);
                 } else {
-                    if(v.balise === "a"){
-                        this.createHref(blocform, key, v);
-                    } else {
-                        this.createInput(blocform, key, v);
-                    }
+                    this.createInput(blocform, key, value);
                 }
             }
         });
-        if( v.style ) { blocform.setAttribute("style", v.style); }
+
+        if (v.style) {
+            blocform.setAttribute("style", v.style);
+        }
 
         section.appendChild(blocform);
+    }
+
+    createContainer(section, key, v)
+    {
+        const container = document.createElement('div');
+
+        if (v.class) {
+            container.setAttribute("class", v.class);
+        }
+
+        Object.entries(v).forEach(([childKey, childValue]) => {
+            if (childKey === 'class') {
+                return;
+            }
+
+            if (childKey.includes('sub-title')) {
+                this.createSubTitle(container, childValue);
+            } else if (childValue.balise === 'a') {
+                this.createHref(container, childKey, childValue);
+            } else {
+                this.createInput(container, childKey, childValue);
+            }
+        });
+
+        section.appendChild(container);
     }
 
     createBlocflex(blocform, key, v)
     {
         const blocflex = document.createElement('div');
-        blocflex.setAttribute("class", 'blocflex');
+        blocflex.setAttribute("class", "blocflex");
 
-        Object.entries(v).forEach(([key,v])=>{
-            if(key.includes('sub-title')){
-                // console.log('createBlocflex');
-                // this.createSubTitle(blocflex, v);
+        Object.entries(v).forEach(([key, value]) => {
+            if (key.includes('sub-title')) {
+                // rien
             } else {
-                this.createColonne(blocflex, key, v);
+                this.createColonne(blocflex, key, value);
             }
         });
 
@@ -167,11 +194,15 @@ class ClasslocFormulaire
         const colonne = document.createElement('div');
         colonne.setAttribute("class", v.class);
 
-        Object.entries(v).forEach(([key,v])=>{
-            if(key.includes("sous-colonne")){
-                this.createSousColonne(colonne, key, v);
+        Object.entries(v).forEach(([childKey, childValue]) => {
+            if (childKey === 'class') {
+                return;
+            }
+
+            if (childKey.includes("sous-colonne")) {
+                this.createSousColonne(colonne, childKey, childValue);
             } else {
-                this.createInput(colonne, key, v);
+                this.createInput(colonne, childKey, childValue);
             }
         });
 
@@ -181,18 +212,18 @@ class ClasslocFormulaire
     createSousColonne(colonne, key, v)
     {
         const sousColonne = document.createElement('div');
-        if(key.includes('droite')){
-            sousColonne.setAttribute("class", 'deuxchamps droite');
+
+        if (key.includes('droite')) {
+            sousColonne.setAttribute("class", "deuxchamps droite");
         } else {
-            sousColonne.setAttribute("class", 'deuxchamps');
+            sousColonne.setAttribute("class", "deuxchamps");
         }
 
-        Object.entries(v).forEach(([key,v])=>{
-            console.log('before createInput');
-            if (v.balise === "a"){
-                this.createHref(sousColonne, key, v);
+        Object.entries(v).forEach(([childKey, childValue]) => {
+            if (childValue.balise === "a") {
+                this.createHref(sousColonne, childKey, childValue);
             } else {
-                this.createInput(sousColonne, key, v);
+                this.createInput(sousColonne, childKey, childValue);
             }
         });
 
@@ -204,37 +235,82 @@ class ClasslocFormulaire
         const a = document.createElement(v.balise);
 
         a.setAttribute("id", key);
-        if( v.href ) { a.setAttribute("href", v.href); }
-        if( v.class ) { a.setAttribute("class", v.class); }
-        if( v.id ) { a.setAttribute("id", v.id); }
-        if( v.text ) { a.innerText = v.text; }
+        if (v.href) { a.setAttribute("href", v.href); }
+        if (v.class) { a.setAttribute("class", v.class); }
+        if (v.id) { a.setAttribute("id", v.id); }
+        if (v.text) { a.innerText = v.text; }
 
         section.appendChild(a);
     }
 
     createInput(section, key, v)
     {
-        if(v.type === "select"){
+        if (v.type === "select") {
             this.createSelect(section, key, v);
-        } else if(key !== 'class') {
-            const input = document.createElement(v.balise);
-
-            input.setAttribute("id", key);
-            if( v.type ) { input.setAttribute("type", v.type); }
-            if( v.name ) { input.setAttribute("name", v.name); }
-            if( v.placeholder ) { input.setAttribute("placeholder", v.placeholder); }
-            if( v.onkeydown ) { input.setAttribute("onkeydown", v.onkeydown); }
-            if( v.value ) { input.setAttribute("value", v.value); }
-            if( v.required ) { input.setAttribute("required", v.required); }
-            if( v.pattern ) { input.setAttribute("pattern", v.pattern); }
-            if( v.min >= 0 ) { input.setAttribute("min", v.min); }
-            if( v.max ) { input.setAttribute("max", v.max); }
-            if( v.step ) { input.setAttribute("step", v.step); }
-            if( v.class ) { input.setAttribute("class", v.class); }
-            if( v.text ) { input.innerText = v.text; }
-
-            section.appendChild(input);
+            return;
         }
+
+        if (key === 'class') {
+            return;
+        }
+
+        if (v.type === 'checkbox') {
+            this.createCheckbox(section, key, v);
+            return;
+        }
+
+        const input = document.createElement(v.balise);
+
+        input.setAttribute("id", v.id ? v.id : key);
+
+        if (v.type) { input.setAttribute("type", v.type); }
+        if (v.name) { input.setAttribute("name", v.name); }
+        if (v.placeholder) { input.setAttribute("placeholder", v.placeholder); }
+        if (v.onkeydown) { input.setAttribute("onkeydown", v.onkeydown); }
+        if (v.value) { input.setAttribute("value", v.value); }
+        if (v.required) { input.setAttribute("required", v.required); }
+        if (v.pattern) { input.setAttribute("pattern", v.pattern); }
+        if (v.min >= 0) { input.setAttribute("min", v.min); }
+        if (v.max) { input.setAttribute("max", v.max); }
+        if (v.step) { input.setAttribute("step", v.step); }
+        if (v.class) { input.setAttribute("class", v.class); }
+        if (v.minlength) { input.setAttribute("minlength", v.minlength); }
+        if (v.maxlength) { input.setAttribute("maxlength", v.maxlength); }
+        if (v.text) { input.innerText = v.text; }
+
+        section.appendChild(input);
+    }
+
+    createCheckbox(section, key, v)
+    {
+        const wrapper = document.createElement('div');
+        wrapper.setAttribute('class', v.wrapperClass ? v.wrapperClass : 'form-check');
+
+        const input = document.createElement('input');
+        input.setAttribute('type', 'checkbox');
+        input.setAttribute('id', v.id ? v.id : key);
+
+        if (v.name) { input.setAttribute('name', v.name); }
+        if (v.value) {
+            input.setAttribute('value', v.value);
+        } else {
+            input.setAttribute('value', '1');
+        }
+        if (v.required) { input.setAttribute('required', v.required); }
+        if (v.class) { input.setAttribute('class', v.class); }
+        if (v.checked) { input.checked = true; }
+
+        wrapper.appendChild(input);
+
+        if (v.label) {
+            const label = document.createElement('label');
+            label.setAttribute('for', v.id ? v.id : key);
+            label.setAttribute('class', v.labelClass ? v.labelClass : 'form-check-label');
+            label.innerText = v.label;
+            wrapper.appendChild(label);
+        }
+
+        section.appendChild(wrapper);
     }
 
     createSelect(section, key, v)
@@ -242,18 +318,21 @@ class ClasslocFormulaire
         const select = document.createElement('select');
         const options = v.options;
 
-        if( v.id ) { select.setAttribute("id", v.id); }
-        if( v.name ) { select.setAttribute("name", v.name); }
-        if( v.placeholder ) { select.setAttribute("placeholder", v.placeholder); }
-        if( v.required ) { select.setAttribute("required", v.required); }
+        if (v.id) { select.setAttribute("id", v.id); }
+        if (v.name) { select.setAttribute("name", v.name); }
+        if (v.placeholder) { select.setAttribute("placeholder", v.placeholder); }
+        if (v.required) { select.setAttribute("required", v.required); }
+        if (v.class) { select.setAttribute("class", v.class); }
 
-        Object.entries(options).forEach(([key,option])=>{
+        Object.entries(options).forEach(([key, option]) => {
             const opt = document.createElement("option");
             opt.value = option.value;
             opt.text = option.label;
-            if ( option.selected ) {
+
+            if (option.selected) {
                 opt.selected = option.selected;
             }
+
             select.add(opt);
         });
 
@@ -263,8 +342,10 @@ class ClasslocFormulaire
     createText(section, v)
     {
         const sectionText = document.createElement(v.balise);
-        sectionText.setAttribute("class", v.class);
-        sectionText.setAttribute("id", v.id);
+
+        if (v.class) { sectionText.setAttribute("class", v.class); }
+        if (v.id) { sectionText.setAttribute("id", v.id); }
+
         sectionText.innerText = v.text;
         section.appendChild(sectionText);
     }
@@ -280,6 +361,7 @@ class ClasslocFormulaire
                     'page1': 'active',
                     'page2': '',
                     'page3': '',
+                    'page4': '',
                     'id': 'informations-demandeur',
                     'class': 'cl_titre tab-active',
                     'notice': 'Ces champs sont indicatifs. L\'opérateur de classement vérifiera et/ou ajoutera les champs manquants lors de la visite d\'inspection.',
@@ -349,7 +431,7 @@ class ClasslocFormulaire
                                         'type': 'email',
                                         'required': 'required',
                                         'placeholder': 'Courriel principal*',
-                                        'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,50}',
+                                        // 'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,50}',
                                         'id': 'email',
                                         'name': 'email',
                                         'class': 'form-control'
@@ -358,8 +440,8 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'tel',
                                         'required': 'required',
-                                        'placeholder': 'Tél principal',
-                                        'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
+                                        'placeholder': 'Tél principal*',
+                                        // 'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
                                         'id': 'tel',
                                         'name': 'tel',
                                         'class': 'form-control'
@@ -713,7 +795,7 @@ class ClasslocFormulaire
                                         'type': 'email',
                                         'required': '',
                                         'placeholder': 'Courriel principal*',
-                                        'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,50}',
+                                        // 'pattern': '[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,50}',
                                         'id': 'email-hebergeur',
                                         'name': 'email-hebergeur',
                                         'class': 'form-control'
@@ -722,7 +804,7 @@ class ClasslocFormulaire
                                         'balise': 'input',
                                         'type': 'tel',
                                         'placeholder': 'Tel principal',
-                                        'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
+                                        // 'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
                                         'id': 'tel-hebergeur',
                                         'name': 'tel-hebergeur',
                                         'class': 'form-control'
@@ -1000,6 +1082,7 @@ class ClasslocFormulaire
                     'page1': '',
                     'page2': 'active',
                     'page3': '',
+                    'page4': '',
                     'id': 'informations-hebergement',
                     'class': 'cl_titre',
                     'balise': 'h2'
@@ -1535,8 +1618,8 @@ class ClasslocFormulaire
                                         'type': 'tel',
                                         'placeholder': 'Téléphone',
                                         // 'pattern': '^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$',
-                                        'id': 'tel-hebergeur',
-                                        'name': 'tel-hebergeur',
+                                        'id': 'tel-hebergement',
+                                        'name': 'tel-hebergement',
                                         'class': 'form-control'
                                     },
                                     'etage-hebergement': {
@@ -1686,6 +1769,7 @@ class ClasslocFormulaire
                     'page1': '',
                     'page2': '',
                     'page3': 'active',
+                    'page4': '',
                     'id': 'informations-hebergement',
                     'class': 'cl_titre',
                     'balise': 'h2'
@@ -1717,16 +1801,62 @@ class ClasslocFormulaire
                         }
                     }
                 }
+            },
+            'acceptations': {
+                'title': {
+                    'title': ' Condition & acceptations',
+                    'page1': '',
+                    'page2': '',
+                    'page3': '',
+                    'page4': 'active',
+                    'id': 'acceptations',
+                    'class': 'cl_titre',
+                    'balise': 'h2'
+                },
+                'content': {
+                    'blocform-1': {
+                        'sub-title-6': {
+                            'subTitle': ' Acceptations obligatoires avant envoi',
+                            'class': 'sub-title sub-title-4',
+                            'balise': 'h3'
+                        },
+                        'checkboxes-container': {
+                            'class': 'checkboxes-validation-container',
+                            'validation-cgv': {
+                                'balise': 'input',
+                                'type': 'checkbox',
+                                'required': 'required',
+                                'id': 'validation-cgv',
+                                'name': 'validationCgv',
+                                'class': 'form-check-input',
+                                'label': 'J’ai pris connaissance des Conditions Générales de Vente de l’organisme de classement',
+                                'wrapperClass': 'form-check checkbox-validation-row'
+                            },
+                            'validation-tarifs': {
+                                'balise': 'input',
+                                'type': 'checkbox',
+                                'required': 'required',
+                                'id': 'validation-tarifs',
+                                'name': 'validationTarifs',
+                                'class': 'form-check-input',
+                                'label': 'J’ai pris connaissance et je valide les conditions tarifaires proposées par l’organisme de classement pour la visite de classement',
+                                'wrapperClass': 'form-check checkbox-validation-row'
+                            },
+                            'validation-envoi': {
+                                'balise': 'input',
+                                'type': 'checkbox',
+                                'required': 'required',
+                                'id': 'validation-envoi',
+                                'name': 'validationEnvoi',
+                                'class': 'form-check-input',
+                                'label': 'Je confirme l’envoi de ma demande en ligne',
+                                'wrapperClass': 'form-check checkbox-validation-row'
+                            }
+                        }
+                    }
+                }
             }
         };
-    }
-
-    validate (section = null) {
-        const form = document.createElement('form');
-        console.log(form);
-        const formData = new FormData(form);
-        console.log(formData.values());
-        return true;
     }
 
     sendForm () {
@@ -1883,6 +2013,45 @@ class ClasslocFormulaire
             divAlert.style.display = "none";
             divAlert.innerText = "";
         }, 15000);
+    }
+
+    initFrenchValidationMessages(form)
+    {
+        form.querySelectorAll('input, textarea, select').forEach((field) => {
+            field.addEventListener('invalid', function () {
+                let message = '';
+
+                if (field.validity.valueMissing) {
+                    if (field.type === 'checkbox') {
+                        message = 'Veuillez cocher cette case pour continuer.';
+                    } else {
+                        message = 'Ce champ est obligatoire.';
+                    }
+                } else if (field.validity.typeMismatch) {
+                    if (field.type === 'email') {
+                        message = 'Veuillez saisir une adresse e-mail valide.';
+                    } else {
+                        message = 'La valeur saisie n’est pas valide.';
+                    }
+                } else if (field.validity.patternMismatch) {
+                    message = 'Le format saisi est invalide.';
+                } else if (field.validity.tooShort) {
+                    message = 'La saisie est trop courte.';
+                } else if (field.validity.tooLong) {
+                    message = 'La saisie est trop longue.';
+                }
+
+                field.setCustomValidity(message);
+            });
+
+            field.addEventListener('input', function () {
+                field.setCustomValidity('');
+            });
+
+            field.addEventListener('change', function () {
+                field.setCustomValidity('');
+            });
+        });
     }
 }
 
