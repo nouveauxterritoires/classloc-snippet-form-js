@@ -1,0 +1,17 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: classloc-snippet-form-js
+
+    ports:
+      - "${APP_PORT:-8080}:80"
+
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./classloc-form-snippet.js:/usr/share/nginx/html/classloc-form-snippet.js:ro
+      - ./css:/usr/share/nginx/html/css:ro
+
+    restart: unless-stopped

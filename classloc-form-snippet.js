@@ -7,7 +7,15 @@ class ClasslocFormulaire
 {
     constructor( id )
     {
-        this.urlApi = "https://www.classloc.fr/api/v1/create_outsider_demand";
+        const isLocalEnvironment = [
+            'localhost',
+            '127.0.0.1',
+        ].includes(window.location.hostname);
+
+        this.urlApi = 'https://www.classloc.fr/api/v1/create_outsider_demand';
+        if ( isLocalEnvironment ) {
+            this.urlApi = 'https://demo.classloc.dev.local:4443/api/v1/create_outsider_demand';
+        }
         this.config = this.setupForm();
 
         const form = document.createElement('form');
@@ -2055,31 +2063,51 @@ class ClasslocFormulaire
     }
 }
 
-const form = new ClasslocFormulaire("classloc-form");
+window.addEventListener('DOMContentLoaded', () => {
+    new ClasslocFormulaire('classloc-form');
 
-window.addEventListener("DOMContentLoaded", () => {
-    document.addEventListener("click", (e) => {
-        if(e.target.id == 'not-proprietaire'){
-            var isHide = (document.getElementById(e.target.id).nextSibling.style.display === 'none') ? true : false;
-            if(isHide) {
-                document.getElementById(e.target.id).nextSibling.style.display = 'block';
-                document.getElementById(e.target.id).textContent = "- Le demandeur est le propriétaire";
-                document.getElementById("civilite-hebergeur").setAttribute('required', 'required');
-                document.getElementById("email-hebergeur").setAttribute('required', 'required');
-                document.getElementById("adresse-hebergeur").setAttribute('required', 'required');
-                document.getElementById("code-postal-hebergeur").setAttribute('required', 'required');
-                document.getElementById("commune-hebergeur").setAttribute('required', 'required');
-                document.getElementById("pays-hebergeur").setAttribute('required', 'required');
-            } else {
-                document.getElementById(e.target.id).nextSibling.style.display = 'none';
-                document.getElementById(e.target.id).textContent = "+ Coordonnées du propriétaire s'il n'est pas le demandeur";
-                document.getElementById("civilite-hebergeur").removeAttribute('required');
-                document.getElementById("email-hebergeur").removeAttribute('required');
-                document.getElementById("adresse-hebergeur").removeAttribute('required');
-                document.getElementById("code-postal-hebergeur").removeAttribute('required');
-                document.getElementById("commune-hebergeur").removeAttribute('required');
-                document.getElementById("pays-hebergeur").removeAttribute('required');
-            }
+    document.addEventListener('click', (e) => {
+        if (e.target.id !== 'not-proprietaire') {
+            return;
         }
+
+        const link = e.target;
+        const ownerBlock = link.nextElementSibling;
+
+        if (!ownerBlock) {
+            console.warn('Le bloc des informations propriétaire est introuvable.');
+            return;
+        }
+
+        const isHidden = ownerBlock.style.display === 'none';
+
+        ownerBlock.style.display = isHidden ? 'block' : 'none';
+
+        link.textContent = isHidden
+            ? '- Le demandeur est le propriétaire'
+            : "+ Coordonnées du propriétaire s'il n'est pas le demandeur";
+
+        const requiredFieldIds = [
+            'civilite-hebergeur',
+            'email-hebergeur',
+            'adresse-hebergeur',
+            'code-postal-hebergeur',
+            'commune-hebergeur',
+            'pays-hebergeur',
+        ];
+
+        requiredFieldIds.forEach((fieldId) => {
+            const field = document.getElementById(fieldId);
+
+            if (!field) {
+                return;
+            }
+
+            if (isHidden) {
+                field.setAttribute('required', 'required');
+            } else {
+                field.removeAttribute('required');
+            }
+        });
     });
 });
