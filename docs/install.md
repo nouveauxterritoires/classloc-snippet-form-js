@@ -1,12 +1,4 @@
-## Formulaire de demande en ligne Classloc SNIPPET
-
-### Documentation :
-#### - [Installation](docs/install.md)
-#### - [Documentation technique](docs/doc_tech.md)
-
-___
-
-## Installation
+## Formulaire de demande en ligne Classloc SNIPPET : Installation
 
 Pour installer le snippet, vous devez ajouter 2 choses à votre page web :
 
