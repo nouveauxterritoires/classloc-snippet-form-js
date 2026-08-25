@@ -1696,7 +1696,8 @@ class ClasslocFormulaire
                                 'nbpieces-hebergement': {
                                     'balise': 'input',
                                     'type': 'number',
-                                    'placeholder': 'Nombre de pièces composant le meublé',
+                                    'required': 'required',
+                                    'placeholder': 'Nombre de pièces composant le meublé*',
                                     'id': 'nbpieces-hebergement',
                                     'name': 'nbpieces-hebergement',
                                     'class': 'form-control',
@@ -1935,35 +1936,37 @@ class ClasslocFormulaire
             }
         };
 
-        fetch(this.urlApi, {
-            method: 'post',
-            headers: new Headers({
-                // 'Authorization': 'Bearer ' + this.getToken(),
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify(data)
-        }).then((response) => {
-            console.log('first then');
-            if (response.ok) {
-                console.log('ok');
-                return response.json();
-            } else {
-                return response.json().then( error => {
-                    console.log('then Error');
-                    throw new Error(error.data);
-                } );
-            }
-            //return Promise.reject(response);
-        }).then((data) => {
-            document.getElementById("loader").style.display = "none";
-            console.log('second then');
-            this.onSendFormSuccess(data);
-        }).catch(error => {
-            document.getElementById("loader").style.display = "none";
-            console.log('catch');
-            this.onSendFormError(error);
-            console.warn('Something went wrong.', error);
-        });
+        setTimeout(() => {
+            fetch(this.urlApi, {
+                method: 'post',
+                headers: new Headers({
+                    // 'Authorization': 'Bearer ' + this.getToken(),
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify(data)
+            }).then((response) => {
+                console.log('first then');
+                if (response.ok) {
+                    console.log('ok');
+                    return response.json();
+                } else {
+                    return response.json().then( error => {
+                        console.log('then Error');
+                        throw new Error(error.data);
+                    } );
+                }
+                //return Promise.reject(response);
+            }).then((data) => {
+                document.getElementById("loader").style.display = "none";
+                console.log('second then');
+                this.onSendFormSuccess(data);
+            }).catch(error => {
+                document.getElementById("loader").style.display = "none";
+                console.log('catch');
+                this.onSendFormError(error);
+                console.warn('Something went wrong.', error);
+            });
+        }, 3000);
     }
 
     onSendFormSuccess (data) {
